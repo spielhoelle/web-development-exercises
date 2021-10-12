@@ -1,7 +1,4 @@
-This is the new curriculum that will contain all the learning material and exercises created during a 9 month course. As this project is under development, please feel free to send reports about bugs and / or content optimizations to itamar.givon@devugees.org.
-
-If you looking for a specific exercise, check out the [Table of contents](,/blob/master/TOC.md) bust best advise is to clone it and search tasks.
-Run `node toc.js` to recreate this file.
+This is the new curriculum that will contain all the learning material and exercises created during a 9 month course. As this project is under development, please feel free to send reports about bugs and / or content optimizations as [issues](https://github.com/spielhoelle/web-development-exercises/issues)
 
 All fields are sorted by level of experience (01, 02 ...) with a test at the end (99Test).
 
