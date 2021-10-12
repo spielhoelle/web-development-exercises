@@ -1,0 +1,13 @@
+html
+  head
+body
+  h1 Simple mongodb pug example
+  p 
+    | Open MongoDB Compass and connect to 
+    code localhost:27017 
+    | and select the database 
+    code DCI
+  p Then you should see the same books as here
+  ul
+    each book in books
+      li= book.title

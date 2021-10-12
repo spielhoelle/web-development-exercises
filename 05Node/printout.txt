@@ -1,0 +1,271 @@
+-- APP1
+
+var greet = require('./greet.js');
+
+greet();
+
+-- APP2
+
+var greet = require('./greet1');
+greet();
+
+var greet2 = require('./greet2').greet;
+greet2();
+
+var greet3 = require('./greet3');
+greet3.greet();
+greet3.greeting = "Hallo Mars from greet3.js";
+
+var greet3b = require('./greet3');
+greet3b.greet();
+
+var Greet4 = require('./greet4');
+var grtr = new Greet4();
+grtr.greet();
+
+var greet5 = require('./greet5').greet;
+greet5();
+
+-- greet1.js
+
+module.exports = function() {
+	console.log('Hallo World from greet1.js');
+}
+
+-- greet2.js
+
+module.exports.greet = function() {
+	console.log('Hallo World from greet2.js');
+}
+
+-- greet3.js
+
+function Greetr() {
+	this.greeting = "Hallo World from greet3.js";
+	this.greet = function() {
+		console.log(this.greeting);
+	}
+}
+
+module.exports = new Greetr();
+
+-- greet4.js
+
+function Greetr() {
+	this.greeting = "Hallo World from greet4.js";
+	this.greet = function() {
+		console.log(this.greeting);
+	}
+}
+
+module.exports = Greetr;
+
+-- greet5.js
+
+var greeting = "Hallo World from greet5.js";
+
+function greet() {
+	console.log(greeting);
+}
+
+module.exports = {
+	greet: greet
+};
+
+
+// Task 1: Create a module "countdown.js"
+// 		   that exports a function which
+//         counts from 20 to 0	
+
+var countdown = require('./countdown');
+countdown();
+
+// Task 2: Create a module "introduction.js"
+//         that exports a function with
+//         one parameter userInfo.
+//         userInfo should consist of
+//         firstname, lastname, email and
+//         birthYear.
+//
+//         When calling the function 
+//         "introduction", the module
+//         should print out a text like
+//         
+//         "Hi, my name is FIRSTNAME 
+//          LASTNAME and email is EMAIL.
+//          I was born in BIRTHYEAR."
+
+var introduction = require('./introduction');
+introduction( {
+	firstname: 'Jan',
+	lastname: 'Schulz',
+	email: 'jan.schulz@devugees.org',
+	birthYear: 1985
+});
+
+var obj = require('./obj');
+console.log(obj);
+
+// Task 3: Create a module "Person" that
+//		   exports the following function
+//         constructor:
+//
+//		   function Person(firstname, lastname, email, yearOfBirth)
+//		{
+//			this.firstname = firstname;
+//			this.lastname = lastname;
+//			this.email = email;
+//			this.yearOfBirth = yearOfBirth;
+//		}
+//
+//      3a: Create 3 different persons with the same constructor.
+//      3b: Extend the module "Person" by a method that
+//          tells the current age.
+
+
+var Person = require('./person');
+
+var john = new Person('John', 'Smith', 'john@gmail.com', 1990);
+
+var maria = new Person('Maria', 'Smith', 'maria@gmail.com', 1990);
+
+console.log(john);
+console.log(maria);
+
+-- APP3 
+
+var fs = require('fs');
+
+/*
+var buffer = fs.readFileSync('./halloworld.txt', 'utf8');
+console.log( buffer );
+var str1 = 'Hallo World to a new file\n';
+fs.writeFileSync('newfile.txt', str1);
+var str2 = 'This overwrites newfile.txt\n 123';
+fs.writeFileSync('newfile.txt', str2);
+var str3 = 'This will be appended to the file.\n';
+fs.appendFileSync('newfile.txt', str3);
+
+try {
+	var objFromFile = JSON.parse(fs.readFileSync('./object2.json', 'utf8'));
+	console.log( objFromFile.name );
+} catch(e) {
+	console.log('Something went wrong: ' + e);
+}
+
+var objFromFile2 = require('./object.json');
+console.log('using require: ' + objFromFile2.name);
+
+// task: a. take a look at the file import.csv and analyze it.
+// 		 b. open the file with nodejs and store the information
+//          in a proper javascript object.
+//       c. save your object from b. as import.json
+
+// ...
+
+try {
+	fs.unlinkSync('./deleteme');
+}
+catch(e) {
+	console.log('File does not exist.')
+}
+*/
+/*
+var filelist = fs.readdirSync('.');
+
+for(var i=0; i<filelist.length; i++) {
+	console.log( filelist[i] );
+}
+
+console.log( 'number of files = ' + filelist.length);
+
+var info1 = fs.lstatSync('./import.csv');
+var info2 = fs.lstatSync('./level1');
+
+if( info1.isFile() ) {
+	console.log('import.csv is a file');
+}
+else {
+	console.log('import.csv is a folder');
+}
+
+if( info2.isFile() ) {
+	console.log('level1 is a file');
+}
+else {
+	console.log('level1 is a folder');
+}
+
+// task: a.) show all JPEG images that are in the folder ./images
+//  	 b.) be careful - delete all files that are not JPEG images
+//           in ./images (avoid sudo ;-))
+//  
+
+var images = fs.readdirSync('./images');
+console.log( images );
+*/
+
+/*
+'/home/jan/Desktop/devugees_github/devugees/nodejs/images/image2.gif';
+=
+'./images/image2.gif';
+*/
+
+/*
+for(var i=0;i<images.length;i++) {
+	if( images[i].endsWith('.jpg') ) {
+		console.log('file: ' + images[i]);
+	}
+	else {
+	 	var path = './images/' + images[i]
+		console.log('delete: ' + path);
+		fs.unlinkSync( path );
+	}
+}
+*/
+/*
+
+function f(x) {
+	if(x === 0) {
+		console.log('x is 0. the end.');		
+	}
+	else {
+		console.log('x is ' + x);		
+		f(x-1);
+	}
+}
+*/
+
+// f(5);
+
+// Task:  
+
+/*
+function listFiles(path) {
+	var list = fs.readdirSync( path );
+	
+	for(var i=0;i<list.length;i++) {
+		var currentPath = path + '/' + list[i];
+		var info = fs.lstatSync( currentPath );
+
+		if( info.isFile() ) {
+			console.log('file: ' + currentPath);
+		}
+		else if ( info.isDirectory()) {
+			console.log('folder: ' + currentPath);
+			listFiles( currentPath );
+		}
+	}
+}
+
+listFiles('.');
+
+*/
+
+user1;A1;B1;C1
+user2;A2;B2;C2
+user3;A3;B3;C3
+user4;A4;B4;C4
+user5;A5;B5;C5
+user6;A6;B6;C6
+user7;A7;B7;C7

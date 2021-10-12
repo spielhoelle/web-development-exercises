@@ -1,0 +1,13 @@
+include form
+html
+  head
+    title Advanced pug example
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+  body
+    if alert
+      .alert.alert-info=alert
+
+    .py-5
+      .container.py-5
+
+        block content

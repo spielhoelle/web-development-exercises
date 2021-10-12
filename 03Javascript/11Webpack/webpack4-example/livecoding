@@ -1,0 +1,88 @@
+-- webpack4 example
+
+-- SETUP ENTRY POINT + DEVSERVER
+
+$:
+mkdir webpack4-example
+cd webpack4-example
+mkdir src dist config
+git init
+npm init -y
+echo "node_modules" > .gitignore
+sudo npm install -g webpack webpack-cli
+touch src/main.js dist/index.html
+code .
+
+EDIT index.js
+alert('test') to index.js
+
+$:
+
+touch config/webpack.dev.js
+rm dist/main.js src/index.js
+touch src/main.js
+webpack --config=config/webpack.dev.js
+
+EDIT webpack.dev.js:
+const path = require('path');
+module.exports = {
+	entry: {
+		main: ["./src/main.js"]
+	},
+	mode: "development",
+	output: {
+		filename: "[name]-bundle.js",
+		path: path.resolve(__dirname, '../dist'),
+		publicPath: '/'
+	},
+	devServer: {
+		contentBase: 'dist'	
+	}
+};
+
+EDIT index.html
+
+<body>
+	<h1>Hello World</h1>
+	<script src="/main-bundle.js"></script>
+</body>
+
+
+EDIT webpack.dev.js:
+module.exports = {
+	entry: {
+		main: ["./src/main.js"]	
+	},
+	mode: "development",
+	output: {
+		filename: "[name]-bundle.js",
+		path: path.resolve(__dirname, '../dist'),
+		publicPath: '/'
+	},
+	devServer: { 
+		contentBase: 'dist'	
+	}
+};
+
+$:
+
+npm install -g webpack-dev-server
+webpack-dev-server --config=config/webpack.dev.js
+
+
+-- ADD CSS LOADER
+
+EDIT src/main.css
+
+body {
+	color: red;
+}
+
+EDIT src/main.js
+
+require('/main.css');
+
+
+
+
+

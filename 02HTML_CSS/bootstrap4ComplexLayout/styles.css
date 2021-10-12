@@ -1,0 +1,34 @@
+html,body {
+    height: 100%;
+}
+
+.header {
+    height: 60px;
+    background: rgb(55, 0, 255);
+}
+
+.header {
+    background-color: aquamarine;
+    height: 120px;
+}
+
+.main {
+    height: 100%;
+    background-color: darkcyan;
+}
+
+.sidebar-left {
+    background: greenyellow;
+}
+
+.sidebar-right {
+    background: cornflowerblue
+}
+
+.sidebar-right-top {
+    background: green;
+}
+
+.sidebar-right-bottom {
+    background: tomato;
+}

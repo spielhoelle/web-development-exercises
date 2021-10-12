@@ -1,0 +1,15 @@
+table, th , td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+}
+.even-row {
+    background-color: yellow;
+}
+.highlight {
+    background-color: blue;
+}
+.error {
+    font-weight: bold;
+    color: #de1515;
+}

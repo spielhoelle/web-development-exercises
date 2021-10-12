@@ -1,0 +1,3071 @@
+$ sudo npm install create-react-app
+
+$ create-react-app contactmanager
+
+$ npm run start
+
+--> 1 App.js
+
+class App extends Component {
+  render() {
+
+    return (
+      <div className="App"> {/* single return element */}
+        <h1>The App Component</h1>
+        {/* <label for="name">Name</label> */}
+        <label htmlFor="name">Name</label>
+      </div>
+    );
+
+    // -> equivalent:
+    // return React.createElement('div',
+    //   { className: 'App'},
+    //   React.createElement('h1', null, 'The App Component')
+    // );
+
+  }
+}
+
+--> 2 App.js
+
+class App extends Component {
+  render() {
+
+    const name = 'Larry';
+    const showHalloWorld = true;
+    const showMath = true;
+    const num1 = 40;
+    const num2 = 23;
+
+    let math;
+    if(showMath) {
+      math = <h4>{num1} + {num2} = {num1 + num2}</h4>;
+    } else {
+      math = null;
+    }
+
+    return (
+      <div className="App">
+        <h1>The App Component</h1>
+        <h4>Hallo { name.toLocaleUpperCase() }</h4>
+        <h4>1 + 1 = {1 + 1}</h4> {/* any js statement */}
+        <h4>{ showHalloWorld ? <h4>Hallo World</h4> : null }</h4>
+        {math}
+      </div>
+    );
+  }
+}
+
+--> 3 Contact.js
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+
+class Contact extends Component {
+  render() {
+    return (
+      <div>
+        <h4>John Doe</h4>
+        <ul>
+          <li>Email: jdoe@gmail.com</li>
+          <li>Phone: 555-555-5555</li>
+        </ul>
+      </div>
+    )
+  }
+}
+
+export default Contact;
+
+--> 3 App.js
+
+import React, { Component } from 'react';
+import Contact from './components/Contact';
+
+import './App.css';
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <h1>The App Component</h1>
+        <Contact />
+        <Contact />
+        <Contact />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+--> 4 App.js
+
+import React, { Component } from 'react';
+import Contact from './components/Contact';
+import Header from './components/Header';
+
+import './App.css';
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <Contact />
+        <Contact />
+        <Contact />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+--> 4 Header.js
+
+// use rfc
+
+import React from 'react'
+
+ const Header = () => {
+  return (
+    <div>
+        <h1>Contact Manager</h1>
+    </div>
+  );
+};
+
+export default Header;
+
+
+--> 5 App.js Props
+
+import './App.css';
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Header branding="Contact Manager" />
+        <Contact name="John Doe" email="jdoe@gmail.com" phone="555-555-5555" />
+        <Contact name="Karen Smith" email="karen@gmail.com" phone="555-555-5551" />
+        <Contact name="Max Mueller" email="max@gmail.com" phone="555-555-5552" />
+
+      </div>
+    );
+  }
+}
+
+export default App;
+
+--> 5 Contact.js Props
+
+import React, { Component } from 'react'
+
+class Contact extends Component {
+  
+  render() {
+    const {name, email, phone} = this.props;
+    return (
+      <div>
+        {/* <h4>{ this.props.name }</h4> */}
+        <h4>{ name }</h4>
+        <ul>
+          {/* <li>Email: { this.props.email }</li> */}
+          <li>Email: { email }</li>          
+          {/* <li>Phone: { this.props.phone }</li> */}
+          <li>Phone: { phone }</li>          
+        </ul>
+      </div>
+    )
+  }
+}
+
+export default Contact;
+
+
+--> 6 Contact.js PropTypes
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+
+
+class Contact extends Component {
+  
+  // also possible to put it here
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  };
+
+  render() {
+    const {name, email, phone} = this.props;
+    return (
+      <div>
+        {/* <h4>{ this.props.name }</h4> */}
+        <h4>{ name }</h4>
+        <ul>
+          {/* <li>Email: { this.props.email }</li> */}
+          <li>Email: { email }</li>          
+          {/* <li>Phone: { this.props.phone }</li> */}
+          <li>Phone: { phone }</li>          
+        </ul>
+      </div>
+    )
+  }
+}
+
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+// };
+
+export default Contact;
+
+
+--> 6 Header.js
+
+// use rfc
+
+import React from 'react'
+import PropTypes from 'prop-types';
+
+ const Header = (props) => {
+    const { branding } = props;
+    return (
+        <div>
+            {/* <h1>{props.branding}</h1> */}
+            <h1>{branding}</h1>            
+        </div>
+    );
+};
+
+Header.defaultProps = {
+    branding: 'My App'
+};
+
+Header.propTypes = {
+    // branding: PropTypes.object.isRequired
+    branding: PropTypes.string.isRequired
+};
+
+export default Header;
+
+--> 7 contact.css Add css
+
+h4 {
+    color: blue;
+    text-transform: uppercase;
+}
+
+--> 7 Header.js 
+
+ const Header = (props) => {
+    const { branding } = props;
+    return (
+        <div>
+            {/* <h1>{props.branding}</h1> */}
+            {/* <h1 style={{ color: 'red', fontSize: '50px' }}>{branding}</h1>             */}
+            <h1 style={headingStyle}>{branding}</h1>                
+        </div>
+    );
+};
+
+Header.defaultProps = {
+    branding: 'My App'
+};
+
+Header.propTypes = {
+    // branding: PropTypes.object.isRequired
+    branding: PropTypes.string.isRequired
+};
+
+const headingStyle = {
+    color: 'green', 
+    fontSize: '50px'
+};
+
+export default Header;
+
+
+--
+-- 8 Adding Bootstrap
+--
+
+$ npm install bootstrap
+
+--> 8 App.js
+
+import React, { Component } from 'react';
+import Contact from './components/Contact';
+import Header from './components/Header';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Header branding="Contact Manager" />
+        <div className="container">
+          <Contact name="John Doe" email="jdoe@gmail.com" phone="555-555-5555" />
+          <Contact name="Karen Smith" email="karen@gmail.com" phone="555-555-5551" />
+          <Contact name="Max Mueller" email="max@gmail.com" phone="555-555-5552" />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+--> 8 Header.js
+
+// use rfc
+
+import React from 'react'
+import PropTypes from 'prop-types';
+
+ const Header = (props) => {
+    const { branding } = props;
+    // for auto completion set language to JavaScript React
+    return (
+        <nav className="navbar navbar-expand-sm navbar-dark bg-danger mv-3 py-0">
+            <div className="container">
+                <a href="" className="navbar-brand">
+                    {branding}
+                </a>
+                <div>
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item">
+                            <a href="/" className="nav-link">
+                                Home
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    );
+};
+
+Header.defaultProps = {
+    branding: 'My App'
+};
+
+Header.propTypes = {
+    // branding: PropTypes.object.isRequired
+    branding: PropTypes.string.isRequired
+};
+
+const headingStyle = {
+    color: 'green', 
+    fontSize: '50px'
+};
+
+export default Header;
+
+--> 8 Contact.js
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import './contact.css';
+
+class Contact extends Component {
+  
+  // also possible to put it here
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  };
+
+  render() {
+    const {name, email, phone} = this.props;
+
+    return (
+      <div className="card card-body mb-3">
+        <h4>{ name }</h4>
+        <ul className="list-group">
+          <li className="list-group-item">Email: { email }</li>          
+          <li className="list-group-item">Phone: { phone }</li>          
+        </ul>
+      </div>
+    )
+  }
+}
+
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+// };
+
+export default Contact;
+
+--
+-- 9 Adding state
+-- 
+
+--> 9  App.js
+
+import React, { Component } from 'react';
+import Contacts from './components/Contacts';
+import Header from './components/Header';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Header branding="Contact Manager" />
+        <div className="container">
+          <Contacts />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+
+--> 9 Contacts.js
+
+import React, { Component } from 'react'
+import Contact from './Contact';
+
+class Contacts extends Component {
+  
+
+    state = {
+        contacts: [
+            { id: 1, name: 'John Doe', email: 'jdoe@gmail.com', phone: '555-555-5555' },
+            { id: 2, name: 'Karen Williams', email: 'karen@gmail.com', phone: '555-555-5551' },
+            { id: 3, name: 'Maxi Mueller', email: 'max@gmail.com', phone: '555-555-5552' }
+        ]
+    };
+
+  
+  render() {
+    const { contacts } = this.state;
+
+    return (
+      <div>
+        {/* {contacts.map(contact => (
+            <h1>{contact.name}</h1>
+        ))} */}
+
+        {/* {contacts.map(contact => (
+            <Contact 
+                key={contact.id} // add the key later and show error message
+                name={contact.name} 
+                email={contact.email} 
+                phone={contact.phone} />
+        ))}; */}
+
+        {contacts.map(contact => (
+            <Contact 
+                key={contact.id} // add the key later and show error message
+                contact={contact} />
+        ))};
+
+      </div>
+    )
+  }
+}
+
+export default Contacts;
+
+--> 9 Contact.js
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import './contact.css';
+
+class Contact extends Component {
+  
+  // also possible to put it here
+  static propTypes = {
+    contact: PropTypes.object.isRequired
+  };
+
+  render() {
+    const { contact } = this.props;
+
+    return (
+      <div className="card card-body mb-3">
+        <h4>{ contact.name }</h4>
+        <ul className="list-group">
+          <li className="list-group-item">Email: { contact.email }</li>          
+          <li className="list-group-item">Phone: { contact.phone }</li>          
+        </ul>
+      </div>
+    )
+  }
+}
+
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+// };
+
+export default Contact;
+
+-- 
+-- 10 Events
+-- 
+
+--> 10 index.html
+
+-- add fontawesome
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+--> 10 Contact.js
+
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import './contact.css';
+
+class Contact extends Component {
+  
+  state = {};
+  
+  // also possible to put it here
+  static propTypes = {
+    contact: PropTypes.object.isRequired
+  };
+
+  // onShowClick() {
+  //   // console.log('Hello World');
+  //   // show bind example
+  //   console.log(this.state);
+  // }
+
+  onShowClick = (name, e) => {
+    // console.log(this.state);
+    // console.log(e.target);
+    console.log( name );
+  }
+
+  render() {
+    const { contact } = this.props;
+
+    return (
+      <div className="card card-body mb-3">
+        {/* <h4>{ contact.name } <i onClick={this.onShowClick} className="fas fa-sort-down"></i></h4> */}
+        <h4>{ contact.name } <i onClick={this.onShowClick.bind(this, contact.name)} className="fas fa-sort-down"></i></h4>
+        <ul className="list-group">
+          <li className="list-group-item">Email: { contact.email }</li>          
+          <li className="list-group-item">Phone: { contact.phone }</li>          
+        </ul>
+      </div>
+    )
+  }
+}
+
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+// };
+
+export default Contact;
+
+--
+-- 11 Changing State
+--
+
+--> 11 Contact.js
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import './contact.css';
+
+class Contact extends Component {
+  
+  state = {
+    showContactInfo: false
+  };
+  
+  // also possible to put it here
+  static propTypes = {
+    contact: PropTypes.object.isRequired
+  };
+
+  // onShowClick = (e) => {
+  //   // error: dont mutate state directly
+  //   // this.state = {
+  //   //   showContactInfo: false
+  //   // };
+
+  //   // show state in dev tools
+  //   // this.setState({
+  //   //   showContactInfo: false
+  //   // });
+
+  //   this.setState({
+  //     showContactInfo: !this.state.showContactInfo
+  //   });
+
+  // }
+
+  render() {
+    const { contact } = this.props;
+    const { showContactInfo } = this.state;
+
+    return (
+      <div className="card card-body mb-3">
+        {/* <h4>{ contact.name } <i onClick={this.onShowClick} className="fas fa-sort-down"></i></h4> */}
+        <h4>{ contact.name } <i onClick={() => {
+              this.setState({
+                showContactInfo: !this.state.showContactInfo
+              });
+        }} className="fas fa-sort-down"></i></h4>
+        
+        {showContactInfo ? 
+
+        <ul className="list-group">
+          <li className="list-group-item">Email: { contact.email }</li>          
+          <li className="list-group-item">Phone: { contact.phone }</li>          
+        </ul>
+        : null }
+
+      </div>
+    )
+  }
+}
+
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+// };
+
+export default Contact;
+
+
+-- 
+-- 12 Changing State from Another Component
+--    ( deleting a contact )
+-- 
+
+
+--> 12 Contact.js
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import './contact.css';
+
+class Contact extends Component {
+  
+  state = {
+    showContactInfo: false
+  };
+  
+  onDeleteClick = () => {
+    // console.log('clicked');
+    this.props.deleteClickHandler();
+  }
+
+  // also possible to put it here
+  static propTypes = {
+    contact: PropTypes.object.isRequired,
+    deleteClickHandler: PropTypes.func.isRequired
+  };
+
+  render() {
+    const { contact } = this.props;
+    const { showContactInfo } = this.state;
+
+    return (
+      <div className="card card-body mb-3">
+        <h4>{ contact.name } <i onClick={() => {
+              this.setState({
+                showContactInfo: !this.state.showContactInfo
+              });
+        }} className="fas fa-sort-down" style={{ cursor: 'pointer '}}></i>
+        <i className="fas fa-times" style={{ cursor: 'pointer', float: 'right', color: 'red' }} onClick={this.onDeleteClick}></i>
+        
+        </h4>
+        
+        {showContactInfo ? 
+
+        <ul className="list-group">
+          <li className="list-group-item">Email: { contact.email }</li>          
+          <li className="list-group-item">Phone: { contact.phone }</li>          
+        </ul>
+        : null }
+
+      </div>
+    )
+  }
+}
+
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+// };
+
+export default Contact;
+
+--> 12 Contacts.js
+
+import React, { Component } from 'react'
+import Contact from './Contact';
+
+class Contacts extends Component {
+    state = {
+        contacts: [
+            { id: 1, name: 'John Doe', email: 'jdoe@gmail.com', phone: '555-555-5555' },
+            { id: 2, name: 'Karen Williams', email: 'karen@gmail.com', phone: '555-555-5551' },
+            { id: 3, name: 'Maxi Mueller', email: 'max@gmail.com', phone: '555-555-5552' }
+        ]
+    };
+  
+    deleteContact = (id) => {
+        // console.log(123);
+        // console.log(id);
+
+        const { contacts } = this.state;
+        const newContacts = contacts.filter(
+            contact => contact.id !== id
+        );
+
+        this.setState({
+            contacts: newContacts
+        });
+    }
+
+  render() {
+    const { contacts } = this.state;
+
+    return (
+      // instead of adding an extra div to the dom, we use fragments
+      <React.Fragment>
+        {contacts.map(contact => (
+            <Contact 
+                key={contact.id} // add the key later and show error message
+                contact={contact} 
+                deleteClickHandler={this.deleteContact.bind(this, contact.id)} 
+                />
+        ))};
+      </React.Fragment>
+    )
+  }
+}
+
+export default Contacts;
+
+
+-- 
+-- 13 Context API & Service Provider
+-- 
+
+--> 13 context.js
+
+// New to React 16.3
+// basically, our global state
+
+import React, {Component} from 'react';
+
+const Context = React.createContext();
+
+export class Provider extends Component {
+    state = {
+        contacts: [
+            { id: 1, name: 'John Doe', email: 'jdoe@gmail.com', phone: '555-555-5555' },
+            { id: 2, name: 'Karen Williams', email: 'karen@gmail.com', phone: '555-555-5551' },
+            { id: 3, name: 'Maxi Mueller', email: 'max@gmail.com', phone: '555-555-5552' }
+        ]
+    };    
+
+    render() {
+        return (
+            <Context.Provider value={this.state}>
+                {this.props.children}
+            </Context.Provider>
+        );
+    }
+}
+
+export const Consumer = Context.Consumer;
+
+
+--> 13 Contacts.js
+
+import React, { Component } from 'react'
+import Contact from './Contact';
+import { Consumer } from '../context';
+
+class Contacts extends Component {
+  
+    deleteContact = (id) => {
+        // console.log(123);
+        // console.log(id);
+
+        const { contacts } = this.state;
+        const newContacts = contacts.filter(
+            contact => contact.id !== id
+        );
+
+        this.setState({
+            contacts: newContacts
+        });
+    }
+
+  render() {
+    // lets return the consumer, a consumerized component
+    return (
+        // users of the context provider use the <Consumer> Tag
+        <Consumer>
+            {value => {
+                const { contacts } = value;
+                return (
+                <React.Fragment>
+                {/* {value.contacts.map(contact => ( */}
+                {contacts.map(contact => (                    
+                    <Contact 
+                        key={contact.id} // add the key later and show error message
+                        contact={contact} 
+                        deleteClickHandler={this.deleteContact.bind(this, contact.id)} 
+                        />
+                ))};
+                </React.Fragment>
+                )
+            }}
+        </Consumer>
+    )
+  }
+}
+
+export default Contacts;
+
+--
+-- 14 Adding a Context Reducer for Actions
+--
+
+--> 14 context.js
+
+// New to React 16.3
+// basically, our global state
+
+import React, {Component} from 'react';
+
+const Context = React.createContext();
+
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'DELETE_CONTACT': 
+            return {
+                ...state,
+                contacts: state.contacts.filter( contact => contact.id !== action.payload)
+            };
+        default:
+            return state;
+    }
+}
+
+export class Provider extends Component {
+    state = {
+        contacts: [
+            { id: 1, name: 'John Doe', email: 'jdoe@gmail.com', phone: '555-555-5555' },
+            { id: 2, name: 'Karen Williams', email: 'karen@gmail.com', phone: '555-555-5551' },
+            { id: 3, name: 'Maxi Mueller', email: 'max@gmail.com', phone: '555-555-5552' }
+        ],
+        dispatch: action => {
+            this.setState(state => reducer(state, action))
+        }
+    };    
+
+    render() {
+        return (
+            <Context.Provider value={this.state}>
+                {this.props.children}
+            </Context.Provider>
+        );
+    }
+}
+
+export const Consumer = Context.Consumer;
+
+--> 14 Contacts.js
+
+import React, { Component } from 'react'
+import Contact from './Contact';
+import { Consumer } from '../context';
+
+class Contacts extends Component {
+  
+  render() {
+    return (
+        <Consumer>
+            {value => {
+                const { contacts } = value;
+                return (
+                <React.Fragment>
+                {contacts.map(contact => (                    
+                    <Contact 
+                        key={contact.id}
+                        contact={contact}
+                        />
+                ))};
+                </React.Fragment>
+                )
+            }}
+        </Consumer>
+    )
+  }
+}
+
+export default Contacts;
+
+--> 14 Contact.js
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { Consumer } from '../context';
+
+class Contact extends Component {
+  
+  state = {
+    showContactInfo: false
+  };
+  
+  onDeleteClick = (id, dispatch) => {
+    dispatch({
+      type: 'DELETE_CONTACT', payload: id
+    });
+  }
+
+  // also possible to put it here
+  static propTypes = {
+    contact: PropTypes.object.isRequired,
+    deleteClickHandler: PropTypes.func.isRequired
+  };
+
+  render() {
+    const { contact } = this.props;
+    const { showContactInfo } = this.state;
+
+    return (
+      <Consumer>
+        {value => {
+            const { dispatch } = value;
+            return (
+              <div className="card card-body mb-3">
+                <h4>{ contact.name } <i onClick={() => {
+                      this.setState({
+                        showContactInfo: !this.state.showContactInfo
+                      });
+                }} className="fas fa-sort-down" style={{ cursor: 'pointer '}}></i>
+                <i className="fas fa-times" style={{ cursor: 'pointer', float: 'right', color: 'red' }} onClick={this.onDeleteClick.bind(this, contact.id, dispatch)}></i>
+                
+                </h4>
+                
+                {showContactInfo ? 
+
+                <ul className="list-group">
+                  <li className="list-group-item">Email: { contact.email }</li>          
+                  <li className="list-group-item">Phone: { contact.phone }</li>          
+                </ul>
+                : null }
+              </div>
+            )
+        }}
+      </Consumer>
+
+    )
+  }
+}
+
+// Contact.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+//   phone: PropTypes.string.isRequired,
+// };
+
+export default Contact;
+
+
+--
+-- 15 Forms for Adding contacts
+--
+
+$ mkdir components/layout
+$ mv components/Header.js components/layout
+
+$ mkdir components/contacts
+$ mv components/contacts.css components/Contact.js components/Contacts.js components/contacts
+
+$ touch components/contacts/AddContact.js 
+
+
+--> 15 App.js 
+
+import React, { Component } from 'react';
+import Contacts from './components/contacts/Contacts';
+import Header from './components/layout/Header';
+import AddContact from './components/contacts/AddContact';
+
+import { Provider } from './context';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider>
+      <div className="App">
+        <Header branding="Contact Manager" />
+        <div className="container">
+          <AddContact />
+          <Contacts />
+        </div>
+      </div>
+      </Provider>
+    );
+  }
+}
+
+export default App;
+
+--> 15 AddContact.js
+
+import React, { Component } from 'react'
+
+export default class AddContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: ''
+  };
+  
+  render() {
+    const { name, email, phone } = this.state;
+    return (
+      <div className="card mb-3">
+        <div className="card-header">Add Contact</div>
+        <div className="card-body">
+            <form>
+                <div className="form-group">
+                    <label htmlFor="name">Name</label>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        value={name} 
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        value={email}
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input 
+                        type="text" 
+                        name="phone" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        value={phone}
+                        />
+                </div>
+                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+            </form>
+        </div>
+      </div>
+    )
+  }
+};
+
+--
+-- 16 Controlled Components & onChange
+--
+
+--> 16 AddContact.js
+
+import React, { Component } from 'react'
+
+export default class AddContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: ''
+  };
+  
+//   onNameChange = e => this.setState({ name: e.target.value });
+//   onEmailChange = e => this.setState({ email: e.target.value });
+//   onPhoneChange = e => this.setState({ phone: e.target.value });
+
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  /*
+    show them:
+
+    > let x = {y:1};
+    > let key = 'z';
+    > x = {y:1, [key]:2};
+    { y: 1, z: 2 }
+  */
+
+  onSubmit = (e) => {
+      e.preventDefault();
+      console.log( this.state );
+  }
+
+  render() {
+    const { name, email, phone } = this.state;
+    return (
+      <div className="card mb-3">
+        <div className="card-header">Add Contact</div>
+        <div className="card-body">
+            <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                    <label htmlFor="name">Name</label>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        value={name} 
+                        // onChange={this.onNameChange}
+                        onChange={this.onChange}
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        value={email} 
+                        // onChange={this.onEmailChange}  
+                        onChange={this.onChange}                        
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input 
+                        type="text" 
+                        name="phone" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        value={phone} 
+                        // onChange={this.onPhoneChange} 
+                        onChange={this.onChange}                        
+                        />
+                </div>
+                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+            </form>
+        </div>
+      </div>
+    )
+  }
+};
+
+
+--
+-- 17 Uncontrolled Components & Refs
+--
+
+// temporary backup
+$ mv AddContact.js AddContact1.js
+$ cp AddContact1.js AddContact.js
+
+
+--> 17 AddContact.js
+
+import React, { Component } from 'react'
+
+export default class AddContact extends Component {
+  
+  constructor(props) {
+      super(props);
+
+      this.nameInput = React.createRef();
+      this.emailInput = React.createRef();
+      this.phoneInput = React.createRef();
+  }
+
+  onSubmit = (e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const contact = {
+          name: this.nameInput.current.value,
+          email: this.emailInput.current.value,
+          phone: this.phoneInput.current.value
+      };
+
+      console.log(contact);
+  }
+
+  static defaultProps = {
+      name: 'Fred Smith',
+      email: 'fred@yahoo.com',
+      phone: '777-777-777'
+  };
+
+  render() {
+    const { name, email, phone } = this.props;
+    return (
+      <div className="card mb-3">
+        <div className="card-header">Add Contact</div>
+        <div className="card-body">
+            <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                    <label htmlFor="name">Name</label>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        defaultValue={name} 
+                        ref={this.nameInput}
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        defaultValue={email}
+                        ref={this.emailInput} 
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input 
+                        type="text" 
+                        name="phone" 
+                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                        defaultValue={phone} 
+                        ref={this.phoneInput}
+                        />
+                </div>
+                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+            </form>
+        </div>
+      </div>
+    )
+  }
+};
+
+--
+-- 18 Submit Action to Context
+--
+
+$ mv AddContact.js Addcontact_uncontrolled.js
+$ mv AddContact1.js AddContact.js
+
+$ npm install uuid
+
+--> 18 context.js
+
+// New to React 16.3
+// basically, our global state
+
+import React, {Component} from 'react';
+
+const Context = React.createContext();
+
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'DELETE_CONTACT': 
+            return {
+                ...state,
+                contacts: state.contacts.filter( contact => contact.id !== action.payload)
+            };
+        case 'ADD_CONTACT': 
+        return {
+            ...state,
+            contacts: [ action.payload, ...state.contacts ]
+        };            
+        default:
+            return state;
+    }
+}
+
+export class Provider extends Component {
+    state = {
+        contacts: [
+            { id: 1, name: 'John Doe', email: 'jdoe@gmail.com', phone: '555-555-5555' },
+            { id: 2, name: 'Karen Williams', email: 'karen@gmail.com', phone: '555-555-5551' },
+            { id: 3, name: 'Maxi Mueller', email: 'max@gmail.com', phone: '555-555-5552' }
+        ],
+        dispatch: action => {
+            this.setState(state => reducer(state, action))
+        }
+    };    
+
+    render() {
+        return (
+            <Context.Provider value={this.state}>
+                {this.props.children}
+            </Context.Provider>
+        );
+    }
+}
+
+export const Consumer = Context.Consumer;
+
+
+--> 18 AddContact
+
+import React, { Component } from 'react'
+import { Consumer } from '../../context';
+import randomstring from 'randomstring';
+
+export default class AddContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: ''
+  };
+  
+
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  onSubmit = (dispatch, e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const { name, email, phone } = this.state;
+      const newContact = {
+          id: randomstring.generate(20),
+          name,
+          email,
+          phone
+      };
+
+    // es6 for
+    //   const newContact = {
+    //       name: name,
+    //       email: email,
+    //       phone: phone
+    //   };
+
+    dispatch({ type: 'ADD_CONTACT', payload: newContact });
+
+    // lets clean up
+
+    this.setState({
+        name: '',
+        email: '',
+        phone: ''
+    });
+
+  }
+
+  render() {
+    const { name, email, phone } = this.state;
+
+    // show them first this here:
+    // 
+    // return ( 
+    //     <Consumer>
+    //         { value => {
+    //             const { dispatch } = value;
+    //             return (
+                    
+    //             )
+    //         }}
+    //     </Consumer>
+    // )
+
+    return ( 
+        <Consumer>
+            { value => {
+                const { dispatch } = value;
+                return (
+                    <div className="card mb-3">
+                        <div className="card-header">Add Contact</div>
+                        <div className="card-body">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                                <div className="form-group">
+                                    <label htmlFor="name">Name</label>
+                                    <input 
+                                        type="text" 
+                                        name="name" 
+                                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                                        value={name} 
+                                        // onChange={this.onNameChange}
+                                        onChange={this.onChange}
+                                        />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <input 
+                                        type="email" 
+                                        name="email" 
+                                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                                        value={email} 
+                                        // onChange={this.onEmailChange}  
+                                        onChange={this.onChange}                        
+                                        />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="phone">Phone</label>
+                                    <input 
+                                        type="text" 
+                                        name="phone" 
+                                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                                        value={phone} 
+                                        // onChange={this.onPhoneChange} 
+                                        onChange={this.onChange}                        
+                                        />
+                                </div>
+                                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+                            </form>
+                        </div>
+                    </div>                    
+                )
+            }}
+        </Consumer>
+    )
+  }
+};
+
+--
+-- 19 TextInputGroup For DRY Code
+--
+
+--> 19 TextInputGroup.js 
+
+import React from 'react'
+import PropTypes from 'prop-types';
+
+const TextInputGroup = ({
+    label,
+    name,
+    value,
+    placeholder,
+    type, 
+    onChange
+}) => {
+  return (
+    <div className="form-group">
+        <label htmlFor={name}>{label}</label>
+        <input 
+            type={type}
+            name={name} 
+            className="form-control form-control-lg" 
+            placeholder={placeholder} 
+            value={value} 
+            // onChange={this.onNameChange}
+            onChange={onChange}
+            />
+    </div>      
+  )
+}
+
+TextInputGroup.PropTypes = {
+    label: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+};
+
+TextInputGroup.defaultProps = {
+    type: 'text'
+};
+
+export default TextInputGroup;
+
+--> 19 AddContact.js
+
+import React, { Component } from 'react'
+import { Consumer } from '../../context';
+import randomstring from 'randomstring';
+import TextInputGroup from '../layout/TextInputGroup';
+
+export default class AddContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: ''
+  };
+  
+//   onNameChange = e => this.setState({ name: e.target.value });
+//   onEmailChange = e => this.setState({ email: e.target.value });
+//   onPhoneChange = e => this.setState({ phone: e.target.value });
+
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  /*
+    > let x = {y:1};
+    > let key = 'z';
+    > x = {y:1, [key]:2};
+    { y: 1, z: 2 }
+  */
+
+  onSubmit = (dispatch, e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const { name, email, phone } = this.state;
+      const newContact = {
+          id: randomstring.generate(20),
+          name,
+          email,
+          phone
+      };
+
+    // es6 for
+    //   const newContact = {
+    //       name: name,
+    //       email: email,
+    //       phone: phone
+    //   };
+
+    dispatch({ type: 'ADD_CONTACT', payload: newContact });
+
+    // lets clean up
+
+    this.setState({
+        name: '',
+        email: '',
+        phone: ''
+    });
+
+  }
+
+  render() {
+    const { name, email, phone } = this.state;
+    return ( 
+        <Consumer>
+            { value => {
+                const { dispatch } = value;
+                return (
+                    <div className="card mb-3">
+                        <div className="card-header">Add Contact</div>
+                        <div className="card-body">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                                {/* <div className="form-group">
+                                    <label htmlFor="name">Name</label>
+                                    <input 
+                                        type="text" 
+                                        name="name" 
+                                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                                        value={name} 
+                                        // onChange={this.onNameChange}
+                                        onChange={this.onChange}
+                                        />
+                                </div> */}
+                                
+                                <TextInputGroup 
+                                    label="Name"
+                                    name="name"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={this.onChange}
+
+                                />
+
+                                {/* <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <input 
+                                        type="email" 
+                                        name="email" 
+                                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                                        value={email} 
+                                        // onChange={this.onEmailChange}  
+                                        onChange={this.onChange}                        
+                                        />
+                                </div> */}
+
+                                <TextInputGroup 
+                                    type="email"
+                                    label="Email"
+                                    name="email"
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={this.onChange}
+
+                                />                                
+
+                                {/* <div className="form-group">
+                                    <label htmlFor="phone">Phone</label>
+                                    <input 
+                                        type="text" 
+                                        name="phone" 
+                                        className="form-control form-control-lg" placeholder="Enter Name..." 
+                                        value={phone} 
+                                        // onChange={this.onPhoneChange} 
+                                        onChange={this.onChange}                        
+                                        />
+                                </div> */}
+
+                                <TextInputGroup 
+                                    label="Phone"
+                                    name="phone"
+                                    placeholder="Enter Phone"
+                                    value={phone}
+                                    onChange={this.onChange}
+
+                                />
+
+                                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+                            </form>
+                        </div>
+                    </div>                    
+                )
+            }}
+        </Consumer>
+    )
+  }
+};
+
+--
+-- 20 Error Checking/ Validation & Display
+--
+
+$ npm install classnames
+
+--> 20 TextInputGroup.js
+
+import React from 'react'
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+
+const TextInputGroup = ({
+    label,
+    name,
+    value,
+    placeholder,
+    type, 
+    onChange,
+    error
+}) => {
+  return (
+    <div className="form-group">
+        <label htmlFor={name}>{label}</label>
+        <input 
+            type={type}
+            name={name} 
+            // className="form-control form-control-lg"
+            // className="is-invalid form-control form-control-lg" 
+            className={classnames('form-control form-control-lg', {
+                'is-invalid': error
+            })}
+            placeholder={placeholder} 
+            value={value} 
+            // onChange={this.onNameChange}
+            onChange={onChange}
+            />
+        {error && <div className="invalid-feedback">{error}</div>}
+    </div>      
+  )
+}
+
+TextInputGroup.PropTypes = {
+    label: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    error: PropTypes.string // not required
+};
+
+TextInputGroup.defaultProps = {
+    type: 'text'
+};
+
+export default TextInputGroup;
+
+--> 20 AddContact.js
+
+import React, { Component } from 'react'
+import { Consumer } from '../../context';
+import randomstring from 'randomstring';
+import TextInputGroup from '../layout/TextInputGroup';
+
+export default class AddContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: '',
+      errors: {}
+  };
+  
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  onSubmit = (dispatch, e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const { name, email, phone, errors } = this.state;
+
+      // check for errors
+
+      if(name === '') {
+        this.setState({ errors: {name: 'Name is required'}});
+        return;
+      }
+      if(phone === '') {
+        this.setState({ errors: {phone: 'Phone is required'}});
+        return;
+      }
+      if(email === '') {
+        this.setState({ errors: {email: 'Email is required'}});
+        return;
+      }
+
+
+      const newContact = {
+          id: randomstring.generate(20),
+          name,
+          email,
+          phone
+      };
+
+    dispatch({ type: 'ADD_CONTACT', payload: newContact });
+
+    // lets clean up
+
+    this.setState({
+        name: '',
+        email: '',
+        phone: '',
+        errors: {}
+    });
+
+  }
+
+  render() {
+    const { name, email, phone, errors } = this.state;
+
+    return ( 
+        <Consumer>
+            { value => {
+                const { dispatch } = value;
+                return (
+                    <div className="card mb-3">
+                        <div className="card-header">Add Contact</div>
+                        <div className="card-body">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                                 
+                                <TextInputGroup 
+                                    label="Name"
+                                    name="name"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={this.onChange}
+                                    error={errors.name}
+                                />
+
+                                <TextInputGroup 
+                                    type="email"
+                                    label="Email"
+                                    name="email"
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={this.onChange}
+                                    error={errors.email}
+                                />                                
+
+                                <TextInputGroup 
+                                    label="Phone"
+                                    name="phone"
+                                    placeholder="Enter Phone"
+                                    value={phone}
+                                    onChange={this.onChange}
+                                    error={errors.phone}
+                                />
+
+                                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+                            </form>
+                        </div>
+                    </div>                    
+                )
+            }}
+        </Consumer>
+    )
+  }
+};
+
+--
+-- 21 Add React Router
+--
+
+$ npm install react-router-dom
+
+$ mkdir components/pages
+$ touch components/pages/About.js
+
+--> 21 App.js
+
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Contacts from './components/contacts/Contacts';
+import Header from './components/layout/Header';
+import About from './components/pages/About';
+import AddContact from './components/contacts/AddContact';
+import { Provider } from './context';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider>
+        <Router>
+          <div className="App">
+            <Header branding="Contact Manager" />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Contacts} />  
+                <Route exact path="/about" component={About} />  
+                <Route exact path="/contact/add" component={AddContact} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
+}
+
+export default App;
+
+--> 21 Contacts.js
+
+import React, { Component } from 'react'
+import Contact from './Contact';
+import { Consumer } from '../../context';
+
+class Contacts extends Component {
+    
+  render() {
+    return (
+        <Consumer>
+            {value => {
+                const { contacts } = value;
+                return (
+                <React.Fragment>
+                    <h1 className="display-4 mb-2">
+                        <span className="text-danger">Contact List</span>
+                    </h1>
+                {contacts.map(contact => (                    
+                    <Contact 
+                        key={contact.id}
+                        contact={contact}
+                        />
+                ))}
+                </React.Fragment>
+                )
+            }}
+        </Consumer>
+    )
+  }
+}
+
+export default Contacts;
+
+--
+-- 22 Links, Params & Redirect
+--
+
+--> 22 App.js
+
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Contacts from './components/contacts/Contacts';
+import Header from './components/layout/Header';
+import About from './components/pages/About';
+import AddContact from './components/contacts/AddContact';
+import { Provider } from './context';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider>
+        <Router>
+          <div className="App">
+            <Header branding="Contact Manager" />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Contacts} />  
+                <Route exact path="/about/:id" component={About} />  
+                <Route exact path="/contact/add" component={AddContact} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
+}
+
+export default App;
+
+--> 22 Contacts.js
+
+import React, { Component } from 'react'
+import Contact from './Contact';
+import { Consumer } from '../../context';
+
+class Contacts extends Component {
+    
+  render() {
+    return (
+        <Consumer>
+            {value => {
+                const { contacts } = value;
+                return (
+                <React.Fragment>
+                    <h1 className="display-4 mb-2">
+                        <span className="text-danger">Contact List</span>
+                    </h1>
+                {contacts.map(contact => (                    
+                    <Contact 
+                        key={contact.id}
+                        contact={contact}
+                        />
+                ))}
+                </React.Fragment>
+                )
+            }}
+        </Consumer>
+    )
+  }
+}
+
+export default Contacts;
+
+--> 22 AddContacts.js
+
+import React, { Component } from 'react'
+import { Consumer } from '../../context';
+import randomstring from 'randomstring';
+import TextInputGroup from '../layout/TextInputGroup';
+
+export default class AddContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: '',
+      errors: {}
+  };
+  
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  onSubmit = (dispatch, e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const { name, email, phone, errors } = this.state;
+
+      // check for errors
+
+      if(name === '') {
+        this.setState({ errors: {name: 'Name is required'}});
+        return;
+      }
+      if(phone === '') {
+        this.setState({ errors: {phone: 'Phone is required'}});
+        return;
+      }
+      if(email === '') {
+        this.setState({ errors: {email: 'Email is required'}});
+        return;
+      }
+
+      const newContact = {
+          id: randomstring.generate(20),
+          name,
+          email,
+          phone
+      };
+
+    dispatch({ type: 'ADD_CONTACT', payload: newContact });
+
+    // lets clean up
+
+    this.setState({
+        name: '',
+        email: '',
+        phone: '',
+        errors: {}
+    });
+
+    this.props.history.push('/');  // <---------------------- the only change here
+
+  }
+
+  render() {
+    const { name, email, phone, errors } = this.state;
+
+    return ( 
+        <Consumer>
+            { value => {
+                const { dispatch } = value;
+                return (
+                    <div className="card mb-3">
+                        <div className="card-header">Add Contact</div>
+                        <div className="card-body">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                                 
+                                <TextInputGroup 
+                                    label="Name"
+                                    name="name"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={this.onChange}
+                                    error={errors.name}
+                                />
+
+                                <TextInputGroup 
+                                    type="email"
+                                    label="Email"
+                                    name="email"
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={this.onChange}
+                                    error={errors.email}
+                                />                                
+
+                                <TextInputGroup 
+                                    label="Phone"
+                                    name="phone"
+                                    placeholder="Enter Phone"
+                                    value={phone}
+                                    onChange={this.onChange}
+                                    error={errors.phone}
+                                />
+
+                                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+                            </form>
+                        </div>
+                    </div>                    
+                )
+            }}
+        </Consumer>
+    )
+  }
+};
+
+
+--
+-- 23 Add Page not found component
+--
+
+$ touch src/components/layout/NotFound.js
+
+--> 23 NotFound.js
+
+import React from 'react'
+
+export default () => {
+  return (
+    <div>
+      <h1 className="display-4"><span className="text-danger">404 Not found</span></h1>
+      <p className="lead">Sorry, page not found</p>
+    </div>
+  )
+}
+
+--> 23 App.js
+
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Contacts from './components/contacts/Contacts';
+import Header from './components/layout/Header';
+import About from './components/pages/About';
+import NotFound from './components/pages/NotFound';
+import AddContact from './components/contacts/AddContact';
+import { Provider } from './context';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider>
+        <Router>
+          <div className="App">
+            <Header branding="Contact Manager" />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Contacts} />  
+                <Route exact path="/about/:id" component={About} />  
+                <Route exact path="/contact/add" component={AddContact} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
+}
+
+--
+-- 25 Lifecycle 
+--
+
+$ mkdir src/components/test
+$ touch src/component/test/Test.js
+
+--> 25 Test.js
+
+import React, { Component } from 'react'
+
+export default class Test extends Component {
+  
+  state = {
+    test: 'test'
+  };
+
+  // usually, the data fetching from an api happens here ...
+  componentDidMount() {
+    console.log('componentDidMount...');
+  }
+
+  // deprecated, still with UNSAFE_ in R17
+  componentWillMount() {
+    console.log('componentWillMount...');
+  }
+  
+  componentDidUpdate() {
+    console.log('componentDidUpdate...');
+  }
+
+  // deprecated, still with UNSAFE_ R17
+  componentWillUpdate() {
+    console.log('componentWillUpdate...');
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    console.log('componentWillReceiveProps...');
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return null;      
+  }
+
+  getSnapshotBeforeUpdate(nextProps, prevState) {
+      console.log('getSnapshotBeforeUpdate...');
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Test Component</h1>          
+      </div>
+    )
+  }
+}
+
+--> 25 context.js
+
+// New to React 16.3
+// basically, our global state
+
+import React, {Component} from 'react';
+
+const Context = React.createContext();
+
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'DELETE_CONTACT': 
+            return {
+                ...state,
+                contacts: state.contacts.filter( contact => contact.id !== action.payload)
+            };
+        case 'ADD_CONTACT': 
+        return {
+            ...state,
+            contacts: [ action.payload, ...state.contacts ]
+        };            
+        default:
+            return state;
+    }
+}
+
+
+export class Provider extends Component {
+    state = {
+        contacts: [
+            { id: 1, name: 'John Doe', email: 'jdoe@gmail.com', phone: '555-555-5555' },
+            { id: 2, name: 'Karen Williams', email: 'karen@gmail.com', phone: '555-555-5551' },
+            { id: 3, name: 'Maxi Mueller', email: 'max@gmail.com', phone: '555-555-5552' }
+        ],
+        dispatch: action => {
+            this.setState(state => reducer(state, action))
+        }
+    };    
+    
+    componentDidUpdate() {
+        console.log('componentDidUpdate...');
+    }
+    
+    componentWillUpdate() {
+        console.log('componentWillUpdate...');
+    }
+    
+    render() {
+        return (
+            <Context.Provider value={this.state}>
+                {this.props.children}
+            </Context.Provider>
+        );
+    }
+}
+
+export const Consumer = Context.Consumer;
+
+--
+-- 27 AJAX GET
+--
+
+-- show them JSON Placeholder
+
+--> 27 context.js
+
+// New to React 16.3
+// basically, our global state
+
+import React, {Component} from 'react';
+import axios from 'axios';
+
+const Context = React.createContext();
+
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'DELETE_CONTACT': 
+            return {
+                ...state,
+                contacts: state.contacts.filter( contact => contact.id !== action.payload)
+            };
+        case 'ADD_CONTACT': 
+        return {
+            ...state,
+            contacts: [ action.payload, ...state.contacts ]
+        };            
+        default:
+            return state;
+    }
+}
+
+
+export class Provider extends Component {
+    state = {
+        contacts: [],
+        dispatch: action => {
+            this.setState(state => reducer(state, action))
+        }
+    };    
+    
+    componentDidMount() {
+        console.log('componentDidMount...');
+
+        axios.get('http://jsonplaceholder.typicode.com/users')
+        .then(res => {
+            this.setState({ 
+                contacts: res.data
+            });
+            console.log( res );
+        });
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate...');
+    }
+    
+    componentWillUpdate() {
+        console.log('componentWillUpdate...');
+    }
+
+    render() {
+        return (
+            <Context.Provider value={this.state}>
+                {this.props.children}
+            </Context.Provider>
+        );
+    }
+}
+
+export const Consumer = Context.Consumer;
+
+
+--
+-- 28 POST & DELETE requests
+--
+
+--> 28 Contact.js
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { Consumer } from '../../context';
+import axios from 'axios';
+
+class Contact extends Component {
+  
+  state = {
+    showContactInfo: false
+  };
+  
+  onDeleteClick = (id, dispatch) => {
+    axios.delete(`http://jsonplaceholder.typicode.com/users/${id}`)
+    .then(res => dispatch({
+      type: 'DELETE_CONTACT',
+      payload: id
+    }));
+  }
+
+  // also possible to put it here
+  static propTypes = {
+    contact: PropTypes.object.isRequired
+  };
+
+  render() {
+    const { contact } = this.props;
+    const { showContactInfo } = this.state;
+
+    return (
+      <Consumer>
+        {value => {
+            const { dispatch } = value;
+            return (
+              <div className="card card-body mb-3">
+                <h4>{ contact.name } <i onClick={() => {
+                      this.setState({
+                        showContactInfo: !this.state.showContactInfo
+                      });
+                }} className="fas fa-sort-down" style={{ cursor: 'pointer '}}></i>
+                <i className="fas fa-times" style={{ cursor: 'pointer', float: 'right', color: 'red' }} onClick={this.onDeleteClick.bind(this, contact.id, dispatch)}></i>
+                
+                </h4>
+                
+                {showContactInfo ? 
+
+                <ul className="list-group">
+                  <li className="list-group-item">Email: { contact.email }</li>          
+                  <li className="list-group-item">Phone: { contact.phone }</li>          
+                </ul>
+                : null }
+              </div>
+            )
+        }}
+      </Consumer>
+
+    )
+  }
+}
+
+export default Contact;
+
+
+--> 28 AddContact.js
+
+import React, { Component } from 'react'
+import { Consumer } from '../../context';
+import randomstring from 'randomstring';
+import TextInputGroup from '../layout/TextInputGroup';
+import axios from 'axios';
+
+export default class AddContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: '',
+      errors: {}
+  };
+  
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  onSubmit = (dispatch, e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const { name, email, phone, errors } = this.state;
+
+      // check for errors
+
+      if(name === '') {
+        this.setState({ errors: {name: 'Name is required'}});
+        return;
+      }
+      if(phone === '') {
+        this.setState({ errors: {phone: 'Phone is required'}});
+        return;
+      }
+      if(email === '') {
+        this.setState({ errors: {email: 'Email is required'}});
+        return;
+      }
+
+      const newContact = {
+          id: randomstring.generate(20),
+          name,
+          email,
+          phone
+      };
+
+      axios.post('http://jsonplaceholder.typicode.com/users', newContact)
+      .then(res => dispatch({ type: 'ADD_CONTACT', payload: res.data }))
+    
+
+    // lets clean up
+
+    this.setState({
+        name: '',
+        email: '',
+        phone: '',
+        errors: {}
+    });
+
+    this.props.history.push('/');
+
+  }
+
+  render() {
+    const { name, email, phone, errors } = this.state;
+
+    return ( 
+        <Consumer>
+            { value => {
+                const { dispatch } = value;
+                return (
+                    <div className="card mb-3">
+                        <div className="card-header">Add Contact</div>
+                        <div className="card-body">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                                 
+                                <TextInputGroup 
+                                    label="Name"
+                                    name="name"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={this.onChange}
+                                    error={errors.name}
+                                />
+
+                                <TextInputGroup 
+                                    type="email"
+                                    label="Email"
+                                    name="email"
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={this.onChange}
+                                    error={errors.email}
+                                />                                
+
+                                <TextInputGroup 
+                                    label="Phone"
+                                    name="phone"
+                                    placeholder="Enter Phone"
+                                    value={phone}
+                                    onChange={this.onChange}
+                                    error={errors.phone}
+                                />
+
+                                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+                            </form>
+                        </div>
+                    </div>                    
+                )
+            }}
+        </Consumer>
+    )
+  }
+};
+
+
+--
+-- 29 Async/Await
+--
+
+--> 29 AddContact.js
+
+import React, { Component } from 'react'
+import { Consumer } from '../../context';
+import randomstring from 'randomstring';
+import TextInputGroup from '../layout/TextInputGroup';
+import axios from 'axios';
+
+export default class AddContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: '',
+      errors: {}
+  };
+  
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  onSubmit = async (dispatch, e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const { name, email, phone, errors } = this.state;
+
+      // check for errors
+
+      if(name === '') {
+        this.setState({ errors: {name: 'Name is required'}});
+        return;
+      }
+      if(phone === '') {
+        this.setState({ errors: {phone: 'Phone is required'}});
+        return;
+      }
+      if(email === '') {
+        this.setState({ errors: {email: 'Email is required'}});
+        return;
+      }
+
+      const newContact = {
+          id: randomstring.generate(20),
+          name,
+          email,
+          phone
+      };
+
+      const res = await axios.post('http://jsonplaceholder.typicode.com/users', newContact)
+      dispatch({ type: 'ADD_CONTACT', payload: res.data });
+    
+
+    // lets clean up
+
+    this.setState({
+        name: '',
+        email: '',
+        phone: '',
+        errors: {}
+    });
+
+    this.props.history.push('/');
+
+  }
+
+  render() {
+    const { name, email, phone, errors } = this.state;
+
+    return ( 
+        <Consumer>
+            { value => {
+                const { dispatch } = value;
+                return (
+                    <div className="card mb-3">
+                        <div className="card-header">Add Contact</div>
+                        <div className="card-body">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                                 
+                                <TextInputGroup 
+                                    label="Name"
+                                    name="name"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={this.onChange}
+                                    error={errors.name}
+                                />
+
+                                <TextInputGroup 
+                                    type="email"
+                                    label="Email"
+                                    name="email"
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={this.onChange}
+                                    error={errors.email}
+                                />                                
+
+                                <TextInputGroup 
+                                    label="Phone"
+                                    name="phone"
+                                    placeholder="Enter Phone"
+                                    value={phone}
+                                    onChange={this.onChange}
+                                    error={errors.phone}
+                                />
+
+                                <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+                            </form>
+                        </div>
+                    </div>                    
+                )
+            }}
+        </Consumer>
+    )
+  }
+};
+
+--> 29 Contact.js
+
+// type rcc for quick component creation
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { Consumer } from '../../context';
+import axios from 'axios';
+
+class Contact extends Component {
+  
+  state = {
+    showContactInfo: false
+  };
+  
+  onDeleteClick = async (id, dispatch) => {
+    // because it always throws an error
+    try {
+      await axios.delete(`http://jsonplaceholder.typicode.com/users/${id}`);
+    }
+    catch(e) {
+      console.log('error ' + e);
+    }
+    dispatch({
+      type: 'DELETE_CONTACT',
+      payload: id
+    });      
+  }
+
+  // also possible to put it here
+  static propTypes = {
+    contact: PropTypes.object.isRequired
+  };
+
+  render() {
+    const { contact } = this.props;
+    const { showContactInfo } = this.state;
+
+    return (
+      <Consumer>
+        {value => {
+            const { dispatch } = value;
+            return (
+              <div className="card card-body mb-3">
+                <h4>{ contact.name } <i onClick={() => {
+                      this.setState({
+                        showContactInfo: !this.state.showContactInfo
+                      });
+                }} className="fas fa-sort-down" style={{ cursor: 'pointer '}}></i>
+                <i className="fas fa-times" style={{ cursor: 'pointer', float: 'right', color: 'red' }} onClick={this.onDeleteClick.bind(this, contact.id, dispatch)}></i>
+                
+                </h4>
+                
+                {showContactInfo ? 
+
+                <ul className="list-group">
+                  <li className="list-group-item">Email: { contact.email }</li>          
+                  <li className="list-group-item">Phone: { contact.phone }</li>          
+                </ul>
+                : null }
+              </div>
+            )
+        }}
+      </Consumer>
+
+    )
+  }
+}
+
+export default Contact;
+
+-- 
+-- 30 Adding an Edit Contact Function
+--
+
+$ cp AddContact.js EditContact.js
+
+
+--> 30 EditContact.js
+
+import React, { Component } from 'react'
+import { Consumer } from '../../context';
+import randomstring from 'randomstring';
+import TextInputGroup from '../layout/TextInputGroup';
+import axios from 'axios';
+
+export default class EditContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: '',
+      errors: {}
+  };
+  
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  async componentDidMount() {
+      const { id } = this.props.match.params;
+      const res = await axios.get(`http://jsonplaceholder.typicode.com/users/${id}`);
+      const contact = res.data;
+      this.setState({
+          name: contact.name,
+          email: contact.email,
+          phone: contact.phone
+      });
+  }
+
+  onSubmit = async (dispatch, e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const { name, email, phone, errors } = this.state;
+
+      // check for errors
+
+      if(name === '') {
+        this.setState({ errors: {name: 'Name is required'}});
+        return;
+      }
+      if(phone === '') {
+        this.setState({ errors: {phone: 'Phone is required'}});
+        return;
+      }
+      if(email === '') {
+        this.setState({ errors: {email: 'Email is required'}});
+        return;
+      }
+
+  }
+
+  render() {
+    const { name, email, phone, errors } = this.state;
+
+    return ( 
+        <Consumer>
+            { value => {
+                const { dispatch } = value;
+                return (
+                    <div className="card mb-3">
+                        <div className="card-header">Edit Contact</div>
+                        <div className="card-body">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                                 
+                                <TextInputGroup 
+                                    label="Name"
+                                    name="name"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={this.onChange}
+                                    error={errors.name}
+                                />
+
+                                <TextInputGroup 
+                                    type="email"
+                                    label="Email"
+                                    name="email"
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={this.onChange}
+                                    error={errors.email}
+                                />                                
+
+                                <TextInputGroup 
+                                    label="Phone"
+                                    name="phone"
+                                    placeholder="Enter Phone"
+                                    value={phone}
+                                    onChange={this.onChange}
+                                    error={errors.phone}
+                                />
+
+                                <input type="submit" value="Update Contact" className="btn btn-light btn-block" />
+                            </form>
+                        </div>
+                    </div>                    
+                )
+            }}
+        </Consumer>
+    )
+  }
+};
+
+--> 30 App.js
+
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Contacts from './components/contacts/Contacts';
+import Header from './components/layout/Header';
+import About from './components/pages/About';
+import NotFound from './components/pages/NotFound';
+import Test from './components/test/Test';
+import AddContact from './components/contacts/AddContact';
+import EditContact from './components/contacts/EditContact';
+import { Provider } from './context';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider>
+        <Router>
+          <div className="App">
+            <Header branding="Contact Manager" />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Contacts} />  
+                <Route exact path="/about/:id" component={About} />  
+                <Route exact path="/contact/add" component={AddContact} />
+                <Route exact path="/contact/edit/:id" component={EditContact} />
+                <Route exact path="/test" component={Test} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
+}
+
+export default App;
+
+--
+-- 31 PUT Request & Update Action
+-- 
+
+--> 31 EditContact.js
+
+import React, { Component } from 'react'
+import { Consumer } from '../../context';
+import randomstring from 'randomstring';
+import TextInputGroup from '../layout/TextInputGroup';
+import axios from 'axios';
+
+export default class EditContact extends Component {
+  
+  state = {
+      name: '',
+      email: '',
+      phone: '',
+      errors: {}
+  };
+
+  onChange = e => this.setState({ [e.target.name] : e.target.value });
+
+  async componentDidMount() {
+      const { id } = this.props.match.params;
+      const res = await axios.get(`http://jsonplaceholder.typicode.com/users/${id}`);
+      const contact = res.data;
+      this.setState({
+          name: contact.name,
+          email: contact.email,
+          phone: contact.phone
+      });
+  }
+
+  onSubmit = async (dispatch, e) => {
+      e.preventDefault();
+      console.log( this.state );
+
+      const { name, email, phone, errors } = this.state;
+
+      // check for errors
+
+      if(name === '') {
+        this.setState({ errors: {name: 'Name is required'}});
+        return;
+      }
+      if(phone === '') {
+        this.setState({ errors: {phone: 'Phone is required'}});
+        return;
+      }
+      if(email === '') {
+        this.setState({ errors: {email: 'Email is required'}});
+        return;
+      }
+
+      const updContact = {
+        name,
+        email,
+        phone
+      };
+
+      const { id } = this.props.match.params;
+      const res = await axios.put(`http://jsonplaceholder.typicode.com/users/${id}`, updContact);
+
+      dispatch({ type: 'UPDATE_CONTACT', payload: res.data });
+
+      // lets clean up
+
+      this.setState({
+          name: '',
+          email: '',
+          phone: '',
+          errors: {}
+      });
+
+      this.props.history.push('/');      
+
+  }
+
+  render() {
+    const { name, email, phone, errors } = this.state;
+
+    return ( 
+        <Consumer>
+            { value => {
+                const { dispatch } = value;
+                return (
+                    <div className="card mb-3">
+                        <div className="card-header">Edit Contact</div>
+                        <div className="card-body">
+                            <form onSubmit={this.onSubmit.bind(this, dispatch)}>
+                                 
+                                <TextInputGroup 
+                                    label="Name"
+                                    name="name"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={this.onChange}
+                                    error={errors.name}
+                                />
+
+                                <TextInputGroup 
+                                    type="email"
+                                    label="Email"
+                                    name="email"
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={this.onChange}
+                                    error={errors.email}
+                                />                                
+
+                                <TextInputGroup 
+                                    label="Phone"
+                                    name="phone"
+                                    placeholder="Enter Phone"
+                                    value={phone}
+                                    onChange={this.onChange}
+                                    error={errors.phone}
+                                />
+
+                                <input type="submit" value="Update Contact" className="btn btn-light btn-block" />
+                            </form>
+                        </div>
+                    </div>                    
+                )
+            }}
+        </Consumer>
+    )
+  }
+};
+
+
+--> 31 context.js
+
+// New to React 16.3
+// basically, our global state
+
+import React, {Component} from 'react';
+import axios from 'axios';
+
+const Context = React.createContext();
+
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'DELETE_CONTACT': 
+            return {
+                ...state,
+                contacts: state.contacts.filter( contact => contact.id !== action.payload)
+            };
+        case 'ADD_CONTACT': 
+        return {
+            ...state,
+            contacts: [ action.payload, ...state.contacts ]
+        };
+        case 'UPDATE_CONTACT': 
+        return {
+            ...state,        
+            // var array1 = [1, 4, 9, 16];
+            // // pass a function to map
+            // const map1 = array1.map(x => x * 2);
+            // console.log(map1);
+            // // expected output: Array [2, 8, 18, 32]
+            contacts: state.contacts.map(contact => contact.id === action.payload.id ? (contact = action.payload) : contact)
+        };                     
+        default:
+            return state;
+    }
+}
+
+
+export class Provider extends Component {
+    state = {
+        contacts: [],
+        dispatch: action => {
+            this.setState(state => reducer(state, action))
+        }
+    };    
+    
+    async componentDidMount() {
+        console.log('componentDidMount...');
+        const res = await axios.get('http://jsonplaceholder.typicode.com/users')
+
+        this.setState({ 
+            contacts: res.data
+        });
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate...');
+    }
+    
+    componentWillUpdate() {
+        console.log('componentWillUpdate...');
+    }
+
+    render() {
+        return (
+            <Context.Provider value={this.state}>
+                {this.props.children}
+            </Context.Provider>
+        );
+    }
+}
+
+export const Consumer = Context.Consumer;

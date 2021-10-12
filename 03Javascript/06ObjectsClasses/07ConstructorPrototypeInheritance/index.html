@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Open browser console to see some results</h1>
+
+    <script type="text/javascript">
+       var obj1 = {
+         x: 1,
+         fun: function() {
+           console.log("hallo from object method " + this.x);
+         }
+       }
+
+       var x = 2;
+       obj1.fun.call(this);
+
+      // 1. level constructor
+      var Dog = function ( name ) {
+          this.name = name;
+      };
+
+      Dog.prototype.bark = function () {  console.log("Dog.prototype.bark: Wuff") };
+      Dog.prototype.bark()
+
+      // 2. level constructor
+      var TrainedDog = function ( name, level ) {
+          Dog.apply( this, arguments ); // calling the super constructor
+          this.level = level;
+      };
+
+      // set up two-level inheritance
+      TrainedDog.prototype = Object.create( Dog.prototype );
+      TrainedDog.prototype.constructor = TrainedDog;
+      TrainedDog.prototype.rollOver = function () {  };
+
+      // instances
+      var dog1 = new Dog( 'Rex' );
+      var dog2 = new TrainedDog( 'Rock', 3 );
+
+      function Animal(name) {
+        this.name = name
+      }
+
+      Animal.prototype.makeNoise = function() {
+        console.log("Generic noise")
+      }
+      Animal.prototype.makeNoise()
+
+
+
+      function Dog(name) {
+        Animal.call(this, name) // call parent constructor
+      }
+
+      Dog.prototype = Object.create(Animal.prototype)  // Dog prototype is create with Animal's prototype as its parent
+      Dog.prototype.makeNoise = function() {
+        console.log( this.name + ' woofes' );
+      }﻿
+
+      var dog = new Dog('bello');
+
+      function Product(name, price) {
+        this.name = name;
+        this.price = price;
+      }
+
+      function Food(name, price) {
+        Product.call(this, name, price);
+        this.category = 'food';
+      }
+
+      Food.prototype = Object.create( Product.prototype );
+
+      function Toy(name, price) {
+        Product.call(this, name, price);
+        this.category = 'toy';
+      }
+
+      Toy.prototype = Object.create( Product.prototype );
+
+      var cheese = new Food('feta', 5);
+      var fun = new Toy('robot', 40);
+      console.log(fun)
+
+
+    </script>
+  </body>
+</html>

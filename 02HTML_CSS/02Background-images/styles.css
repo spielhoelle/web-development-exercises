@@ -1,0 +1,34 @@
+/* image background */
+#imageonly {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/652/confectionary.png);
+}
+
+/* linear gradient background */
+#linear-gradient {
+  background: linear-gradient(black, white);
+}
+
+/* radial gradient background */
+#radial-gradient {
+  background: radial-gradient(circle, black, white);
+}
+
+/*multiple background images */
+
+#multiimage {
+  background: 
+   url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/652/codepen.png) bottom center no-repeat,
+   url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/652/confectionary.png) repeat; 
+}
+
+
+
+
+/* styling for the Pen, unrelated to background */
+body { font-family: sans-serif; }
+
+div {
+  width: 300px;
+  height: 300px;
+  margin-bottom: 1.5em;
+}

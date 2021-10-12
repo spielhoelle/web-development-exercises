@@ -1,0 +1,352 @@
+GM1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #map {
+          height: 100%;
+        }
+
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+      // basic map
+      
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: -34.397, lng: 150.644 },
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPL5FbwKVlLkZL0quNPnsi3dOpK-d59Ko&callback=initMap"
+    async defer></script>
+</body>
+</html>
+
+GM2
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Markers</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      // multiple markers
+
+      function initMap() {
+
+        let startPosition = {lat: -25.363, lng: 131.044};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: startPosition
+        });
+
+        var marker1 = new google.maps.Marker({
+          position: { lat: -25.363, lng: 131.044 },
+          map: map,
+          title: 'Australia'
+        });
+
+        var marker2 = new google.maps.Marker({
+          position: { lat: -25.363, lng: 135.044 },
+          map: map,
+          title: 'Also Australia'
+        });        
+
+        // delete marker2 
+        marker2.setMap(null);
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPL5FbwKVlLkZL0quNPnsi3dOpK-d59Ko&callback=initMap">
+    </script>
+  </body>
+</html>
+
+GM3
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Markers</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      function initMap() {
+
+        let startPosition = { lat: -25.363, lng: 131.044 };   // Australia     
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: startPosition
+        });
+
+        // creating a position from a geocode
+        var geocoder =  new google.maps.Geocoder(); 
+        var locationName = 'New York, USA';
+        geocoder.geocode({ 'address': locationName }, 
+          function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              let lat = results[0].geometry.location.lat();
+              let lng = results[0].geometry.location.lng();
+              
+              var newMarker = new google.maps.Marker({
+                position: { lat: lat, lng: lng },
+                map: map,
+                title: locationName
+              });	
+              
+              map.setCenter({ lat: lat, lng: lng });
+            } 
+            else {
+              alert('This location is invalid');
+            }
+          });
+
+
+          // moving the position
+          setTimeout(function() {
+            map.setCenter({ lat: 30.000, lng: 15.000 });
+            map.setZoom(5);
+          }, 5000);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPL5FbwKVlLkZL0quNPnsi3dOpK-d59Ko&callback=initMap">
+    </script>
+  </body>
+</html>
+
+GOOGLE MAPS PROJECT
+~~~~~~~~~~~~~~~~~~~
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Devugees: Introduction to JQuery</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        
+    <div class="container">
+        <div class="navigation">
+            <input type="text" class="location" placeholder="Berlin, Deutschland">
+            <button class="new-location">Add Location</button> | 
+            <button class="zoomout">Zoom Out</button> | 
+            <button class="remove-location">Remove: </button>
+            <select class="locations" name="cars">
+            </select>            
+        </div>
+        <div class="content" id="map"></div>
+        <div class="footer"></div>
+    </div>
+
+    <script src="jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="main.js" type="text/javascript"></script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPL5FbwKVlLkZL0quNPnsi3dOpK-d59Ko&callback=initMap">
+    </script>
+    </body>
+</html>
+
+JS
+
+var map;
+
+var initialLocations = [
+	{ name: 'Berlin', position: {lat: 52.52000659999999, lng: 13.404953999999975 }},
+	{ name: 'Potsdam', position: {lat: 52.3905689, lng: 13.064472900000055 }}
+];
+
+var markers = [];
+// Berlin
+var startPosition = { 
+	lat: 52.52000659999999, 
+	lng: 13.404953999999975 
+};
+
+function updateMarkers() {
+	$('.locations').empty();
+	markers.forEach( (marker) => {
+		$('.locations').append(`
+			<option value="${marker.id}">${marker.title}</option>
+		`);
+	});	
+}
+
+function randomString(length) {
+	let ret = '';
+	let alphabet = 'abcdefghjklmnopqrstuvwxyz1234567890';
+	for(var i=0; i<length; i++) {
+		ret += alphabet[Math.floor(Math.random() * alphabet.length - 1)];
+	}
+
+	return ret;
+}
+
+// will be called by google maps api
+function initMap( lat, lng ) {
+	if(lat && lng) {
+		myLatLng = { 
+			lat: lat, lng: lng 
+		};		
+	}
+
+	map = new google.maps.Map(document.getElementById('map'), {
+	  zoom: 11,
+	  center: startPosition
+	});
+
+	console.log(map);
+
+	for(var i=0; i<initialLocations.length; i++) {
+		var newMarker = new google.maps.Marker({
+		  position: initialLocations[i].position,
+		  map: map,
+		  title: initialLocations[i].name,
+		  id: randomString(5)
+		});		
+		markers.push(newMarker);
+	}
+
+	updateMarkers();
+}
+
+$(document).ready( function() {
+	console.log('Document is loaded.');
+
+	$('.new-location').on('click', function(e) { 
+		var geocoder =  new google.maps.Geocoder(); 
+		var locationName = $('.location').val();
+		geocoder.geocode({ 'address': locationName }, 
+			function(results, status) {
+			  if (status == google.maps.GeocoderStatus.OK) {
+				  let lat = results[0].geometry.location.lat();
+				  let lng = results[0].geometry.location.lng();
+				  
+				  var newMarker = new google.maps.Marker({
+					position: { lat: lat, lng: lng },
+					id: randomString(5),
+					map: map,
+					title: locationName
+				  });	
+				  
+				  markers.push(newMarker);
+				  updateMarkers();
+				  map.setCenter({ lat: lat, lng: lng });
+				  $('.location').val('');
+ 			  } 
+			  else {
+				alert('This location is invalid');
+			  }
+			});
+	});
+
+	$('.zoomout').on('click', function(e) {
+		map.setZoom(3);
+	});	
+
+	$('.locations').on('change', function(e) {
+		let markerId = $(this).val();
+
+		for(let i=0; i<markers.length; i++) {
+			if(markers[i].id === markerId) {
+				map.setCenter(markers[i].position);
+			}
+		}
+	});
+
+	$('.remove-location').on('click', function(e) {
+		let markerId = $('.locations').val();
+
+		for(let i=0; i<markers.length; i++) {
+			if(markers[i].id === markerId) {
+				markers[i].setMap(null);
+				markers.splice(i, 1);
+				return;
+			}
+		}		
+	});
+});
+
+CSS
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.432);
+}
+
+.navigation {
+    flex: 0 1 24px;
+    padding: 10px;
+}
+
+.content {
+    flex: 1 1 auto;
+}
+
+.footer {
+    flex: 0 1 40px;
+}
+
+

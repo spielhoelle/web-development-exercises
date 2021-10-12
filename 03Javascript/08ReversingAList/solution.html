@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h1>Reverse ordering of a list</h1>
+
+    <div class="mt-4">
+      <ul id="people">
+        <li>Alvin</li>
+        <li>Betty</li>
+        <li>Chris</li>
+        <li>Daniela</li>
+        <li>Frank</li>
+        <li>Gabriela</li>
+      </ul>
+    </div>
+
+    <button id="btn-reverse" class="btn btn-secondary mt-4">
+      <i class="fas fa-redo"></i> Reverse
+    </button>
+  </div>
+  <script>
+    /*********************************************************************
+     * EXERCISE
+     *********************************************************************
+     *
+     * Create a function that reverses the items of a list (unordered or
+     * ordered) and has no return value.
+     *
+     * Add the needed JavaScript to reverse the displayed list in our
+     * example whenever the button is used.
+     */
+
+    // Call the function to register all events
+    registerEvents();
+
+    // SOLUTION 1: Collecting, removing and adding items in multiple steps
+
+    /**
+     * Reverses all items of a list that is targeted by CSS selector.
+     *
+     * @param {string} selector
+     */
+    function reverseList(selector) {
+      // Get the list element
+      const list = document.querySelector(selector);
+
+      if (!list || !isListElement(list)) {
+        throw new Error("The selector does not match any list element.");
+      }
+
+      // Get all list items
+      const listItems = list.querySelectorAll("li");
+
+      // Initialize a new array for the reversed items
+      let listItemsNew = [];
+
+      // Loop through all items that we collected
+      listItems.forEach((item) => {
+        // Add the item to the new array
+        listItemsNew.push(item);
+
+        // Remove the item from the list
+        list.removeChild(item);
+      })
+
+      // Reverse the items in our new array
+      listItemsNew = listItemsNew.reverse();
+
+      // Loopt through all of the new items
+      listItemsNew.forEach((item) => {
+        // Append the item to the list
+        list.appendChild(item);
+      })
+    }
+
+    // SOLUTION 2:
+
+    /**
+     * Reverses all items of a list that is targeted by CSS selector.
+     *
+     * @param {string} selector
+     */
+    function reverseListShort(selector) {
+      // Get the list element
+      const list = document.querySelector(selector);
+
+      if (!list || !isListElement(list)) {
+        throw new Error("The selector does not match any list element.");
+      }
+
+      // Get all list items
+      const listItems = list.querySelectorAll("li");
+
+      // Loop through the reversed list of items by converting the NodeList
+      // into an array first.
+      Array.from(listItems).reverse().forEach((item) => {
+        // appendChild removes an item from the target element, if it
+        // already exists in the tree.
+        list.appendChild(item);
+      });
+    }
+
+    // EVENT REGISTRATION:
+
+    /**
+     * Registers all events of the application.
+     */
+    function registerEvents() {
+      document.querySelector("button").addEventListener("click", () => {
+        reverseList("#people");
+      });
+    }
+
+    // HELPER FUNCTIONS:
+
+    /**
+     * Checks if a given HTML element is a list.
+     *
+     * @param {Element} htmlElement
+     * @return {boolean}
+     */
+    function isListElement(htmlElement) {
+      const listTags = ["ul", "li"];
+      const tagName = htmlElement.tagName.toLowerCase();
+
+      if (listTags.includes(tagName)) {
+        return true;
+      }
+
+      return false;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mini Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Image Gallery</div>
+            <div class="navigation">
+                <div class="navi-search">
+                    <input type="text" id="searchbox" class="searchbox" placeholder="search ...">
+                    <button id="btngo" class="go">GO</button>
+                </div>
+                <div class="navi-right">
+                    <button id="btnuploadimage" class="btnuploadimage">Upload Image</button>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div id="thumbnailcontainer" class="thumbnail-container">
+            </div>
+            <div id="uploadimage" class="uploadimage">
+                <div class="fileform">
+                    <form ref='uploadForm' 
+                        id='uploadForm' 
+                        action='/upload'
+                        method='post' 
+                        encType="multipart/form-data">
+                        <input type="file" name="sampleFile" />
+                        <input type="text" name="tags" value="tag1,tag2,tag3,..." />
+                        <input type='submit' value='Upload!' />
+                    </form>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="detaillayer" class="detail-layer">
+        <div class="detail-container">
+            <div id="leftarrow" class="left-arrow"></div>
+            <div id="detailimage" class="detail-image"></div>
+            <div id="rightarrow" class="right-arrow"></div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+## 
+## Flowtest1
+## 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background: #ccc;
+            }
+
+            .box {
+                /* play around with % */
+                width: 100px;
+                height: 100px;
+            }
+
+            #red { background-color: red; }
+            #green { background-color:green; }            
+            #blue { background-color:blue; }           
+            /* show also left */             
+            #yellow { background-color:yellow; float: right}                        
+
+        </style>
+    </head>
+    <body>
+        <div id="green" class="box"></div>
+        <div id="red" class="box"></div>
+        <div id="blue" class="box"></div>
+        <div id="yellow" class="box"></div>                        
+    </body>
+</html>
+
+##
+## Flowtest 2
+##
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            body {
+                margin: 0; 
+                padding: 0;
+                background: #ccc;
+            }
+
+            .box {
+                width: 100px;
+                height: 100px;
+            }
+
+            #red { background-color: red; float: left }
+            #green { background-color:green; float: left }
+            #blue { background-color:blue; }                     
+            #yellow { background-color:yellow; }
+            #purple { background-color: purple; float: right }
+            #pink { background-color: pink; float: right }            
+        </style>
+    </head>
+    <body>
+        <div id="red" class="box">float-left</div>          
+        <div id="green" class="box">float-left</div>
+        <div id="purple" class="box">no-float</div>
+        <div id="pink" class="box">no-float</div>
+        <div style="clear: left"></div>
+        <div id="blue" class="box"></div>
+    </body>
+</html>
+
+##
+## Flowtest 3
+##
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            body {
+                margin: 0; 
+                padding: 0;
+                background: #ccc;
+            }
+
+            #container { width: 600px; margin: 0 auto; background-color: aquamarine; }
+            .header { height: 100px; background-color: blueviolet; }
+            .content { width: 400px; height: 500px; float: left; background-color:dodgerblue; }
+            .nav { width: 200px; float: left; background-color:lightsalmon; }
+            /* first, do without the clear */
+            .footer { width: 600px; background:magenta; clear: both; }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="header">
+                Hello, I am the header
+            </div>
+            <div class="content">
+                Hello, I am the content
+            </div>
+            <div class="nav">
+                Hello, I am the navbar
+            </div>
+            <div class="footer">
+                hallo, i am the footer
+            </div>
+        </div>
+    </body>
+</html>
+
+## 
+## positioning
+## 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Positioning</title>
+        <link href="styles.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="container">
+            <h1>CSS Positioning</h1>
+            <h2>Relative Positioning</h2>
+            <div id="relative-box" class="box">hello, i am relative</div>
+
+            <h2>Absolute Positioning</h2>
+            <div id="absolute-box" class="box">hello, i am absolute</div>
+        </div>
+    </body>
+</html>
+
+# css
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #333;
+    color: #222;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#container {
+    position: relative;
+    background: white;
+    width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.box {
+    background: #db4e4e;
+    color: white;
+    height: 150px;
+    width: 150px;
+    margin: 20px 0;
+}
+
+#relative-box {
+    position: relative;
+    top: 30px;
+    /* move -70px first */
+    left: -70px;
+}
+
+/* do not show this at the beginning */
+#absolute-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+##
+## Task7
+##
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Blogpage</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="blog-post">
+                <h1>My first blogpost</h1> 
+                <p class="date">April 5th, 2018</p>                
+                <h2>This is my first blog post</h2>
+                <p class="main-text">            
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,            
+                </p>
+                <a href="http://www.devugees.org">Link to Devugees</a>
+                <br>
+                <a href="http://www.devugees.org" target="_blank">Link to Devugees in a new tab</a> <br>
+                <a href="logo.jpg">HTML Logo</a>       
+                
+                
+                <h2>HTML is amazing</h2>
+                <p class="main-text">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,            
+                </p>
+                <img src="logo.jpg" alt="The logo">
+            </div>
+
+            <div class="other-posts">
+                <div class="other">
+                    The first other blogpost
+                </div>
+                
+                <div class="other">
+                    Yet another blogpost
+                </div>    
+
+                <div class="other">
+                    The best post ever: read this!
+                </div>                                
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="author-box">
+                <img src="user.jpg" alt="The user."/>
+                <p class="author-text">Jackson Gonzalez</p>
+            </div>
+
+        </div>
+    </body>
+</html>
+
+
+## css
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+body {
+    font-family: Helvetica, Arial;
+    font-size: 18px;
+}
+
+h1, h2 {
+    color: green;
+}
+
+h1 {
+   font-size: 50px;
+   margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 25px;
+}
+
+.main-text {
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+.author-text {
+    font-size: 22px;
+    float: left;
+    margin-top: 30px;
+    margin-left: 30px;    
+}
+
+.container {
+    width: 1140px;
+    /* top right bottom left */
+    margin: 20px auto 0 auto;
+}
+
+.blog-post {
+    width: 75%;
+    float: left;
+    position: relative;
+}
+
+.other-posts {
+    width: 25%;
+    float: left;
+}
+
+.author-box {
+    padding: top 10px;
+    border-top: 1px solid rgb(129, 129, 129); 
+
+}
+
+.author-box img {
+    height: 100px; 
+    width: 100px;
+    border-radius: 50%;
+    float: left;
+}
+
+.blog-post img {
+    height: 150px;
+    width: auto;   
+}
+
+.date {
+     position: absolute;
+     top: 0;
+     right: 30px;
+}
+
+
+##
+## task 8
+##
+
+
+<html>
+    <head>
+        <title>Sunshine Farmer's Market</title>
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <a href="#" title="Return to Home Page" id="logo">
+            <img src="images/market_logo.png" alt="Sunshine Annual Farmer's Market">
+        </a>
+
+        <div id="container">
+            <div id="main-content">
+                <h1>Welcome to Sunshine!</h1>
+                <p class="lead">Welcome to the Annual Sunshine Farmer's Market. Our farmers are passionate about bringing you their finest whole foods. Dont forget do drop by every Saturday at 10am.</p>
+                <div id="special-offer">
+                    <h2>Special Offer</h2>
+                    <p>Dont forget, this Saturday when you buy 10 cuts of meat, you get 10 cuts free!</p>
+                    <img src="images/steak.png" alt="A juicy steak" id="steak">
+                </div>
+            </div>
+
+            <div id="sidebar">
+                <div class="widget">
+                    <h3>Our Location</h3>
+                    <address>
+                        <ul>
+                            <li>100 Farmer's Way</li>
+                            <li>Farmtowne, Barnsville</li>
+                        </ul>
+                    </address>
+                </div>
+                <div class="widget">
+                    <h3>Our Mission</h3>
+                    <p>To bring you the freshest, finest qualitfy whole foods our farms can make!</p>
+                </div>
+                <div class="widget">
+                    <h3>Contact Us</h3>
+                    <p>Send us an email at:</p>
+                    <a href="mailto:farmers@market.com">farmers@market.com</a>
+                </div>                             
+            </div>
+        </div>
+    </body>
+</html>
+
+## css
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #adb195 url('images/green_background.jpg') top left repeat;
+    color: #75480a;
+    /* go to CSS Fontstack */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+/* layout */
+
+#logo {
+    display: block;
+    width: 200px;
+    margin: 40px auto;
+    /* later, because we have links down the page */
+    background: none;
+}
+
+#container {
+    width: 760px;
+    margin: 0 auto;
+    padding: 40px;
+    background: url('images/yellow_background.jpg') top left repeat;
+}
+
+
+#container:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+#main-content {
+    width: 500px;
+    float: left;
+}
+
+#sidebar {
+    background: url('i760pxmages/texture_background.jpg') top left repeat;
+    float: left;
+    width: 200px;
+    padding: 20px 20px 0;
+    margin: 0 0 0 20px;
+}
+
+#sidebar h3 {
+    background: url('images/green_background.jpg') top left repeat;
+    padding: 10px 10px 10px 30px;
+    margin: 0 0 5px;
+    color: white;
+    position: relative;
+    left: -30px;
+}
+
+#sidebar .widget {
+    margin: 0 0 20px;
+}
+
+#sidebar a:link {
+    display: inline-block;
+}
+
+#special-offer {
+    position: relative;
+    background: url('images/red_background.jpg') top left repeat;
+    color: white;
+    padding: 0 20px 20px;
+    margin: 60px 0 0 0;
+}
+
+#special-offer h2 {
+    font-size: 22px;
+    background: url('images/green_background.jpg') top left repeat;
+    padding: 5px;
+    display: inline;
+    position: relative;
+    top: -15px;
+    left: -35px;
+}
+
+#steak {
+    position: absolute;
+    bottom: -20px;
+    right: 10px;
+}
+
+/* typography */
+
+
+h1 {
+    font-size: 40px;
+}
+
+address ul {
+    list-style: none;
+}
+
+a:link {
+    background: #577a1b;
+    color: white;
+    text-decoration: none;
+}
+
+

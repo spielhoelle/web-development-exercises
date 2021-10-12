@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style media="screen">
+    body {
+      background-color: #1d1f20;
+      color: #999;
+      padding-top: 2rem;
+    }
+
+    h1 span {
+      color: #4682B4;
+    }
+
+    p span {
+      color: #96b38a;
+    }
+
+    #result {
+      background: #ffc600;
+      margin: 2rem 0 0 0;
+      padding: 3rem;
+      text-align: center;
+      font-size: 3rem;
+      letter-spacing: 0.25rem;
+      color: #fff;
+      cursor: url('http://csscursor.info/source/santahand.png'), default;
+      text-shadow: 1px 1px 2px #000000;
+    }
+
+    #result .jump {
+      display: inline-block;
+      transition: transform 0.2s;
+
+    }
+
+    #result .jump:hover {
+      transform: translateY(-15px) rotate(7deg) scale(1.5);
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="container">
+    <h1>
+      <span>ES6</span>
+      Exercises: The Spread Operator
+    </h1>
+    <br>
+    <p>
+      Use <span>document.querySelector()</span>, <span>.map()</span> and the <span>spread operator</span> to wrap a span around each letter of the large word with the class <span>.jump</span>.
+    </p>
+    <p>
+      <strong>Important:</strong> JavaScript only!
+    </p>
+    <div id="result">
+      FANTASTIC!
+    </div>
+  </div>
+  <script>
+    const result = document.querySelector('#result')
+    const wrapped = wrapSpan(result.innerText, 'jump')
+    result.innerHTML = wrapped
+
+    function wrapSpan(word, cssClass) {
+      return [...word].map((letter) => `<span class="${cssClass}">${letter}</span>`).join('')
+    }
+  </script>
+</body>
+
+</html>

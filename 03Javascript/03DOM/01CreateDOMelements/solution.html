@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <script>
+    function listGenerator(numItems) {
+      var items = '';
+
+      for (var i = 1; i <= numItems; i++) {
+        items = items + '\t<li> Index ' + i + '</li>\n';
+      }
+
+      var result = '\n<ul>\n' + items + '</ul>';
+      return result;
+    }
+
+    var websiteTemplate =
+      "<html>\n" +
+      "\t<head>\n" +
+      "\t\t<title>%TITLE</title>\n" +
+      "\t</head>\n" +
+      "\t<body>\n" +
+      "\t<div>%MYLIST</div>" +
+      "\t</body>\n" +
+      "</html>\n";
+
+    function createTemplate(title, numItems) {
+      return websiteTemplate.replace('%TITLE', title)
+        .replace('%MYLIST', listGenerator(numItems));
+    }
+
+    document.write(createTemplate("My title", 20))
+  </script>
+</body>
+
+</html>

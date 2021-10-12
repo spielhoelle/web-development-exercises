@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ES6 Map, Filter, Reduce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      const food = ["cow", "potato", "chicken", "corn"];
+      //classic function
+      var cook = food => {
+        switch (food) {
+          case "cow":
+            return "burger";
+            break;
+          case "potato":
+            return "pommes";
+          case "chicken":
+            return "wings";
+          case "corn":
+            return "popcorn";
+            break;
+          default:
+            return "Looking forward to the Weekend";
+        }
+      };
+
+      function isVeg(food) {
+        if (food === "potato" || food === "corn") {
+          return food;
+        }
+      }
+      console.log(food.filter(isVeg));
+
+      const isVeg2 = food => food === "potato" || food === "corn";
+
+      console.log(food.filter(isVeg2));
+      const hits = [2, 4, 7, 12, 15, 18, 199];
+
+      const sum2 = function(sum, acc) {
+        return sum + acc;
+      };
+      const sum = (sum, acc) => sum + acc;
+
+      console.log(hits.reduce(sum));
+      console.log(hits.reduce(sum2));
+
+      document.getElementById("root").innerHTML = `
+        <strong>Cook:</strong> ${food.map(cook)}
+        <br/>
+        <strong>isVeg:</strong> ${food.filter(isVeg)}
+        <br/>
+        <strong>Sum:</strong> ${hits.reduce(sum, 0)}
+      `;
+    </script>
+  </body>
+</html>

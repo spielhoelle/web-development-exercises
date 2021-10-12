@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  Open the javascript console and 
+  <button id='btn'>Start</button>
+  <script type="text/javascript">
+    var run = function() {
+      var Question = function(q, answers, correctAnswer) {
+        this.q = q;
+        this.answers = answers;
+        this.correctAnswer = correctAnswer;
+      }
+
+      Question.prototype.printAnswers = function() {
+        console.log(this.q + '\n');
+        for (var i = 0; i < this.answers.length; i++) {
+          console.log(i + ': ' + this.answers[i]);
+        }
+      }
+
+      Question.prototype.checkAnswer = function(a) {
+        if (a == this.correctAnswer) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      var questions = [
+        new Question('What is 1+1?', ['-2', '2', '7'], 1),
+        new Question('Is a banana an animal?', ['yes', 'no'], 1),
+        new Question('Is the earth flat?', ['yes', 'no'], 1),
+        new Question('What is 2^5? (2 to the power of 5)', ['32', '64', '10'], 0),
+        new Question('How big is the distance between the earth and the moon?', ['384.400 km', '149.600.000 km', '109.200.000 km'], 0)
+      ];
+
+
+      // later introduce the closure way (nerdy)
+      function score() {
+        var s = 0;
+        return function(correct) {
+          if (correct) {
+            s++;
+          }
+          return s;
+        }
+      }
+
+      var keepScore = score();
+
+      // easy way
+      var score = 0;
+      while (true) {
+        var randomQuestion = Math.round(Math.random() * (questions.length - 1));
+        questions[randomQuestion].printAnswers();
+
+        var answer = prompt('Please type the number of the correct answer.');
+
+        if (answer === 'exit') {
+          break;
+        }
+
+        if (questions[randomQuestion].checkAnswer(answer)) {
+          console.log('Correct Answer');
+          // easy way
+          score++;
+          // nerdy way
+          console.log('the score is: ' + keepScore(true));
+        } else {
+          console.log('Incorrect Answer');
+          // nerdy way
+          console.log('the score is: ' + keepScore(false));
+        }
+      }
+    };
+    document.getElementById('btn').addEventListener('click', function(){
+      run()
+    })
+  </script>
+</body>
+
+</html>

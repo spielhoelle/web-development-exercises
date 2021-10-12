@@ -1,0 +1,18 @@
+Task 3
+
+Extend your app to use a backend with the JQuery AJAX functionality.
+
+1 - Hence, go into the jquery/gmprojectex folder and there install the required
+    node modules using:
+
+    $ npm install express body-parser randomstring path
+
+2 - The files index.html, main.js and style.css are almost empty. Replace these files
+    by your code or integrate your code in them. At the end, it matters that your
+    frontend code works in the new environment.
+3 - When the app loads, perform a GET request to /location and retrieve
+    the locations as JSON.
+4 - When the user creates a new location, perform a POST request to /location 
+    and send a body like { lat: 12.000, lng: 13.000, title: 'Jamaica' }.
+5 - When the user removes a location, perform a DELETE request to /location
+    like /location/h48ca, whereas "h48ca" is the location id

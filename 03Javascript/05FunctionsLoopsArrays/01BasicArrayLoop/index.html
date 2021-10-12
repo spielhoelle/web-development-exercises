@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Array loops</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <style>
+      body {
+        color: #555;
+        padding-top: 2rem;
+      }
+
+      h1 {
+        margin-bottom: 1.5rem;
+      }
+
+      .content {
+        margin: 0 1rem;
+      }
+
+      h1 span {
+        color: #3672a4;
+      }
+
+      p span,
+      a {
+        color: #3672a4;
+      }
+
+      a {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1><span>JavaScript</span> Array Loops</h1>
+
+      <p>
+        The following <span>table</span> is completely build using
+        <span>JavaScript</span>.
+      </p>
+
+      <div id="table">
+        <!-- The table should be generated inside of this element! -->
+        <!-- <table class="table table-striped table-bordered"> -->
+      </div>
+    </div>
+    <script>
+      const contacts = [
+        ["Justus", "Jonas", ["justus@mail.com"], "address"],
+        ["Peter", "Shaw", ["peter.shaw@mail.com", "peter.shaw@mail.de"]],
+        ["Bob", "Andrews", ["bob.andrews@mail.com", "bob.andrews@mail.de"]]
+      ];
+
+      let html = `
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email addresses</th>
+              </tr>
+            </thead>
+          <tbody>
+          `;
+
+      contacts.forEach(function(ROW) {
+        html += `
+              <tr>
+                <td>${ROW[0]}</td>
+                <td>${ROW[1]}</td>
+                <td>${ROW[2].join("<br>")}</td>
+              </tr>
+          `;
+      });
+
+      html += `
+            </tbody>
+          </table>
+          `;
+
+      document.querySelector("#table").innerHTML = html;
+    </script>
+  </body>
+</html>

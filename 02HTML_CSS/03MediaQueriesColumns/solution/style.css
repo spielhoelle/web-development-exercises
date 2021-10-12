@@ -1,0 +1,36 @@
+body {
+  margin: 0px;
+  font-family: Arial;
+}
+
+section {
+  padding: 8px;
+  background-color: pink;
+}
+
+.black {
+  background-color: black;
+}
+article {
+  background-color: #eaeaea;
+  width: 50%;
+  float: left;
+}
+/*The media query*/
+@media (max-width: 600px) {
+  article {
+    width: 100%;
+  }
+}
+article div {
+  background-color: #ceffce;
+  padding: 0 8px;
+}
+
+article div h2,
+article div p {
+  background-color: #d7d7ff
+}
+.clear {
+  clear: left;
+}

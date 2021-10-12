@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Mini-Shop</div>
+            <div class="navigation">
+                <div class="navi-categories">
+                    <a href="#" onclick="loadProducts()" class="category">All</a> |
+                    <a href="#" onclick="loadProducts('Books')" class="category">Books</a> |
+                    <a href="#" onclick="loadProducts('Movies')" class="category">Movies</a> |
+                    <a href="#" onclick="loadProducts('Music')" class="category">Music</a>
+                </div>
+                <div class="navi-right">
+                    <a href="#" onclick="showCart()" class="category">Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div id="thumbnailcontainer" class="thumbnail-container">
+            </div>
+            <div class="product-details" id="productdetails">
+                <div class="product-container">
+                    <div  class="product-image">
+                        <img alt="" id="productimage">
+                    </div>
+                    <div id="productinfos" class="product-infos">
+                        <h2 id="productname"></h2>    
+                        <div class="product-description" id="productdescription">
+                        </div>
+                        <div class="product-buy">
+                            <div>
+                            <span class="price" id="price"></span>
+                            € x 
+                            <input type="number" class="quantity" placeholder="1" id="quantity" min="1" max="9"> = <span class="total-amount" id="totalamount"></span>€
+                            <button class="btnaddcart" id="btnaddcart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cart" id="cart">
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

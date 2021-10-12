@@ -1,0 +1,845 @@
+-- TooLate Backend
+
+const express = require('express');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const app = express();
+const mongoose = require('mongoose');
+const Laties = require('./toolatemodel.js');
+const Users = require('./usermodel.js');
+const randomstring = require('randomstring');
+const mailnotifier = require('./mailnotifier');
+
+// task:
+//
+// 1. protect routes: only let users read, write and delete laties
+//    when they are 'jan' and admin
+// 2. create a post method /logout, that destroys the session
+
+mongoose.connect('mongodb://localhost/toolate');
+app.use(express.json());
+app.use(cookieParser());
+app.use(session({
+    secret: 'mySecretKey',
+    resave: true,
+    saveUnitialized: true
+}));
+
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function(req, res) {
+    return res.send({ toolate: '1.0' });
+});
+
+function auth(req, res, next) {
+    if(req.session && req.session.user === 'jan' && req.session.admin === true) {
+        return next();
+    }
+    else {
+        return res.send(401);
+    }    
+}
+
+app.get('/laties', auth, function(req, res) {
+    Laties.find({},     function(err, result) {
+        if(err) {
+            return res.send({ error: err });
+        }
+
+        if(!result) {
+            return res.send({ error: 'some other error' })
+        }
+
+        return res.send(result);
+    });
+});
+
+app.post('/laties', auth, function(req, res) {
+    if(!req.body.name || !req.body.time || !req.body.date) {
+        return res.send({ error: 'name, time and date needed' });
+    }
+
+    let newLaty = new Laties(req.body);
+    newLaty.save(function(err, newRecord) {
+        if(err) return res.send({ error: err });
+
+        return res.send({ ...req.body, id: newRecord._id })
+    });
+});
+
+app.delete('/laties/:id', auth, function(req, res) {
+    Laties.findById(req.params.id, function(err, laty) {
+        if(!laty)
+            return res.send({ err: 'laty not found '});
+
+        laty.remove(function(err) {
+            if(err) return res.send(err);
+            return res.send(laty);
+        });
+    });
+});
+
+app.post('/login', function(req, res) {
+    if(!req.body.email || !req.body.password) 
+        return res.send({ error: 'username password required' });
+
+    Users.findOneAndUpdate({ email: req.body.email, password: req.body.password, active: true },
+        { lastLogin: new Date() },
+        function(err, user) {
+            if(err) {
+                return res.send({ error: err });
+            }
+
+            if(!user) {
+                return res.send({ error: 'user not found' })
+            }
+
+            req.session.user = req.body.email;
+            req.session.admin = true;
+            console.log(JSON.stringify(req.session));
+        
+            return res.send(user);
+        });
+});
+
+app.post('/signup', function(req, res) {
+    if(!req.body.email || !req.body.password || !req.body.repeatpassword) {
+        return res.send({ error: 'email, password and repeat password required' });
+    }
+
+    if(req.body.password !== req.body.repeatpassword) {
+        return res.send({ error: 'password and repeat password need to be identical' });
+    }    
+
+    let activationCode = randomstring.generate(20);
+    let newUserObj = {
+        email: req.body.email,
+        password: req.body.password,
+        activationCode: activationCode,
+        active: false
+    };
+
+    let newUser = new Users(newUserObj);
+    newUser.save(function(err, newRecord) {
+        if(err) return res.send({ error: err });
+
+        mailnotifier.sendMail(req.body.email, 'Your registration at tooLate', 
+        `Hi, 
+         please confirm your registration by clicking the following link 
+         <a href="http://localhost:3000/?activate=${activationCode}">Activation Link</a>`);
+
+        return res.send({ ...newUserObj, error: 0 , id: newRecord._id });
+    });    
+});
+
+app.get('/activate/:activationcode', function(req, res) {
+    Users.findOneAndUpdate({ activationCode: req.params.activationcode },
+        { active: true },
+        function(err, user) {
+            if(err) {
+                return res.send({ error: err });
+            }
+
+            if(!user) {
+                return res.send({ error: 'user not found' })
+            }
+
+            return res.send({ error: 0 });
+        });
+});
+
+app.post('/logout', function(req, res) {
+    if(req.session) {
+        req.session.destroy();
+        return res.send({ error: 0 });
+    }
+});
+
+app.listen(3000);
+
+
+-- Frontend
+
+$(document).ready(function() {
+    console.log('ready');
+
+    let urlParts = window.location.href.split('?');
+    if(urlParts && urlParts.length > 1) {
+        let lastPart = urlParts[1];
+        let activationCode = lastPart.split('=')[1];
+        
+        $.ajax({
+            url: '/activate/' + activationCode,
+            method: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(data) {
+                console.log('success ' + data);
+
+                if(data.error == 0) {
+                    alert('Your account has been activated!');
+                }
+                else {
+                    alert('Invalid activation code');
+                }
+            },
+            error: function(err) {
+                console.log('error ' + err);
+            }
+        });
+    }
+  
+    let loggedIn = localStorage.getItem('loggedIn');
+    if(loggedIn && loggedIn == 1) {
+        buildApp();
+    }
+    else {
+        buildAuth();
+    }
+});
+
+function buildApp() {
+    $('body').empty();
+    $('body').append(`
+        <div id="content" class="container">
+        <nav class="nav">
+            <a id="link-newlaty" class="nav-link active" href="#">Add Laty</a>
+            <a id="link-history" class="nav-link" href="#">Show all Laties</a>
+            <a id="link-logout" class="nav-link" href="#">Logout</a>
+        </nav>
+        </div>
+
+        <div id="content" class="container">
+        </div>
+    `);
+
+    $('#link-newlaty').on('click', () => {
+        // show the add laty form
+        $('#form-add').show();
+        $('#table-history').hide();
+    });
+
+    $('#link-history').on('click', () => {
+        // show the history
+        $('#form-add').hide();
+        $('#table-history').show();
+
+        loadHistory();
+    });
+    
+    $('#link-logout').on('click', () => {
+        $.ajax({
+            url: '/logout',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(data) {
+                console.log('success');
+                localStorage.setItem('loggedIn', 0);
+                buildAuth();
+            },
+            error: function(err) {
+                console.log('error ' + err);
+            }
+        });
+    });
+    
+    let now = new Date();
+    let dd = now.getDate();
+    let mm = now.getMonth() + 1;
+    
+    let yyyy = now.getFullYear();
+    if(dd < 10) {
+        dd='0'+dd;
+    }
+    if(mm < 10) {
+        mm='0'+mm;
+    }
+
+    let strNow = dd + '/' + mm + '/' + yyyy;
+    let strTime = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes(); 
+
+    $('#content').append(`
+        <form id="form-add">
+            <div class="row" style="margin-top: 150px">
+                <div class="col-3">
+                <input type="text" class="form-control" id="input-name" placeholder="Firstname">
+                </div>
+
+                <div class="col-3">
+                <input type="text" class="form-control" id="input-date" value="${strNow}">
+                </div>            
+
+                <div class="col-3">
+                <input type="text" class="form-control" id="input-time" value="${strTime}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px">Add New Laty</button>
+
+            <div class="alert alert-success" style="display: none; margin-top: 10px"><strong>Success</strong> New Laty was added</div>
+        </form>     
+    `);
+
+    $('#form-add').submit((e) => {
+        e.preventDefault();
+
+        let newLaty = {
+            name: $('#input-name').val(),
+            date: $('#input-date').val(),
+            time: $('#input-time').val()
+        };
+
+        $.ajax({
+            url: '/laties',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(newLaty),
+            success: function(data) {
+                console.log('success: ' + data);
+
+                $('.alert-success').show().delay(2000).fadeOut('slow');
+                $('#input-name').val('');
+                $('#input-date').val('');
+                $('#input-time').val('');
+            },
+            error: function(err) {
+                console.log('error ' + err);
+            }
+        })
+    });
+
+    $('#content').append(`
+        <table id="table-history" class="table" style="display: none; margin-top: 100px">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    `);
+
+    loadHistory();
+
+    $('tbody').on('click', '.btn-delete-laty', (e) => {
+        let row = $(e.target).parent().parent();
+        let dataId = row.attr('data-id');
+
+        $.ajax({
+            url: '/laties/' + dataId,
+            method: 'DELETE',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(data) {
+                row.remove();
+                console.log(data);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+}
+
+function loadHistory() {
+    $.ajax({
+        url: '/laties',
+        method: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(data) {
+
+            $('.table tbody').empty();
+            for(let i=0; i<data.length; i++) {
+                let start = moment.duration('09:15', 'HH:mm');
+                let end = moment.duration(data[i].time, 'HH:mm');
+                let diff = end.subtract(start);
+    
+                let tooLate = diff.hours() + ':' + diff.minutes();
+    
+                $('.table tbody').append(`
+                    <tr data-id="${data[i]._id}">
+                        <td>${data[i].name}</td>
+                        <td>${data[i].date}</td>
+                        <td>${data[i].time} (${tooLate})</td>
+                        <td><button type="button" class="btn btn-primary btn-delete-laty">Delete</button></td>
+                    </tr>
+                `)
+            }
+        },
+        error: function(err) {
+            console.log('error getting the toolate comers: ' + err);
+        }
+    });
+}
+
+function buildAuth() {
+    $('body').empty();
+    $('body').append(`
+        <div id="content" class="container">
+        <div class="row">
+        <div class="col-lg-12">
+                <div style="margin-top: 100px">
+                    <h2><b>Laty App</b></h2>
+                    <div id="authstart" style="display: flex; justify-content: center">
+                        <div style="padding: 10px; margin-right: 30px; width: 300px">
+                        <h2>Login</h2>
+                        <form id="form-login">
+                            <div class="form-group">
+                            <label for="username">Email</label>
+                            <input style="max-width: 350px" class="form-control" id="email" placeholder="Enter Email">
+                            </div>
+                            <div class="form-group">
+                            <label for="password">Password</label>
+                            <input style="max-width: 350px" type="password"  class="form-control" id="password" placeholder="Password">                        
+                            </div>               
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                        </div>
+
+                        <div style="padding: 10px; width: 300px">
+                        <h2>Sign-Up</h2>
+                        <form id="form-signup">
+                            <div class="form-group">
+                            <label for="email">Email</label>
+                            <input style="max-width: 350px" class="form-control" id="signup-email" placeholder="Enter Email">
+                            </div>
+                            <div class="form-group">
+                            <label for="password">Password</label>
+                            <input style="max-width: 350px" type="password"  class="form-control" id="signup-password" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                            <label for="repeat-password">Repeat Password</label>
+                            <input style="max-width: 350px" type="password" class="form-control" id="signup-repeat-password" placeholder="Repeat Password">
+                            </div>                                       
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </form>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>            
+        </div>    
+    `);
+
+    $('#form-login').submit((e) => {
+        e.preventDefault();
+
+        let userData = {
+            email: $('#email').val(),
+            password: $('#password').val()
+        };
+
+        $.ajax({
+            url: '/login',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(userData),
+            success: function(data) {
+                console.log('success ' + data);
+
+                if(data.error == 0) {
+                    localStorage.setItem('loggedIn', 1);
+                    buildApp();
+                }
+            },
+            error: function(err) {
+                console.log('error ' + err);
+            }
+        });
+    });
+
+    $('#form-signup').submit((e) => {
+        e.preventDefault();
+
+        let userData = {
+            email: $('#signup-email').val(),
+            password: $('#signup-password').val(),
+            repeatpassword: $('#signup-repeat-password').val()
+        };
+
+        $.ajax({
+            url: '/signup',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(userData),
+            success: function(data) {
+                console.log('success ' + data);
+
+                if(data.error == 0) {
+                    alert(`An email will be sent to ${userData.email} containing an activation link`);
+
+                    $('#signup-email').val('');
+                    $('#signup-password').val('');
+                    $('#signup-repeat-password').val('');
+                }
+            },
+            error: function(err) {
+                console.log('error ' + err);
+            }
+        });
+    });    
+}
+
+-- nodemailer
+
+var nodemailer = require('nodemailer');
+
+function sendMail(recipientAddress, subject, body) {
+	var smtpConfig = {
+		host: 'smtp.gmail.com',
+		port: 465,
+		secure: true,
+		auth: {
+			user: 'devugeesshop1234@gmail.com',
+			pass: 'devugees2018'
+		}
+	};
+						
+	var transporter = nodemailer.createTransport(smtpConfig);
+	var mailOptions = {
+		from: '"Devugees Shop" <devugeesshop1234@gmail.com>',
+		to: recipientAddress,
+		subject: subject,
+		text: body,
+		html: body
+	};
+
+	transporter.sendMail(mailOptions, function(err, info) {
+		if(err)
+			console.log('mail was not delivered');
+	});	
+}
+
+module.exports.sendMail = sendMail;
+
+-- usermodel
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+	email: String,
+	password: String,
+	lastLogin: String,
+	activationCode: String,
+	active: Boolean
+});
+
+var Users = mongoose.model('users', userSchema);
+module.exports = Users;
+
+
+-- bcrypt example
+
+const bcrypt = require('bcrypt');
+
+let hash = null;
+// first, we create a hash
+bcrypt.hash('myPassword', 10, function(err, result) {
+    // store hash in database
+    hash = result;
+    bcrypt.compare('myPassword', hash, function(err, res) {
+        if(res) {
+            // Passwords match
+            console.log('passwords match');
+        } else {
+            // Passwords don't match
+            console.log('passwords do not match');
+        } 
+      });    
+});
+
+-- async1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Callback/Promises/AsyncAwait Tutorial</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="main1.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Asynchronous Methods without passing data between the functions</h1>
+        <div>
+            <button onclick="addNumber()">Add Number</button>
+            <button onclick="addSomeNumbersDelayedCallback()">Add Numbers Callbacks</button>
+            <button onclick="addSomeNumbersDelayedPromise()">Add Numbers Promises</button>
+            <button onclick="addSomeNumbersDelayedAsyncAwait()">Add Numbers AsyncAwait</button>
+            <button onclick="clearNumbers()">Clear</button>
+        </div>        
+        <div id="numbers">
+
+        </div>
+        <div>
+            <h1 id="error"></h1>
+        </div>
+    </div>
+</body>
+</html>
+
+-- JS
+
+$(document).ready(function() {
+    console.log('document ready');
+});
+
+let currentIndex = 0;
+function addNumber() {
+    $('#numbers').append(`
+        <h3>${currentIndex}</h3>
+    `);
+
+    currentIndex++;
+}
+
+function clearNumbers() {
+    currentIndex = 0;
+    $('#numbers').empty();
+}
+
+addNumberDelayedPromise = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        addNumber();
+        // if(Math.random() > 0.8) {
+        //   reject();
+        // }
+        // else {
+        //   resolve();
+        // }
+        resolve();
+      }, 
+      1000)
+    })
+  }
+
+function addSomeNumbersDelayedCallback() {
+    setTimeout(() => {
+      addNumber();      
+      setTimeout(() => {
+        addNumber();      
+        setTimeout(() => {
+          addNumber();      
+          setTimeout(() => {
+            addNumber();      
+          }, 1000);
+        }, 1000);        
+      }, 1000);            
+    }, 1000);
+}
+
+// without async/await
+function addSomeNumbersDelayedPromise() {
+    addNumberDelayedPromise()
+    .then(addNumberDelayedPromise)
+    .then(addNumberDelayedPromise)
+    .then(addNumberDelayedPromise)
+    .then(addNumberDelayedPromise)
+    .catch((err) => {
+      $('#error').html('Error happened, promise rejected');
+    })
+}
+
+// with async/await -> just syntactic sugar for promises
+async function addSomeNumbersDelayedAsyncAwait() {
+    try {
+      await addNumberDelayedPromise();
+      await addNumberDelayedPromise();
+      await addNumberDelayedPromise();
+      await addNumberDelayedPromise();
+    }
+    catch(err) {
+        $('#error').html('Error happened, promise rejected');    
+    }
+}
+
+
+-- async2
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Callback/Promises/AsyncAwait Tutorial</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="main2.js"></script>
+</head>
+<body>
+    <div class="container" style="font-size: 22px">
+        
+    </div>
+</body>
+</html>
+
+--
+
+/*
+    1 - get user data
+    2 - load the orders of the user
+    3 - show recommendations for the user
+*/
+
+// callback way
+(function() {
+$(document).ready(function() {
+
+    function login(username, password, cb) {
+        setTimeout( function() {
+            cb({
+                username: 'max',
+                email: 'max@gmail.com',
+                lastLogin: '2018-08-09 15:20:01'
+            })
+        }, 1000 );
+    }
+    
+    function getOrdersFrom(user, cb) {
+        if(user === 'max') {
+            setTimeout( function() {
+                cb([
+                    { name: 'Playstation 4 Pro' },
+                    { name: 'PSVR' },
+                    { name: 'Resident Evil 7' }
+                ])
+            }, 1000 );
+        }
+    }
+    
+    function getRecommendations(orders, cb) {
+        if(orders) {
+            setTimeout( function() {
+                cb([
+                    { name: 'Eagle VR', price: 29.99 },
+                    { name: 'VR Gun', price: 99.99 },
+                    { name: 'Swat VR', price: 15.99 }
+                ])
+            }, 1000 );
+        }
+    }
+
+    login('max', 'abc123', function(user) {
+        $('.container').append('userdata from server: ' + JSON.stringify(user) + '<br>');
+
+        // we get the orders from max
+        getOrdersFrom(user.username, function(orders) {
+            $('.container').append('orderdata from server based on userdata: ' + JSON.stringify(orders) + '<br>'); 
+
+            // we get the recommendations for the orders
+            getRecommendations(orders, function(recommendations) {
+                $('.container').append('recommendations from server based on order data: :' + JSON.stringify(recommendations) + '<br>');
+            });
+        });
+    });
+
+})});//();
+
+
+//promise way 
+(function() {
+    $(document).ready(function() {
+        function login(username, password, cb) {
+            return new Promise( (resolve, reject) => {
+                setTimeout( function() {
+                    resolve({
+                        username: 'max',
+                        email: 'max@gmail.com',
+                        lastLogin: '2018-08-09 15:20:01'
+                    })
+                }, 1000 );
+            })
+        }
+        
+        function getOrdersFrom(user, cb) {
+            return new Promise( (resolve, reject) => {
+                if(user === 'max') {
+                    setTimeout( function() {
+                        resolve([
+                            { name: 'Playstation 4 Pro' },
+                            { name: 'PSVR' },
+                            { name: 'Resident Evil 7' }
+                        ])
+                    }, 1000 );
+                }
+            });
+        }
+        
+        function getRecommendations(orders, cb) {
+            return new Promise( (resolve, reject) => {
+                if(orders) {
+                    setTimeout( function() {
+                        resolve([
+                            { name: 'Eagle VR', price: 29.99 },
+                            { name: 'VR Gun', price: 99.99 },
+                            { name: 'Swat VR', price: 15.99 }
+                        ])
+                    }, 1000 );
+                }
+            });
+        }
+    
+        function promiseWay() {
+            login('max', '123abc')
+            .then((user) => { 
+                $('.container').append('userdata from server: ' + JSON.stringify(user) + '<br>');         
+
+                return getOrdersFrom(user.username);
+            })
+            .then((orders) => { 
+                $('.container').append('orderdata from server based on userdata: ' + JSON.stringify(orders) + '<br>');             
+                return getRecommendations(orders);
+            })
+            .then((recommendations) => { 
+                $('.container').append('recommendations from server based on orderdata:' + JSON.stringify(recommendations) + '<br>');
+            })        
+        }
+
+        async function asyncawaitWay() {
+            try {
+                let user = await login('max', '123abc');
+                $('.container').append('userdata from server: ' + JSON.stringify(user) + '<br>');
+
+                let orders = await getOrdersFrom(user.username);
+                $('.container').append('orderdata from server based on userdata: ' + JSON.stringify(orders) + '<br>'); 
+
+                let recommendations = await getRecommendations(orders);
+                $('.container').append('recommendations from server based on orderdata:' + JSON.stringify(recommendations) + '<br>');                
+            }
+            catch(e) {
+                console.log('error ' + e);
+            }
+        }
+
+        //promiseWay();
+        asyncawaitWay();
+
+        // login('max', 'abc123', function(user) {
+        //     $('.container').append('userdata from server ' + JSON.stringify(user) + '<br>');
+    
+        //     getOrdersFrom(user.username, function(orders) {
+        //         $('.container').append('orderdata for ' + user.username + ':' + JSON.stringify(orders) + '<br>'); 
+    
+        //         getRecommendations(orders, function(recommendations) {
+        //             $('.container').append('recommendations for ' + user.username + ':' + JSON.stringify(recommendations) + '<br>');
+        //         });
+        //     });
+        // });
+    
+    })}) ();
+
+
+

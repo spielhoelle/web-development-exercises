@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <style media="screen">
+    body {
+      background-color: #1d1f20;
+      color: #999;
+      padding-top: 2rem;
+    }
+
+    h1 span {
+      color: #4682B4;
+    }
+
+    p span {
+      color: #96b38a;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>
+      <span>ES6</span>
+      Destructuring: Exercise: Solution
+    </h1>
+    <br>
+    <p>
+      Use destructuring to parse CSV data and display it as a table.
+    </p>
+
+    <table class="table table-dark table-striped" id="books">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Year</th>
+          <th>ISBN</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    /**
+     * Exercise:
+     *
+     * Extract the CSV data and display a HTML table.
+     */
+
+    const data = [
+      'Deception Point,Dan Brown,2009,9781409083979',
+      'Robert Langdon Omnibus,Dan Brown,2005,9780593054604',
+      'The Pelican Brief,John Grisham,2010,9781407098203'
+    ]
+
+    const table = document.querySelector('#books tbody')
+
+    data.forEach((row) => {
+      const [title, author, year, isbn] = row.split(',')
+
+      const columns = `
+    <td>${title}</td>
+    <td>${author}</td>
+    <td>${year}</td>
+    <td>${isbn}</td>
+  `
+
+      const rowElement = document.createElement('tr')
+      rowElement.innerHTML = columns
+      table.appendChild(rowElement)
+    })
+  </script>
+</body>
+
+</html>

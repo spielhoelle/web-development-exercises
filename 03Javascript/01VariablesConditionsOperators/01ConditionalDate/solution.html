@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    /*****************************************************************
+     * EXERCISE SOLUTION
+     *****************************************************************
+     *
+     * Depending on the hours (of the current time) and the language (set in the browser), show the following message in the browser:
+     *
+     * 00:00 - 06:59
+     *
+     * "Good night!"
+     * "Gute Nacht!"
+     *
+     * 07:00 - 11:59
+     *
+     * "Good morning!"
+     * "Guten Morgen!"
+     *
+     * 12:00 - 17:59
+     *
+     * "Hello!"
+     * "Guten Tag!"
+     *
+     * 18:00 - 23:59
+     *
+     * "Good evening!"
+     * "Guten Abend!"
+     */
+
+    const date = new Date();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const language = (
+      window.navigator.userLanguage || window.navigator.language
+    ).substr(0, 2);
+
+    let messagePrefix = "It is";
+    let message = "Hello!";
+
+    switch (language) {
+      case "en":
+        if (hours < 7) {
+          message = "Good night!";
+        } else if (hours < 12) {
+          message = "Good morning!";
+        } else if (hours < 18) {
+          message = "Hello!";
+        } else {
+          message = "Good evening!";
+        }
+        break;
+
+      case "de":
+        messagePrefix = "Es ist";
+
+        if (hours < 7) {
+          message = "Gute Nacht!";
+        } else if (hours < 12) {
+          message = "Guten Morgen!";
+        } else if (hours < 18) {
+          message = "Guten Tag!";
+        } else {
+          message = "Guten Abend!";
+        }
+        break;
+    }
+
+    document.write(`
+        ${message}<br>
+        ${messagePrefix} ${hours}:${minutes}
+        `);
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+h1 Posts
+.card-columns.mb-3.text-center
+  each post in posts
+    .card.mb-4.shadow-sm
+      .card-body
+        h5.card-title=post.title
+        p=post.content
+        button.btn.btn-lg.btn-block.btn-outline-primary(type='button') Read more

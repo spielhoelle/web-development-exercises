@@ -1,0 +1,1070 @@
+##
+## MediaTube Grid Version
+##
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FlexBox Tube</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo">
+                MovieTube
+            </div>
+            <div class="header-container">
+                <div class="header">
+                    <div class="action menu-item"><a href="?categorie=Action">Action</a></div>
+                    <div class="thriller menu-item"><a href="?categorie=Thriller">Thriller</a></div>
+                    <div class="comedy menu-item"><a href="?categorie=Comedy">Comedy</a></div>
+                    <div class="horror menu-item"><a href="?categorie=Horror">Horror</a></div>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="sidebar">
+                    <div class="action menu-item"><a href="?categorie=Action">Action</a></div>
+                    <div class="thriller menu-item"><a href="?categorie=Thriller">Thriller</a></div>
+                    <div class="comedy menu-item"><a href="?categorie=Comedy">Comedy</a></div>
+                    <div class="horror menu-item"><a href="?categorie=Horror">Horror</a></div>
+                    </div>
+                <div class="thumbnail-container">
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>        
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                                                                                                       
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+## css
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    width: 100%;
+    background: #1a1a1a;
+}
+
+.logo {
+    padding: 5px;
+    font-size: 2em;
+    background: #000;
+    color: white;
+}
+
+.container {
+    min-width: 600px;
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 50px 50px auto;
+}
+
+.header-container {
+    background: rgb(68, 112, 255);
+    justify-content: center;
+    background: #4b4b4b;
+    display: grid;
+}
+
+.header-container .menu-item {
+    display: inline;
+}
+
+.header {
+    display: grid;
+    align-items: end;
+    grid-template-columns: repeat(4, auto);
+}
+
+.menu-item {
+    margin: 0 10px 5px 0;
+    text-transform: capitalize;
+    font-size: 18px;
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+.sidebar .menu-item {
+    color: #1a1a1a;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 120px auto;
+    min-height: 600px;
+}
+
+.content {
+    padding: 10px;
+    flex: 1;    
+}
+
+.sidebar {
+    width: 120px;
+    padding: 10px;
+    background: #eeeeee;
+}
+
+.thumbnail {
+    width: 150px;
+    height: 130px;
+    margin: 5px 10px;
+    background: #1a1a1a;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.2), 0 6px 20px 0 rgba(31, 31, 31, 0.19);
+}
+
+
+.thumbnail-container {
+    padding: 10px;    
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, 150px);
+    background: #4b4b4b;
+}
+
+.thumbnail:hover {
+    box-shadow: 0 4px 8px 0 rgba(230, 230, 230, 0.2), 0 6px 20px 0 rgba(236, 236, 236, 0.19);
+}
+
+
+/* pseudo selectors */
+
+a:link {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+.sidebar a:link {   
+    color: #1a1a1a;
+}   
+
+.sidebar a:visited {    
+    color: #1a1a1a;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.movie-description {
+    color: rgb(214, 214, 214);
+    text-align: center;
+}
+
+## 
+## Responsive 1
+## 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>Responsive 1</title>
+</head>
+<body>
+    <div class="a">
+        I am a small phone!
+    </div>
+    <div class="b">
+        I am a small phone or a small tablet!
+    </div>
+    <div class="c">
+        I am a small tablet or a big tablet!
+    </div>
+    <div class="d">
+        I am a big tablet!
+    </div>    
+</body>
+</html>
+
+## css
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+div {
+    display: none;
+}
+
+/* Big Tablet and Screen */
+@media only screen and (min-width: 1024px) {
+    .d { display: block; }
+    div:not(d) { display: none; }     
+}
+
+/* small tablet to big tablet, 768 to 1023 px */
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+    .c { display: block; }
+    div:not(c) { display: none; }     
+}
+
+/* small phones to small tablets: 481px to 767px */
+@media only screen and (max-width: 767px) and (min-width: 481px) {
+    .b { display: block; }
+    div:not(b) { display: none; }     
+}
+
+/* small phones: from 0 to 480px */
+@media only screen and (max-width: 480px) {
+    .a { display: block; }
+    div:not(a) { display: none; }
+}
+
+## 
+## Responsive 2
+## 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Responsive 2</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            header
+        </div>
+        <div class="content">
+            <div class="article">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam dolorum consequuntur ipsam quasi veritatis perferendis tempore alias pariatur officiis dolorem! Facere quis deleniti nostrum voluptates laudantium distinctio explicabo non in, suscipit optio quo mollitia reprehenderit, aspernatur quidem soluta nihil nemo.</div>
+            <div class="article">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum at commodi minima dolorum laudantium asperiores sed! Facilis culpa ipsa libero. Hic aliquam repellat impedit, natus aliquid ea quam! Ipsa rerum quis eius est praesentium quibusdam facere tempora itaque iste impedit!</div>
+            <div class="article">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime esse, dignissimos quo tenetur, ducimus assumenda, commodi deserunt dolorum officiis inventore enim ad delectus eveniet suscipit harum deleniti sequi doloremque corrupti fugiat reiciendis culpa vitae ullam! Ab omnis reiciendis nesciunt magni?</div>
+            <div class="article">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore, doloribus eius? Voluptatum ea debitis reiciendis iusto pariatur aperiam maxime reprehenderit dolor unde beatae animi nostrum totam, asperiores eligendi id dolorem maiores deleniti dolore et distinctio neque sit nihil ab iste.</div>
+            <div class="article">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, natus quia cupiditate omnis eligendi dolores illum mollitia dolorum cumque quibusdam, quam harum placeat incidunt minima veniam? Impedit, beatae! Corrupti est quia alias? Beatae ipsum laudantium dicta earum ducimus repellendus expedita.</div>
+            <div class="article">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum eos eum, voluptas veritatis libero vero enim, ducimus neque ullam quibusdam quae eveniet qui, quidem ipsa suscipit. Cumque corrupti officia beatae nemo excepturi facilis quo debitis at, sequi maiores, tempore quidem!</div>                
+        </div>
+        <div class="footer">
+            footer
+        </div>
+    </div>
+</body>
+</html>
+
+## css
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+}
+
+.header {
+    height: 70px;
+    background-color: aquamarine;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+}
+
+.article {
+    padding: 4px;
+    margin: 10px;
+    background: rgb(255, 43, 43);
+}
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: blueviolet;
+}
+
+@media only screen and (min-width: 768px) {
+    .footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+## 
+## Responsive 3
+## 
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+<body>
+
+<div class="topnav" id="myTopnav">
+  <a href="#home" class="active">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <a href="?" class="icon">&#9776;</a>
+</div>
+
+<div style="padding-left:16px">
+  <h2>Responsive Topnav Example</h2>
+  <p>Resize the browser window to see how it works.</p>
+</div>
+
+
+</body>
+</html>
+
+
+## css
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+  
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+  
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+  
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.topnav .icon {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav a:not(:first-child) { 
+        display: none; 
+    }
+    
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+
+    .topnav .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+
+##
+## Responsive 4
+##
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+    <meta name="viewport" content="width=900px, initial-scale=1.0"/>
+    <style>
+        .some-div {
+            background: #ff6a6a;
+            width: 460px;
+            height: 345px;
+        }
+    </style>
+</head>
+<body>
+    <p><b>To understand this example, you should open this page on a phone or a tablet.</b></p>
+
+    <div class="some-div"></div>
+
+    <p>
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+    Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+    Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+    </p>
+
+    </body>
+</html>
+
+##
+## Task
+##
+
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+        <div class="container clearfix">
+            <h1 class="page-name">Business</h1>
+
+            <nav id="nav">
+                <ul class="nav-container">
+                    <li class="nav-item nav-item-current">
+                        <a href="index.html">Home</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <form id="quicksearch">
+                <input type="text" name="q" placeholder="Search">
+                <button class="btn btn-quicksearch">Search</button>
+            </form>
+        </div>
+        <!-- /container -->
+    </header>
+
+    <section id="hero">
+        <div id="hero-text">
+            <h2>Hero images are great</h2>
+
+            <p>
+                We are offering the best hero images on earth and guarantee high quality photographs with high resolutions, taken by professional
+                photographers.
+            </p>
+        </div>
+    </section>
+
+    <div class="container-medium">
+        <section>
+            <div id="service-list" class="clearfix">
+                <div class="service-item">
+                    <img class="service-image" src="https://picsum.photos/140/140?image=830" width="140" height="140" alt="Our service">
+
+                    <h3 class="service-heading">Heading</h3>
+
+                    <p class="service-text">
+                        Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                        Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+                    </p>
+
+                    <a href="#" class="btn btn-gray">View details &raquo;</a>
+                </div>
+                <!-- /service-item -->
+
+                <div class="service-item">
+                    <img class="service-image" src="https://picsum.photos/140/140?image=1000" width="140" height="140" alt="Our service">
+
+                    <h3 class="service-heading">Heading</h3>
+
+                    <p class="service-text">
+                        Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                        Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+                    </p>
+
+                    <a href="#" class="btn btn-gray">View details &raquo;</a>
+                </div>
+                <!-- /service-item -->
+
+                <div class="service-item">
+                    <img class="service-image" src="https://picsum.photos/140/140?image=100" width="140" height="140" alt="Our service">
+
+                    <h3 class="service-heading">Heading</h3>
+
+                    <p class="service-text">
+                        Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                        Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+                    </p>
+
+                    <a href="#" class="btn btn-gray">View details &raquo;</a>
+                </div>
+                <!-- /service-item -->
+
+            </div>
+            <!-- /service-list -->
+        </section>
+        <!-- /services -->
+
+        <hr>
+
+        <section class="clearfix feature feature-reverse">
+            <div class="col col-40 feature-image-right">
+                <img src="https://picsum.photos/140/140?image=390" width="445" alt="Featurette 1">
+            </div>
+            <div class="col col-10">&nbsp;</div>
+            <div class="col col-50">
+                <h3>
+                    First featurette heading.
+                    <span class="light-gray">It'll blow your mind.</span>
+                </h3>
+                <p>
+                    Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+                </p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="clearfix feature">
+            <div class="col col-40">
+                <img src="https://picsum.photos/445/400?image=250" width="445" alt="Featurette 1">
+            </div>
+            <div class="col col-10">&nbsp;</div>
+            <div class="col col-50">
+                <h3>
+                    Oh yeah, it's that good.
+                    <span class="light-gray">See for yourself.</span>
+                </h3>
+                <p>
+                    Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+                </p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="clearfix feature feature-reverse">
+            <div class="col col-40 feature-image-right">
+                <img src="https://picsum.photos/445/500?image=550" width="445" alt="Featurette 1">
+            </div>
+            <div class="col col-10">&nbsp;</div>
+            <div class="col col-50">
+                <h3>
+                    Oh yeah, it's that good.
+                    <span class="light-gray">See for yourself.</span>
+                </h3>
+                <p>
+                    Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+                </p>
+            </div>
+        </section>
+
+        <hr class="last">
+    </div>
+
+    <footer id="footer">
+        <div class="container-medium clearfix">
+            <div class="col col-70">
+                <p>
+                    Business example, originally made with
+                    <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>.
+                    <br> But - we do not use the framework here!
+                </p>
+            </div>
+            <div class="col col-30">
+                <p class="text-align-right">
+                    <a href="#">Back to top</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+## index.css
+
+/* Global Styles */
+
+.container {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  display: block;
+  margin: 40px 0;
+}
+
+@media (min-width: 768px) {
+  hr {
+    margin: 100px 0;
+  }
+}
+
+hr.last {
+  margin: 100px 0 25px 0;
+}
+
+.textalign-right {
+  text-align: right;
+}
+
+/* Layout */
+
+#header .container,
+#footer .container {
+  padding: 5px 15px;
+}
+
+#header {
+  margin-bottom: 1px;
+}
+
+#nav {
+  display: inline-block;
+}
+
+#nav .nav-container {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#nav .nav-item {
+  display: inline-block;
+}
+
+#nav .nav-item a {
+  color: #ffffff;
+  display: block;
+  padding: 4px;
+  text-decoration: none;
+}
+
+#nav .nav-item-current a {
+  color: #aaa;
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  #nav .nav-item a {
+    padding: 10px;
+  }
+}
+
+#quicksearch {
+  float: right;
+  padding: 5px 0;
+}
+
+#quicksearch input[type="text"] {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 14px;
+  margin-right: 3px;
+  padding: 4px 6px;
+  vertical-align: middle;
+  width: 100px;
+}
+
+#quicksearch button {
+  background-color: transparent;
+  border: 1px solid #28a745;
+  color: #28a745;
+  font-size: 14px;
+  padding: 4px 5px;
+}
+
+@media (min-width: 768px) {
+  #quicksearch input[type="text"] {
+    font-size: 16px;
+    line-height: 16px;
+    margin-right: 5px;
+    padding: 8px 12px;
+  }
+
+  #quicksearch button {
+    padding: 10px 12px;
+  }
+}
+
+.container-medium {
+  margin: 0 auto;
+  width: 80%;
+}
+
+/* Contents */
+
+#hero {
+  background: #777777 url("https://picsum.photos/1820/900?image=649") no-repeat
+    top left;
+  background-size: cover;
+  position: relative;
+  height: 472px;
+  width: 100%;
+}
+#hero-text {
+  bottom: 15%;
+  color: #ffffff;
+  left: 5%;
+  position: absolute;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.73);
+  max-width: 60%;
+}
+
+#hero-text h2 {
+  font-size: 40px;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+#hero-text p {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+#service-list {
+  margin: 40px 0 0 0;
+}
+
+.service-item {
+  margin: 0 0 40px 0;
+  width: 100%;
+  text-align: center;
+}
+
+.service-item h3 {
+  color: #555;
+  font-size: 30px;
+  font-weight: 400;
+  margin: 15px 0;
+}
+
+.service-item p {
+  font-size: 14px;
+}
+
+.service-image {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+/** Tablet and larger  >= 768px */
+@media (min-width: 768px) {
+  #service-list {
+    margin-left: -30px;
+    margin-top: 50px;
+  }
+
+  .service-item {
+    display: block;
+    float: left;
+    margin: 0 0 30px 0;
+    padding-left: 50px;
+    width: 50%;
+  }
+}
+
+/* Desktop computers  >= 992px */
+@media (min-width: 992px) {
+  #service-list {
+    margin-left: -50px;
+    margin-top: 70px;
+  }
+
+  .service-item {
+    padding-left: 30px;
+    width: 33.333333%;
+  }
+}
+
+.feature .col {
+  float: none;
+}
+
+.feature-image-right {
+  text-align: left;
+}
+
+.feature img {
+  max-width: 100%;
+}
+
+.feature h3 {
+  color: #5a5a5a;
+  font-size: 25px;
+  font-weight: 400;
+  margin: 10px 0 15px 0;
+}
+
+.light-gray {
+  color: #868e96;
+}
+
+/** Small devices only < 768px */
+@media (max-width: 767px) {
+  .feature .col {
+    width: 100%;
+  }
+}
+
+/** Tablet and larger  >= 768px */
+@media (min-width: 768px) {
+  .feature .col {
+    float: left;
+  }
+
+  .feature-reverse .col {
+    float: right;
+  }
+
+  .feature-image-right {
+    text-align: right;
+  }
+
+  .feature h3 {
+    font-size: 30px;
+    font-weight: 400;
+    margin: 0px 0 20px 0;
+  }
+}
+
+/* Desktop computers  >= 992px */
+@media (min-width: 992px) {
+  .feature h3 {
+    font-size: 50px;
+    font-weight: 400;
+    margin: 80px 0 20px 0;
+  }
+}
+
+## main.css
+
+/* Global Styles */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        /* Safari for OS X and iOS (San Francisco) */
+            -apple-system,
+                /* Chrome >= 56 for OS X (San Francisco), Windows, Linux and Android */
+            system-ui,
+                /* Chrome < 56 for OS X (San Francisco) */
+            BlinkMacSystemFont,
+                /* Windows */
+            "Segoe UI",
+                /* Android */
+            "Roboto",
+                /* Basic web fallback */
+            "Helvetica Neue", Arial, sans-serif;
+}
+
+p {
+    line-height: 1.5;
+    margin: 0 0 1em 0;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 0 0 15px 0;
+}
+
+a {
+    color: #006ce5;
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    text-decoration: underline;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+/* Clearfix */
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    clear: both;
+    *zoom: 1;
+}
+
+/* Layout */
+
+.container {
+    max-width: 1130px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container {
+    padding: 10px;
+}
+
+#header {
+    background-color: #343a40;
+}
+
+.page-name {
+    color: #ffffff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 14px;
+    margin: 0 20px 0 0;
+    padding: 13px 0;
+}
+
+#footer {
+    color: #868e96;
+    padding: 20px 0;
+}
+
+.col {
+    float: left;
+}
+
+.col-10 {
+    width: 10%;
+}
+
+.col-30 {
+    width: 30%;
+}
+
+.col-40 {
+    width: 40%;
+}
+
+.col-50 {
+    width: 50%;
+}
+
+.col-60 {
+    width: 60%;
+}
+
+.col-70 {
+    width: 70%;
+}
+
+.btn {
+    background-color: #868e96;
+    border: 1px solid #868e96;
+    border-radius: 4px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 400;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.btn-blue {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+

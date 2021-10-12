@@ -1,0 +1,739 @@
+ImageGallery
+
+--
+-- HTML
+-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mini Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Image Gallery</div>
+            <div class="navigation">
+                <div class="navi-search">
+                    <input type="text" id="searchbox" class="searchbox" placeholder="search ...">
+                    <button id="btngo" class="go">GO</button>
+                </div>
+                <div class="navi-right">
+                    <button id="btnuploadimage" class="btnuploadimage">Upload Image</button>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div id="thumbnailcontainer" class="thumbnail-container">
+            </div>
+            <div id="uploadimage" class="uploadimage">
+                <div class="fileform">
+                    <form ref='uploadForm' 
+                        id='uploadForm' 
+                        action='/upload'
+                        method='post' 
+                        encType="multipart/form-data">
+                        <input type="file" name="sampleFile" />
+                        <input type="text" name="tags" value="tag1,tag2,tag3,..." />
+                        <input type='submit' value='Upload!' />
+                    </form>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="detaillayer" class="detail-layer">
+        <div class="detail-container">
+            <div id="leftarrow" class="left-arrow"></div>
+            <div id="detailimage" class="detail-image"></div>
+            <div id="rightarrow" class="right-arrow"></div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+--
+-- JS
+--
+
+let images = [];
+let currentIndex = 0;
+let leftarrowObj = document.getElementById('leftarrow');
+let rightarrowObj = document.getElementById('rightarrow');
+let detaillayerObj = document.getElementById('detaillayer');
+let detailimageObj = document.getElementById('detailimage');
+let btngoObj = document.getElementById('btngo');
+let btnuploadimageObj = document.getElementById('btnuploadimage');
+let thumbnailcontainerObj = document.getElementById('thumbnailcontainer');
+let uploadimageObj = document.getElementById('uploadimage');
+
+document.addEventListener('click', function (event) {
+	if (event.target.matches('.thumbnail')) {
+        let index = event.target.getAttribute('data-index');
+        showImageDetails(parseInt(index));
+	}
+}, false);
+
+leftarrowObj.onclick = function(e) {
+    prevImage();
+    e.stopPropagation();
+}
+
+rightarrowObj.onclick = function(e) {
+    nextImage();
+    e.stopPropagation();    
+}
+
+detaillayerObj.onclick = function(e) {
+    showImageDetails(false);
+}
+
+btngoObj.onclick = function(e) {
+    let searchboxObj = document.getElementById('searchbox');
+    let searchPhrase = searchboxObj.value;
+    uploadimageObj.style.display = 'none';
+    thumbnailcontainerObj.style.display = 'flex';
+
+    loadImages(searchPhrase);
+}
+
+btnuploadimageObj.onclick = function(e) {
+    thumbnailcontainerObj.style.display = 'none';
+    uploadimageObj.style.display = 'block';
+}
+
+function nextImage() {   
+    let nextIndex = (currentIndex === images.length - 1 ? 0 : currentIndex + 1);
+    detailimageObj.style.background = 'url(\'../images/'+images[nextIndex].image+'\') no-repeat center ';
+    currentIndex = nextIndex;    
+}
+
+function prevImage() {   
+    let nextIndex = (currentIndex === 0 ? images.length - 1: currentIndex - 1);
+    detailimageObj.style.background = 'url(\'../images/'+images[nextIndex].image+'\') no-repeat center ';
+    currentIndex = nextIndex;
+}
+
+function showImageDetails(index) {
+    currentIndex = index;
+    if(index || index === 0) {
+        detaillayerObj.style.display = 'block'; 
+        detailimageObj.style.background = 'url(\'../images/'+images[index].image+'\') no-repeat center ';
+    }
+    else {
+        detaillayerObj.style.display = 'none';
+    }
+}
+
+function loadImages(q) {
+    var xhr = new XMLHttpRequest();
+    if(!q) {
+        xhr.open('GET', 'http://localhost:3000/search');
+    }
+    else {
+        xhr.open('GET', 'http://localhost:3000/search?q='+q);
+    }
+    xhr.onload = function() {
+        if(xhr.status === 200) {
+            console.log('success, status code is 200');
+            
+            let resultObj = JSON.parse(xhr.responseText);
+            images = resultObj.images;
+            console.log(resultObj);                     
+
+            thumbnailcontainerObj.innerHTML = '';
+            for(let i=0; i<images.length; i++) {
+                let newThumbnail = document.createElement('div');
+                newThumbnail.className = 'thumbnail';
+                newThumbnail.setAttribute('data-index', i);
+                newThumbnail.style.background = 'url(\'../images/'+images[i].image+'\') no-repeat center';
+                thumbnailcontainerObj.appendChild(newThumbnail);
+            }
+        }
+    }
+    xhr.send();
+}
+
+loadImages();
+
+-- 
+-- CSS
+-- 
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    width: 100%;
+    background: #797979b2;
+}
+
+.logo {
+    padding: 5px;
+    font-size: 2em;
+    background: rgb(54, 54, 54);
+    color: white;
+}
+
+.navigation {
+    padding: 10px;
+    background: rgb(54, 54, 54);
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    min-width: 600px;
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.thumbnail-container {
+    display: flex;        
+    justify-content: flex-start;
+    flex-wrap: wrap;    
+    padding: 10px;
+    align-items: center;
+    background: #4b4b4b;
+}
+
+.thumbnail {
+    width: 250px;
+    height: 180px;
+    margin: 5px 10px;
+    background: #1a1a1a;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.2), 0 6px 20px 0 rgba(31, 31, 31, 0.19);
+}
+
+.detail-layer {
+    width: 100%;
+    height: 100%;
+    background: rgb(54, 54, 54, 0.8);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.detail-container {
+    width: 500px;
+    height: 100%;
+    margin: 0 auto;
+    background: #000000;
+    opacity: none;
+    display: flex;
+    justify-content: space-between;
+    background: rgb(255,255,255,1);
+}
+
+.left-arrow, .right-arrow, .detail-image {
+    background: #fff;
+}
+
+.left-arrow, .right-arrow {
+    cursor: pointer;
+    width: 46px;
+}
+
+.left-arrow {
+    background: url('../images/arrow-left.png') no-repeat center center;
+}
+
+.right-arrow {
+    background: url('../images/arrow-right.png') no-repeat center center;
+}
+
+.detail-image {
+    width: 100%;
+}
+
+.detail-layer {
+    display: none;
+}
+
+.uploadimage {
+    background: #4b4b4b;
+    padding: 20px;
+    display: none;
+}
+
+.fileform {
+    width: 300px;
+    margin: 0 auto;
+}
+
+form input {
+    display: block;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        min-width: auto;
+    }
+    
+    .detail-container {
+        max-width: 350px;
+    }
+}
+
+--
+-- SHOP
+--
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Mini-Shop</div>
+            <div class="navigation">
+                <div class="navi-categories">
+                    <a href="#" onclick="loadProducts()" class="category">All</a> |
+                    <a href="#" onclick="loadProducts('Books')" class="category">Books</a> |
+                    <a href="#" onclick="loadProducts('Movies')" class="category">Movies</a> |
+                    <a href="#" onclick="loadProducts('Music')" class="category">Music</a>
+                </div>
+                <div class="navi-right">
+                    <a href="#" onclick="showCart()" class="category">Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div id="thumbnailcontainer" class="thumbnail-container">
+            </div>
+            <div class="product-details" id="productdetails">
+                <div class="product-container">
+                    <div  class="product-image">
+                        <img alt="" id="productimage">
+                    </div>
+                    <div id="productinfos" class="product-infos">
+                        <h2 id="productname"></h2>    
+                        <div class="product-description" id="productdescription">
+                        </div>
+                        <div class="product-buy">
+                            <div>
+                            <span class="price" id="price"></span>
+                            € x 
+                            <input type="number" class="quantity" placeholder="1" id="quantity" min="1" max="9"> = <span class="total-amount" id="totalamount"></span>€
+                            <button class="btnaddcart" id="btnaddcart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cart" id="cart">
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+
+-- JS
+
+let products = [];
+let thumbnailcontainerObj = document.getElementById('thumbnailcontainer');
+let productdetailsObj = document.getElementById('productdetails');
+let quantityObj = document.getElementById('quantity');
+let totalamountObj = document.getElementById('totalamount');
+let cartObj = document.getElementById('cart');
+
+document.addEventListener('click', function (event) {
+    if(event.target.matches('.thumbnail')) {
+        let id = event.target.getAttribute('data-id');
+        showProductDetails(id);
+    }
+
+    if(event.target.matches('.btnpurchaseorder')) {
+        purchase(); 
+    }
+}, false);
+
+let cart = localStorage.getItem('cart');
+if(!cart) {
+    localStorage.setItem('cart', JSON.stringify([]));
+}
+
+function removeCartItem(id) {
+    console.log('removing item ' + id);
+    let elem = document.querySelector('#cart div[data-id="'+id+'"]');
+    elem.parentNode.removeChild(elem);
+
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    let total = 0;
+    let removeIndex = 0;
+    for(let i=0; i<cart.length; i++) {
+        if(cart[i].id === id) {
+            removeIndex = i;
+        } 
+        else {
+            total += cart[i].price * cart[i].quantity;
+        }
+    }
+
+    cart.splice(removeIndex, 1);
+    let carttotalamountObj = document.getElementById('carttotalamount');
+    carttotalamountObj.innerHTML = total.toFixed(2);
+
+    let strCart = JSON.stringify(cart);
+    localStorage.setItem('cart', strCart);
+
+    if(cart.length === 0) {
+        cartObj.innerHTML = `            
+            <h2>You do not have any items in your cart yet!</h2>
+        `;
+        return;
+    }    
+}
+
+function showProductDetails(id) {
+    let index = 0;
+    for(let i=0; i<products.length; i++) {
+        if(products[i].id === id) {
+            index = i;
+            break;
+        }
+    }
+    
+    let priceObj = document.getElementById('price');
+    priceObj.innerHTML = products[index].price;
+    currentPrice = products[index].price;
+    totalamountObj.innerHTML = products[index].price;
+
+    quantityObj.value = "1";
+    quantityObj.oninput = function() {
+        totalamountObj.innerHTML = (products[index].price * quantityObj.value).toFixed(2);
+    }
+    
+    let productnameObj = document.getElementById('productname');
+    productnameObj.innerHTML = products[index].name;
+    let productdescriptionObj = document.getElementById('productdescription');
+    productdescriptionObj.innerHTML = products[index].description;
+    let productimageObj = document.getElementById('productimage');
+    productimageObj.src = products[index].imgurl;
+    let btnaddcart = document.getElementById('btnaddcart');
+    
+    btnaddcart.onclick = function() {
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        products[index].quantity = quantityObj.value;
+        cart.push(products[index]);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        delete products[index].quantity;
+        showCart();
+    }
+
+    thumbnailcontainerObj.style.display = 'none';
+    cartObj.style.display = 'none';
+    productdetailsObj.style.display = 'block';
+}
+
+function showCart() {
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    cartObj.innerHTML = '';
+
+    if(cart.length === 0) {
+        cartObj.innerHTML = `            
+            <h2>You do not have any items in your cart yet!</h2>
+        `;
+        return;
+    }
+
+    let total = 0;
+    for(let i=0; i<cart.length; i++) {
+        let newCartItem = `
+            <div class="cart-item" data-id="${cart[i].id}">
+                <div>
+                    <img id="cartpicture" class="cart-picture"  src="${cart[i].imgurl}" alt="">
+                </div>
+                <div class="cart-description">
+                    <div>
+                    <span class="cart-quantity">${cart[i].quantity}</span>
+                    x <span class="cart-productname">${cart[i].name}</span>: <span class="cart-amount">${cart[i].quantity * cart[i].price}</span> € <button class="remove-item" onclick="removeCartItem('${cart[i].id}')">Remove</button>
+                    </div>
+                </div>
+            </div>    
+        `;    
+        cartObj.innerHTML += newCartItem;
+        total += cart[i].quantity * cart[i].price;
+    }
+
+    cartObj.innerHTML += `
+        <div id="cartbuy" class="cart-buy"><hr class="cart-break">
+        Total Amount: 
+        <span id="carttotalamount" class="cart-totalamount">${total.toFixed(2)}</span> €<button class="btnpurchaseorder">Buy Now</button> 
+        </div>
+    `;
+
+    cartObj.style.display = 'block';
+    thumbnailcontainerObj.style.display = 'none';
+    productdetailsObj.style.display = 'none';
+}
+
+function purchase() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:3000/order');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+        if(xhr.status === 200) {
+            let res = JSON.parse(xhr.responseText);
+            if(res.error === 0) {
+                alert('Thanks for your purchase!');
+                location.reload();
+            }
+            else {
+                alert('Error: ' + res);
+            }
+        }
+    }
+
+    let productids = [];
+    for(let i=0; i<products.length; i++) {
+        productids.push(i);
+    }
+
+	var params = {
+		productids: productids
+	};
+
+	xhr.send(JSON.stringify(params));    
+}
+
+function loadProducts(category) {
+    var xhr = new XMLHttpRequest();
+    if(!category) {
+        xhr.open('GET', 'http://localhost:3000/product');
+    }
+    else {
+        xhr.open('GET', 'http://localhost:3000/product?category='+category);
+    }
+    xhr.onload = function() {
+        if(xhr.status === 200) {
+            console.log('success, status code is 200');
+            
+            let resultObj = JSON.parse(xhr.responseText);
+            products = resultObj.products;
+            console.log(resultObj);                     
+            
+            cartObj.style.display = 'none';
+            productdetailsObj.style.display = 'none';            
+            thumbnailcontainerObj.style.display = 'flex';
+            thumbnailcontainerObj.innerHTML = '';
+            for(let i=0; i<products.length; i++) {
+                
+                let newThumbnail = document.createElement('div');
+                newThumbnail.className = 'thumbnail';
+                newThumbnail.setAttribute('data-id', products[i].id);
+                newThumbnail.style.background = 'url(\''+products[i].imgurl+'\') no-repeat center';
+
+                let newName = document.createElement('div');
+                newName.className = 'thumbnail-name';
+                newName.innerHTML = products[i].name;
+                newThumbnail.appendChild(newName);
+
+                let newPrice = document.createElement('div');
+                newPrice.className = 'thumbnail-price';
+                newPrice.innerHTML = products[i].price;
+                newThumbnail.appendChild(newPrice);
+
+                thumbnailcontainerObj.appendChild(newThumbnail);                
+            }
+
+        }
+    }
+    xhr.send();
+}
+
+loadProducts();
+
+-- CSS
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    width: 100%;
+    background: #797979b2;
+}
+
+.logo {
+    padding: 5px;
+    font-size: 2em;
+    background: rgb(240, 240, 240);
+    color: #1a1a1a;
+}
+
+a {
+    color: cornflowerblue;
+}
+
+.navigation {
+    padding: 10px;
+    background: rgb(240, 240, 240);
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    min-width: 600px;
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.thumbnail-container {
+    display: flex;        
+    justify-content: flex-start;
+    flex-wrap: wrap;    
+    padding: 10px;
+    align-items: center;
+    background: #4b4b4b;
+    display: none;
+}
+
+.thumbnail {
+    width: 250px;
+    height: 180px;
+    margin: 5px 10px;
+    background: #1a1a1a;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.2), 0 6px 20px 0 rgba(31, 31, 31, 0.19);
+}
+
+.thumbnail-name {
+    padding: 2px;
+    text-decoration: underline;
+    background: rgba( 240, 240, 240, 0.6 );
+}
+
+.thumbnail-price {
+    font-weight: bold;
+    padding: 2px;
+    text-align: right;
+    color: rgb(12, 12, 12);
+    background: rgba( 240, 240, 240, 0.6 );
+}
+
+.product-details {
+    background: #4b4b4b;
+    display: none;
+}
+
+.product-container {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.product-image {
+    padding: 0px 10px;
+}
+
+.product-image img {
+    width: 320px;
+    height: 260px;
+}
+
+.product-description {
+    margin-top: 20px;
+}
+
+.product-buy {
+    margin-top: 15px;
+}
+
+.quantity {
+    width: 40px;
+    font-size: 16px;
+}
+
+.btnaddcart {
+    margin-left: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 4px;
+}
+
+.cart {
+    background: #4b4b4b;
+    padding: 10px;
+}
+
+.cart-item {
+    margin-left: 50px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.total-amount {
+    font-size: 26px;
+}
+
+.btnpurchaseorder {
+    font-size: 26px;
+}
+
+.cart-picture {
+    width: 170px;
+    height: 130px;
+}
+
+.cart-description {
+    font-size: 28px;
+    padding: 12px;
+    vertical-align: bottom;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cart-description button {
+    display: block;
+    margin-top: 5px;
+    padding: 4px;
+}
+
+.remove-item {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.cart-break {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.cart-buy {
+    margin-left: 232px;
+    margin-top: 20px;
+}
+
+.cart-totalamount {
+    font-size: 26px;
+}
+
+.btnpurchaseorder {
+    padding: 4px;
+    margin-left: 15px;
+}
+

@@ -1,0 +1,1209 @@
+##
+## text-styling-formatting
+## 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Text Styling and Formatting</title>
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Text Styling</h1>
+        <p>Lorem ipsum dolor amet single-origin coffee drinking vinegar literally echo park prism farm-to-table post-ironic. Butcher kale chips meditation tote bag cloud bread swag semiotics. +1 meditation small batch man braid vinyl. Vexillologist succulents shaman tofu listicle migas butcher pinterest drinking vinegar disrupt sustainable woke hoodie YOLO. Gochujang gentrify aesthetic lumbersexual austin, microdosing post-ironic.</p>
+
+        <blockquote>Cloud bread actually 90's four loko marfa skateboard palo santo kogi. Cloud bread aesthetic 8-bit tbh try-hard godard hexagon af. Tumeric keffiyeh iceland, seitan tousled locavore slow-carb hammock next level mumblecore pug tumblr. Fashion axe glossier bushwick portland farm-to-table keytar cred stumptown messenger bag retro four loko put a bird on it. Listicle kombucha leggings letterpress, four loko gentrify hoodie bespoke bushwick pug chia chartreuse pork belly snackwave iceland.</blockquote>
+
+        <h3>More Text Styles</h3>
+        <p>Some text in here, with some extra tags such as <span>span tag</span>, 
+        <em>simple emphasis</em>, do not forget <strong>strong emphasis</strong>, and of course, <a href="http://google.com">a link!</a></p>
+    </body>
+</html>
+
+## css
+
+/* css reset */
+* {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+body {
+    padding: 40px;
+    font-family: Georgia, Times, serif;
+    color: #353535;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+h1 {
+    /* 3 times the base font-size */
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+    letter-spacing: -1px; /* space between each letter */
+    word-spacing: 10px; /* space between each word */
+    text-align: center;
+}
+
+blockquote {
+    margin: 0 0 0 30px;
+    font-style: italic;
+    text-indent: 80px; /* indents first line of paragraph */
+    line-height: 1.3;
+    /* 
+        line height is how tall the lines
+        of text are within an element.
+
+        you can use a simple numeric value, like 3.
+        which will make the line height 3x the height 
+        of the font-size.
+
+        you may also use a length, like "px" or "em"
+    */
+}
+
+span {
+    text-decoration: line-through;
+
+    /* 
+        underline, overline, line-through, none
+    */
+}
+
+em {
+    text-transform: capitalize;
+}
+
+strong {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+a {
+    color: #3ca;
+    text-decoration: none;
+}
+
+###
+### borders/
+###
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Borders</title>
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>CSS Borders</h1>
+        <div id="box-1" class="border-box">
+            Box with thin solid border
+            <code>border: solid 1px black</code>
+        </div>
+
+        <div id="box-2" class="border-box">
+            Box with thin dashed border            
+        </div>
+        
+        <div id="box-3" class="border-box">
+            Box with thin dotted border
+        </div>
+        
+        <div id="box-4" class="border-box">
+            Box with thin double border
+        </div>
+        
+        <div id="box-5" class="border-box">
+            Box with thick solid border
+        </div>        
+
+        <div id="box-6" class="border-box">
+            Box with thick dashed border
+        </div>
+
+        <div id="box-7" class="border-box">
+            Box with thick dotted border
+        </div>
+
+        <div id="box-8" class="border-box">
+            Box with thick double border
+        </div>        
+    </body>
+</html>
+
+## css
+
+
+/*later*/
+
+code {
+    display: block;
+    color: #e96c28;
+    background: white;
+    padding: 5px;
+}
+
+.border-box {
+    background: #eee;
+    margin: 0 0 20px;
+    padding: 20px;
+    width: 300px;
+}
+
+#box-1 {
+    border: solid 1px black;
+}
+
+#box-2 {
+    border: dashed 1px black;
+}
+
+#box-3 {
+    border: dotted 1px black;
+}
+
+#box-4 {
+    border: double 3px black;
+}
+
+#box-5 {
+    border: solid 4px black;
+}
+
+#box-6 {
+    border: dashed 4px black;
+}
+
+#box-7 {
+    border: dotted 4px black;
+}
+
+#box-8 {
+    border: double 6px black;
+}
+
+
+### 
+### background-images/
+### 
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Background Images</title>
+		
+		<link href="styles.css" rel="stylesheet">
+		
+		<style type="text/css">
+			dl {
+				margin: 10px 0 20px;
+				padding: 10px;
+				background: #353535;
+				color: #eee;
+				border: dashed 2px black;
+				font-family: Helvetica, Arial, sans-serif;
+			}
+			
+			dl dt {
+				margin: 0 0 5px;
+				font-size: 22px;
+				font-weight: bold;
+			}
+			
+			dl code {
+				background: inherit;
+				padding: 0;
+			}
+		</style>
+		
+	</head>
+	<body>
+	
+		<h1>Background Images, Folks!</h1>
+		
+		<!--
+			Background Images Documentation
+			Added by Brad Hussey
+			September 2013
+		-->
+		
+		<h2>Properties</h2>
+		<p>There are a few different background properties:</p>
+		
+		<dl>
+			<dt>background-image</dt>
+			<dd>
+				This property is the location of the image itself, for example:
+				<code>h1 { background-image: url('http://website.com/img/background.jpg'); }</code>
+				
+				<br>
+				or
+				<br><br>
+				
+				<code>h1 { background-image: url('images/background.jpg'); }</code>
+				
+				
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>background-color</dt>
+			<dd>
+				This allows us to add colour to a background. An example in CSS would like like this:
+				<code>h1 { background-color: green; }</code>
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>background-repeat</dt>
+			<dd>
+				This is how the image will repeat. The value can be any of the following:
+				
+				<br><br>
+				<code>background-repeat: repeat;</code>
+				<p>This repeats on both the X and Y axis, and will essentially tile the image across the entire background.</p>
+				
+				<br>
+				<code>background-repeat: repeat-x;</code>
+				<p>This repeats the background on the X axis, or horizontally.</p>
+				
+				<br>
+				<code>background-repeat: repeat-y;</code>
+				<p>This repeats the background on the Y axis, or vertically.</p>
+				
+				<br>
+				<code>background-repeat: no-repeat;</code>
+				<p>This shows the image only once, without repeating.</p>
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt>background-position</dt>
+			<dd>
+				This is the actual position of the background image within it's container. The values can be:
+				<code>background-position: top;</code>
+				<code>background-position: right;</code>
+				<code>background-position: bottom;</code>
+				<code>background-position: left;</code>
+				<code>background-position: center;</code>
+				
+				<br>
+				It can also be a percentage, length, or combination, like so:
+				<br>
+				
+				<code>background-position: bottom left;</code>
+			</dd>
+		</dl>
+	
+		<h2>Shorthand!</h2>
+		<p>There's a quick way around background images, and you don't necessarily have to type out all of the above code to set up your background images the way you want them.</p>
+		
+		<dl>
+			<dt>background</dt>
+			<dd>
+				The "background" shorthand can handle them all in one!
+				<code>background: green url('images/background.jpg') top left no-repeat;</code>
+			</dd>
+		</dl>
+
+		<!-- END Documentation -->
+		
+		<h2>Examples</h2>
+		
+		<div id="background-1" class="background-example">
+			Background Image, repeated
+		</div>
+		
+		<div id="background-2" class="background-example">
+			Background Colour
+		</div>
+		
+		<div id="background-3" class="background-example">
+			Background Image, positioned, no repeating
+		</div>
+		
+		<div id="background-4" class="background-example">
+			Background Image, positioned, repeating on X axis
+		</div>
+	
+	</body>
+</html>
+
+
+
+### 
+### styling-forms
+### 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Styling Forms</title>
+        <link href="styles.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="container">
+            <h1>Styling HTML Forms</h1>
+
+            <form>
+                <fieldset>
+                    <legend>Contact Us!</legend>
+                    <label for="contact_name">Name</label>
+                    <input type="text" id="contact_name">
+
+                    <label for="contact_email">Name</label>
+                    <input type="email" id="contact_email">
+
+                    <label for="contact_message">Message</label>
+                    <textarea id="contact_message"></textarea>               
+                        
+                    <input type="submit" value="Send">
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>
+
+
+## css
+
+
+/* this document should be taught step by step */
+
+/* here, go to apple.com and show the students
+   how the content there is centered */
+#container {
+    width: 500px;
+    margin: 0 auto;
+}
+
+form {
+    background-image: url('images/red_background.jpg');
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form fieldset {
+    background-image: url('images/blue_background.jpg');
+    padding: 40px;
+    border: solid 1px white;
+}
+
+form legend {
+    border: solid 1px #333;
+    background-image: url('images/blue_background.jpg');
+    padding: 5px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* they all now take their own line */
+form input, form textarea {
+    display: block;
+    margin-bottom: 20px;
+}
+
+form label {
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+form input[type="text"], input[type="email"], form textarea {
+    padding: 10px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    border: solid 1px #b90707;
+    background-image: url('images/red_background.jpg');
+}
+
+form textarea {
+    width: 300px;
+    height: 100px;    
+}
+
+form input[type="submit"] {
+    border: none;
+    background: url('images/button_background.jpg') top left repeat-x;
+    height: 40px;
+    padding: 0 20px;
+    border: solid 1px #d4730c;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+##
+## task 5
+##
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>El Amigo Pub + Grill</title>
+        <link href="styles.css" rel="stylesheet">        
+    </head>
+    <body>
+         <div id="container">
+
+             <div id="header">
+                 <a href="#" title="Return to Homepage" id="logo">
+                    <img src="images/logo.png" alt="El Amigo Amigo + Grill. Best Craft Beer in Spain">
+                </a>
+             </div>
+
+             <div id="content" class="content-block">
+                 <h1>The Best Craft Beer in Spain!</h1>
+                 <p>Bienvenido, amigos! We are completely fictional location. But that does not mean we can't imagine the best beer in Spain!</p>
+             </div>
+
+             <div id="reserve" class="content-block">
+                 <h2>Make a reservation</h2>
+                 <p>Get your spot before somebody else does!</p>
+                 <form>
+                     <label for="your_name">Your Name</label>
+                     <input type="text" id="your_name" placeholder="John B. Goode">
+
+                     <label for="your_email">Your Email</label>
+                     <input type="email" id="your_name" placeholder="John B. Goode">                     
+                     <label for="your_time">Reservation Time</label>
+                     <input type="datetime-local" id="your_time">
+
+                     <input type="submit" value="Reserve Now">
+                 </form>
+             </div>
+             
+             <div id="footer" class="content-block">       
+                 &copy;2018 - El Amigo          
+             </div>
+         </div>
+    </body>
+</html>
+
+## css
+
+/* CSS Reset */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: black url('images/background.jpg') top center no-repeat;
+
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    padding: 0 0 10px;
+    margin: 0 0 10px; 
+}
+
+#header {
+    margin-top: 20px;
+}
+
+#container {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.content-block {
+    background: url('images/transparent_white.png') top left repeat;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+#content {
+    border: solid 10px black;
+}
+
+#reserver {
+    border: solid 10px white;
+}
+
+#footer {
+    background: black;
+}
+
+form {
+    text-align: left;
+    width: 300px;
+    margin: 20px auto 0;
+}
+
+form label {
+    display: block; 
+    width: 290px; 
+    /* 290px width + 5px padding left + 5px padding right = 300px */
+    padding: 5px; 
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: bold;
+    background: #333;
+    color: white;
+}
+
+form input  {
+    display: block;
+    width: 290px;
+    padding: 5px;
+    margin: 0 0 10px;
+    border: none;
+    font-size: 22px;
+    font-family: Georgia, Times, serif;
+    font-style: italic;
+}
+
+form input[type="submit"] {
+    background: #333;
+    color: white;
+    cursor: pointer;
+    width: 300px;
+}
+
+##
+## Styling Links
+##
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Styling Links</title>
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="container">
+            <h1>Styling some links ...</h1>
+
+            <p><a href="https://digitalcareerinstitute.org/" id="link-1">Hey, I am a link</a></p>
+
+            <p><a href="https://digitalcareerinstitute.org/" id="link-2">Hey, I am a link</a></p>
+            
+            <p><a href="https://digitalcareerinstitute.org/" id="link-3">Hey, I am a link</a></p>
+            
+            <p><a href="https://digitalcareerinstitute.org/" id="link-4">Hey, I am a link</a></p>            
+        </div>
+    </body>
+</html>
+
+## css
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #333;
+    color: #222;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#container {
+    background: white;
+    width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0 0 20px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+/* sudo classes */
+/* unvisited */
+a:link {
+    color: #f42aa6;
+    text-decoration: none;
+}
+
+/* visited */
+a:visited {
+    color: #f42aa6;
+}
+
+a:hover {
+    color: #a50578;
+}
+
+a:active {
+    color: #000;
+}
+
+/* Specific link styles */
+
+
+#link-1:hover {
+    background: #333;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+}
+
+#link-3:link {
+    background: #f42aa6;
+    color: white;
+    padding: 5px;
+}
+
+#link-3:hover {
+    background: #a50578;
+    text-decoration: none;
+}
+
+#link-3:visited {
+    color: white;
+}
+
+#link-4:hover {
+    color: #333;
+}
+
+
+##
+## float 1
+##
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>CSS Floats 101</title>
+    <style>
+        .block {
+            float: none;
+            width: 200px;
+            height: 200px;
+        }
+        .pink { 
+            background: #ee3e64; 
+        }
+        .blue { 
+            background: #44accf; 
+        }
+        .green { 
+            background: #b7d84b; 
+        }
+    </style>
+</head>
+<body>
+    <div class="block pink"></div>
+    <div class="block blue"></div>
+    <div class="block green"></div>
+</body>
+</html>
+
+
+##
+## float 2
+##
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>CSS Floats 101</title>
+    <style>
+        .block {
+            float: left;
+            width: 200px;
+            height: 200px;
+        }
+        .pink { background: #ee3e64; }
+        .blue { background: #44accf; }
+        .green { background: #b7d84b; }
+    </style>
+</head>
+<body>
+    <div class="block pink"></div>
+    <div class="block blue"></div>
+    <div class="block green"></div>
+</body>
+</html>
+
+
+##
+## float 3
+##
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>CSS Floats 101</title>
+	<style>
+		.block {
+			float: left;
+			width: 200px;
+			height: 200px;
+		}
+		.pink { 
+            background: #ee3e64; 
+        }
+		.blue { 
+            background: #44accf; 
+        }
+		.green { 
+            background: #b7d84b; 
+        }
+	</style>
+</head>
+<body>
+	<div class="block pink"></div>
+	<div class="block blue"></div>
+	<div class="block green"></div>
+	<div class="block pink"></div>
+	<div class="block blue"></div>
+	<div class="block green"></div>
+	<div class="block pink"></div>
+	<div class="block blue"></div>
+	<div class="block green"></div>
+	<div class="block pink"></div>
+	<div class="block blue"></div>
+	<div class="block green"></div>
+	<div class="block pink"></div>
+	<div class="block blue"></div>
+	<div class="block green"></div>
+</body>
+</html>
+
+##
+## float 4
+##
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+        .block { width: 200px; height: 200px; }
+        .float { float: left; }
+        .pink { background: #ee3e64; }
+        .blue { background: #44accf; }
+        .green { background: #b7d84b; }
+        .orange { background: #E2A741; }
+        </style>
+    </head>
+    <body>
+        <div class="block pink float"></div>
+        <div class="block blue float"></div>
+        <div class="block green"></div>
+        <div class="block orange"></div>
+    </body>
+</html>
+
+
+##
+## float 5
+##
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+        .block {
+            width: 200px;
+            height: 200px;
+        }
+        .float { float: left; }
+        /* Assigning a value of left says the top edge of this element must sit below any element that has the float: left property applied to it. */
+
+        /* the right value—the element must sit beneath any element that has the float: right property applied to it.  */
+
+        /* Using the both value tells our element that its top edge must sit below any element floated either left or right. */
+
+        .clear { clear: left; } 
+        .pink { background: #ee3e64; }
+        .blue { background: #44accf; }
+        .green { background: #b7d84b; }
+        .orange { background: #E2A741; }
+        </style>
+    </head>
+    <body>
+        <div class="block pink float"></div>
+        <div class="block blue float"></div>
+        <div class="block green clear"></div>
+        <div class="block orange"></div>
+    </body>
+</html>
+
+
+##
+## float 6
+##
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Floats</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            .border {
+                border: 1px solid black;
+            }
+
+            #left-1 {
+                float: left;
+                margin: 10px;
+            }
+
+            #right-1 {
+                float: right;
+                margin: 10px;  
+            }        
+        </style>>
+    </head>
+    <body>
+        <div id="container">
+            <div id="left-1" class="border">
+                First Left            
+            </div>
+
+            <div id="right-1" class="border">
+                First Right
+            </div>
+        </div>
+    </body>
+</html>
+
+##
+## float 7
+##
+## here, go to ipsum and copy some ipsum text
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }            
+            
+            img {
+                float: right; 
+                margin: 10px; 
+            }
+        </style>
+    </head>
+    <body>
+        <p>Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor. Nulla facilisi. Duis aliquet egestas purus in blandit. Curabitur vulputate, ligula lacinia scelerisque tempor, lacus lacus ornare ante, ac egestas est urna sit amet arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed molestie augue sit amet leo consequat posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        <img src="snowraptor.jpg" />
+        <p>Proin vel ante a orci tempus eleifend ut et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis sollicitudin sapien justo in libero. Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra auctor lobortis. Pellentesque eu est a nulla placerat dignissim. Morbi a enim in magna semper bibendum.</p>
+        <p>Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet nunc gravida congue sed sit amet purus. Quisque lacus quam, egestas ac tincidunt a, lacinia vel velit. Aenean facilisis nulla vitae urna tincidunt congue sed ut dui. Morbi malesuada nulla nec purus convallis consequat. Vivamus id mollis quam. Morbi ac commodo nulla. In condimentum orci id nisl volutpat bibendum. Quisque commodo hendrerit lorem quis egestas. Maecenas quis tortor arcu. Vivamus rutrum nunc non neque consectetur quis placerat neque lobortis. Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit, eu euismod magna sapien ut nibh. Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula egestas tincidunt. Nullam.</p>
+    </body>
+</html>
+
+
+##
+## float 8 layout
+##
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            body { margin: 0; padding: 0; background: #ccc; }
+            #container { width: 960px; margin: 0 auto; }
+            #header { padding: 30px; background: #bbb; }
+            #content { float: left; width: 660px; background: #fff; }
+            #navigation { float: right; width: 300px; background: #eee; }
+            #navigation a { display: block; margin: 0 0 10px 0; }
+            #footer { clear: both; background: #aaa; padding: 10px; }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <h1>Header</h1>
+            </div>
+            <div id="content">
+                <p>Proin vel ante a orci tempus eleifend ut et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis sollicitudin sapien justo in libero. Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra auctor lobortis. Pellentesque eu est a nulla placerat dignissim. Morbi a enim in magna semper bibendum.</p>
+                <p>Proin vel ante a orci tempus eleifend ut et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis sollicitudin sapien justo in libero. Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra auctor lobortis. Pellentesque eu est a nulla placerat dignissim. Morbi a enim in magna semper bibendum.</p>
+            </div>
+            <div id="navigation">
+                <a href="#">Nav Item</a>
+                <a href="#">Nav Item</a>
+                <a href="#">Nav Item</a>
+                <a href="#">Nav Item</a>
+            </div>
+            <div id="footer">
+                Footer
+            </div>
+        </div>
+    </body>
+</html>
+
+
+##
+## float 9
+##
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>CSS Floats 101</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ccc;
+        }
+        p { margin: 0; }
+        #container {
+            width: 280px;
+            margin: 0 auto;
+            padding: 10px;
+            background: #aaa;
+            border: 1px solid #999;
+        }
+        img {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+    <img src="image.gif" />
+    <p>This is some text contained within a small-ish box. I'm using it as an example of how placing your floated elements in different orders in your HTML can affect your layouts. For example, take a look at this great photo placeholder that should be sitting on the right.</p>
+    </div>
+</body>
+</html>
+
+
+##
+## float 10
+##
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>CSS Floats 101</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ccc;
+        }
+        p { margin: 0; }
+        #container {
+            width: 280px;
+            margin: 0 auto;
+            padding: 10px;
+            background: #aaa;
+            border: 1px solid #999;
+        }
+        img {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">    
+        <p>This is some text contained within a small-ish box. I'm using it as an example of how placing your floated elements in different orders in your HTML can affect your layouts. For example, take a look at this great photo placeholder that should be sitting on the right.</p>
+        <img src="image.gif" />
+    </div>
+</body>
+</html>
+
+
+##
+## float 11
+##
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background: #ccc;
+            }
+            p { 
+                margin: 0; 
+            }
+            #container {
+                width: 280px;
+                margin: 0 auto;
+                padding: 10px;
+                background: #aaa;
+                border: 1px solid #999;
+            }
+            img {
+                float: right;
+            }
+        </style>
+    </head>
+<body>
+    <div id="container">
+    <p>This is some text contained within a small-ish box. I'm using it as an example of how placing your floated elements in different orders in your HTML can affect your layouts. For example, take a look at this great photo placeholder that should be sitting on the right.</p>
+    <img src="image.gif" />
+    <div style="clear: right;"></div>
+    </div>
+</body>
+</html>
+
+
+##
+## float 12
+##
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background: #ccc;
+            }
+            #container {
+                width: 260px;
+                margin: 0 auto;
+                padding: 10px 0 10px 10px;
+                background: #aaa;
+                border: 1px solid #999;
+            }
+            img {
+                float: left;
+                margin: 0 5px 0 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <img src="image.gif" />
+            <img src="image.gif" />
+            <img src="image.gif" />
+        </div>
+    </body>
+</html>
+
+
+##
+## float 13 - 1
+##
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background: #ccc;
+            }
+            #container {
+                width: 260px;
+                overflow: hidden;
+                margin: 0 auto;
+                padding: 10px 0 10px 10px;
+                background: #aaa;
+                border: 1px solid #999;
+            }
+            img {
+                float: left;
+                margin: 0 5px 0 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <img src="image.gif" />
+            <img src="image.gif" />
+            <img src="image.gif" />
+        </div>
+    </body>
+</html>
+
+
+##
+## float 13-2
+##
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background: #ccc;
+            }
+            #container {
+                width: 260px;
+                overflow: hidden;
+                margin: 0 auto;
+                padding: 10px 0 10px 10px;
+                background: #aaa;
+                border: 1px solid #999;
+            }
+            img {
+                float: left;
+                margin: 0 5px 0 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <img src="image.gif" />
+            <img src="image.gif" />
+            <img src="image.gif" />
+        </div>
+    </body>
+</html>
+
+

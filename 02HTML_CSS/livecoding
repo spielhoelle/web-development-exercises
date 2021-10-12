@@ -1,0 +1,163 @@
+# Tables
+# look /tables
+
+Task:
+
+Create a table with 6 rows and 3 columns. The table
+should contain of the following data-types: firstname, 
+lastname and age.
+
+Mary Stewart 34
+Paul Breitner 73
+Mario Gomez 36
+Susan Hildebrandt 20
+Peter Lombardo 40
+Fred Flintstone 30
+
+# Forms
+# look /forms.html
+
+Task:
+
+Build a form to order a pizza. 
+
+1. The order requires your firstname, lastname,
+   your email address, your street, postal and your city.
+
+2. The customer might choose between five types of pizza:
+
+- Regina
+- Capriciosa
+- Ruccola
+- Diavolo
+- Calzone
+
+It should be possible to choose between four sizes:
+
+- Kids
+- Normal
+- Large
+- Extra Large
+
+
+3. The user can add extra toppings like:
+
+- Aubergine
+- Hot Sauce
+- Champignons
+- Ananas
+- Onions
+- Garlic
+- Bacon
+- Ruccola
+
+Eventually, the user can order up to five pizzas. Not more and at least one.
+
+The user submits his order by pressing the submit button which is labeled
+"Order Pizza".
+
+
+# Lists
+# IDs and classes
+# Header and footer
+# Aside
+# Abbreviations and Quotes
+
+Task:
+
+Create a website with title "A full semantic HTML 5 Website".
+
+1. Create a header with id "main-header" and the header should contain
+   an h1 and a paragraph. Add some text.
+
+2a Create one article with class "blog-post" and which consists of three
+   sections "post-head", "post-body" and "post-foot".
+
+2b In "post-head", add an h2 and a paragraph. Add some text. 
+2c In the paragraph of "post-head", add the current time.
+2d In "post-body", add two paragraphs. In the second of these paragraphs,
+   add two quotations of popular persons of your choice. The first quotation
+   should be inline, the second a block element.
+2e In "post-foot", add an h3 and an unordered list. In the unordered list, add
+   three links to "aside.html", "forms.html" and "header_footer.html".
+
+3. After the article, add some additional information about yourself, e.g. what
+is your favourite animal.
+
+4. In the footer, add your email address and a copyright symbol.
+
+
+# CSS
+
+# inline
+# internal
+# external
+
+Task:
+
+Copy this website with your own code. You do not need to be exact. 
+(hint: there is one border-style solid and one dashed)
+
+
+# Class Selectors
+
+# copy everything 
+# Descendant Selectors
+
+# copy everything from class Selectors
+# Grouping Selectors
+
+### Colors
+## Take them to 
+## https://www.w3schools.com/colors/colors_names.asp
+## Task 1
+
+## ffffff = fff
+## coz 6 of them are equal
+
+### text-style-formatting/
+
+### borders/
+
+### background-images
+## let them download the background-images/
+## add styles.css later
+
+### styling forms
+
+## task 6
+## livecode the html
+## Task: 
+## Style this HTML document to make it look like this screenshot.
+
+### styling links
+
+### floats & clear
+## go to alistapart.com/article/css-floats-101
+## 
+
+## float 1-8 
+## float 9-10 learning here: float first
+## float 11-13 collapsing
+## 13a - collapsing with overflow:hidden
+## 13b - collapsing with :after
+
+# grid_4
+# load firefox
+# show them 
+# line numbers, 
+# area names, 
+# extend lines
+#
+# display: grid -> a grid was created already
+# 
+# if no other attributes are set,
+# one column and as many rows as we have elements
+# similar to flexbox, only the direct children
+# will be considered to become a grid row
+#
+# define grid-template-columns + *rows
+# 
+# 
+
+

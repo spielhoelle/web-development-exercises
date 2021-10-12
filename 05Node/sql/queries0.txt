@@ -1,0 +1,84 @@
+-- create, alter, delete
+
+$ mysql -uroot -pfoobar
+
+show databases;
+
+create database halloworld;
+
+use halloworld;
+
+create table sometable (
+	whatsup varchar(10)
+);
+
+insert into sometable (whatsup) values ('hallo world');
+
+-- too long 
+
+alter table sometable change column whatsup whatsup varchar(100);
+
+insert into sometable (whatsup) values ('hallo world');
+
+alter table sometable add column id int;
+
+describe sometable;
+
+insert into sometable (whatsup, id) values ('hallo world', 7);
+
+select * from sometable;
+
+delete from sometable;
+
+drop table sometable;
+
+create table person (
+	firstname varchar(100),
+    lastname varchar(100),
+    age int
+);
+
+show tables;
+
+-- create a table person with the firstname, lastname and age.
+-- firstname and lastname is varchar(100), age is int.
+-- add 4 person. afterwards, delete the table.
+--
+-- Max Mueller 32
+-- Manfred Richter 42
+-- Manuela Winter 45
+-- Sandra Meier 25
+-- Robert Schulz 20
+-- Bob Smith 35
+
+insert into person (firstname, lastname, age) 
+values 
+    ('Max', 'Mueller', 32), 
+    ('Manfred', 'Richter', 42), 
+    ('Manuela', 'Winter', 42), 
+    ('Sandra', 'Meier', 25), 
+    ('Robert', 'Schulz', 20), 
+    ('Bob', 'Smith', 35);
+
+select * from person where age > 40;
+
+select * from person where firstname = 'Max';
+
+select * from person where lower(firstname) = 'max';
+
+select firstname from person;
+
+select firstname, age from person;
+
+select * from person where firstname like 'M%';
+
+delete from person where firstname = 'Max';
+
+update person set firstname = 'Achmed' where firstname = 'Bob';
+
+update person set age = 36 where firstname = 'Achmed';
+
+update person set age = age + 10;
+
+update person set firstname = concat(firstname, ' Junior');
+

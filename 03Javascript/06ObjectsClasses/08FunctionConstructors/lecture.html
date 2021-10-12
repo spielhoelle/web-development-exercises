@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <h1>Open the javascript console</h1>
+  <script type="text/javascript">
+    // classes are syntactic sugar for prototypes
+
+    // es5
+
+    function Person5(name, yearOfBirth, job) {
+      this.name = name;
+      this.yearOfBirth = yearOfBirth;
+      this.job = job;
+    }
+
+    Person5.prototype.calculateAge = function() {
+      var age = new Date().getFullYear() - this.yearOfBirth;
+      console.log(age);
+    }
+
+    var john5 = new Person5('John', 1990, 'teacher');
+
+    // es6
+
+    class Person6 {
+      constructor(name, yearOfBirth, job) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+      }
+
+      calculateAge() {
+        var age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+      }
+
+      static greeting() {
+        console.log('hi');
+      }
+    }
+
+    const john6 = new Person6('John', 1990, 'teacher');
+
+    // method attached to the class definition
+    // class definitions are not hoisted
+    Person6.greeting();
+
+    // inheritance
+    function Athlete5(name, yearOfBirth, job, olympicGames, medals) {
+      Person5.call(this, name, yearOfBirth, job);
+      this.olympicGames = olympicGames;
+      this.medals = medals;
+    }
+
+    Athlete5.prototype = Object.create(Person5.prototype);
+    Athlete5.prototype.wonMedal = function() {
+      this.medals++;
+      console.log(this.medals);
+    }
+
+    var johnAthlete5 = new Athlete5('John', 1990, 'Swimmer', 3, 10);
+    johnAthlete5.calculateAge();
+    johnAthlete5.wonMedal();
+
+
+    class Athlete6 extends Person6 {
+      constructor(name, yearOfBirth, job, olympicGames, medals) {
+        super(name, yearOfBirth, job);
+        this.olympicGames = olympicGames;
+        this.medals = medals;
+      }
+
+      wonMedal() {
+        this.medals++;
+        console.log(this.medals);
+      }
+    }
+
+    const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+    johnAthlete6.wonMedal();
+    johnAthlete6.calculateAge();
+
+
+    // var john = {
+    //     name: 'John',
+    //     yearOfBirth: 1990,
+    //     job: 'teacher'
+    // };
+
+    // var jane = {
+    //     name: 'Jane',
+    //     yearOfBirth: 1991,
+    //     job: 'marketing'
+    // };
+
+    // var mark = {
+    //     name: 'Mark',
+    //     yearOfBirth: 1948,
+    //     job: 'taxidriver'
+    // };
+
+    // a function that creates objects: function constructor
+    function Person(name, yearOfBirth, job) {
+      this.name = name;
+      this.yearOfBirth = yearOfBirth;
+      this.job = job;
+    }
+
+    Person.prototype.calculateAge = function() {
+      return 2018 - this.yearOfBirth;
+    }
+
+    Person.prototype.lastName = 'Smith';
+
+    var john = new Person('John', 1990, 'teacher');
+    // task create a jane and mark with the
+    // function constructors
+    var jane = new Person('Jane', 1991, 'marketing');
+    var mark = new Person('Mark', 1948, 'taxidriver');
+
+    console.log(mark.calculateAge());
+
+    var personProto = {
+      calculateAge: function() {
+        return 2018 - this.yearOfBirth;
+      },
+
+      sayMyName: function() {
+        console.log('My name is' + this.name);
+      }
+    }
+
+    var julia = Object.create(personProto);
+    julia.yearOfBirth = 1991;
+    julia.job = 'teacher';
+    julia.name = 'Julia';
+
+
+    var alfred = {
+      name: 'Alfred',
+      count: 0,
+      sayYourName: function() {
+        if (this.count === undefined)
+          this.count = 0;
+        console.log('My name is ' + this.myName);
+        this.count++;
+      },
+      setLastName: function(lastname) {
+        this.lastname = lastname;
+      }
+    }
+
+    var gonzo = {
+      myName: 'Gonzo'
+    }
+    // alfred.sayYourName.call(gonzo);
+    // alfred.setLastName.call(gonzo, 'Gonzales');
+    alfred.sayYourName.apply(gonzo, ['Gonzales']);
+
+
+    // PARENT
+    function Item(name, price) {
+      this.name = name;
+      this.price = price;
+      this.sold = false;
+    }
+    Item.prototype.sell = function() {
+      this.sold = true;
+    }
+
+    // CHILDREN
+    function Book(name, price, author) {
+      Item.call(this, name, price);
+      this.author = author;
+      this.category = 'book';
+    }
+    Book.prototype = Object.create(Item.prototype);
+
+    function Movie(name, price, director) {
+      Item.call(this, name, price);
+      this.director = director;
+      this.category = 'movie';
+    }
+    Movie.prototype = Object.create(Item.prototype);
+    var Casino = new Movie('Casino', 10, 'Martin Scorsese');
+    var IT = new Book('IT', 20, 'Stephen King');
+
+    Casino.sell();
+    IT.sell();
+
+    function ComicBook(name, price, author, minAge = 6) {
+      Book.call(this, name, price, author);
+      if (minAge < 6)
+        this.minAge = 6;
+      else
+        this.minAge = minAge;
+    }
+
+    ComicBook.prototype = Object.create(Book.prototype);
+
+    var JessicaJones = new ComicBook('Jessica Jones', 20, 'Marvel', 12);
+
+    JessicaJones.sell();
+
+    class Item {
+      constructor(name, price) {
+        this.sold = false;
+      }
+
+      sell() {
+        this.sold = true;
+      }
+    }
+
+    class Book extends Item {
+      constructor(name, price, author) {
+        super(name, price);
+        this.author = author;
+        this.category = 'book';
+      }
+    }
+
+    class Movie extends Item {
+      constructor(name, price, director) {
+        super(name, price);
+        this.director = director;
+        this.category = 'movie';
+      }
+    }
+
+    var Casino6 = new Movie('Casino', 20, 'Scorsese');
+    var IT6 = new Book('IT', 20, 'Stephen King');
+
+    Casino6.sell();
+    IT6.sell();
+
+    class ComicBook extends Book {
+      constructor(name, price, author, minAge = 6) {
+        super(name, price, author);
+        if (minAge < 6)
+          this.minAge = 6;
+        else
+          this.minAge = minAge;
+      }
+    }
+
+    var JessicaJones = new ComicBook('Jessica Jones', 20, 'Marvel', 12);
+    JessicaJones.sell();
+  </script>
+
+</body>
+
+</html>

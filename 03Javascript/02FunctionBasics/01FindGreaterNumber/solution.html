@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+       /*********************************************************************
+        * EXERCISE SOLUTION
+        *********************************************************************
+        *
+        * Create a function that gets 2 numbers as parameters and returns the
+        * greater one. The function should not break with negative numbers.
+        *
+        * Expected results:
+        * -------------------
+        * | Input  | Output |
+        * -------------------
+        * | 1, 5   |      5 |
+        * -------------------
+        * | 5, 1   |      5 |
+        * -------------------
+        * | 1, 1   |      1 |
+        * -------------------
+        * | -5, 4  |      4 |
+        * ------------------
+        * | -1, -3 |      4 |
+        * ------------------
+        */
+
+        function greatest(first, second) {
+            return first > second ? first : second;
+        }
+        
+        // Test the function
+        console.log(greatest(1, 5));
+        console.log(greatest(5, 1));
+        console.log(greatest(1, 1));
+        console.log(greatest(-5, 4));
+        console.log(greatest(-1, -3));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
+body {
+    background: linear-gradient(325deg, #006ac5, #49e46a);
+    font-family: Lato, Arial, Helvetica, sans-serif;
+}
+
+main.container {
+    width: 500px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.article-teaser {
+    border-left: 4px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 5px 10px #999;
+    background: #ffffff;
+    position: relative;
+}
+
+.article-1 {
+    border-left-color: green;
+    z-index: 3;
+}
+
+.article-2 {
+    border-left-color: blue;
+    z-index: 2;
+}
+
+.article-3 {
+    border-left-color: red;
+    z-index: 1;
+}
+
+.article-teaser h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.article-teaser h4 {
+    font-size: 12px;
+    font-weight: regular;
+    color: #999;
+}
+
+.article-teaser-thumb {
+    float: right;
+    vertical-align: middle;
+    margin: 30px 10px 0;
+}
+
+.article-teaser p,
+.video-teaser p {
+    font-size: 12px;
+    font-weight: regular;
+    color: #999;
+}
+
+.article-teaser a,
+.video-teaser a {
+    font-size: 12px;
+    font-weight: regular;
+    text-decoration: none;
+    letter-spacing: 2px;
+    color: #006ac5;
+}
+
+.teaser-icon {
+    height: 15px;
+    vertical-align: middle;
+}
+
+.video-teaser {
+    margin: 150px 0;
+    border-left: 4px solid rgb(221, 50, 243);
+    padding: 20px;
+    box-shadow: 0 5px 10px #999;
+    background: #ffffff;
+}
+
+.video-teaser h4 img {
+    height: 24px;
+    width: 24px;
+    margin: 0 0 -8px 10px;
+    opacity: 0.4;
+}

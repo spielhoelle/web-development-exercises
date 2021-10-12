@@ -1,0 +1,13 @@
+html
+  head
+    title Advanced pug example
+    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.min.css')
+  body
+    include partials/navigation.pug
+
+    .py-5
+      .container.py-5
+        block content
+    .container
+      include partials/footer.pug
+

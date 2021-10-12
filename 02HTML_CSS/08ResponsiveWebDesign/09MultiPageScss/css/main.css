@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  background-color: #b4b4b4; }
+
+.container {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fff;
+  margin: 0 auto;
+  border: 1px solid black;
+  width: 70%;
+  display: grid;
+  grid-template-rows: 150px auto;
+  grid-template-columns: 100%;
+  font-size: 24px; }
+  .container .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    background-color: aquamarine;
+    background-image: url("../images/beach.jpg");
+    background-position: center; }
+    .container .header ul {
+      margin: 0 10px 10px 0; }
+      .container .header ul li {
+        display: inline-block;
+        background-color: rgba(0, 0, 0, 0.7); }
+        .container .header ul li a:link, .container .header ul li a:visited, .container .header ul li a:hover {
+          color: white;
+          text-decoration: none; }
+      .container .header ul .icon {
+        display: none; }
+  .container .content {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 871px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 0 30px 0; }
+    .container .content .item {
+      margin: 10px;
+      border: 1px solid black;
+      width: 200px;
+      height: 200px;
+      background-color: #474747;
+      color: #fff; }
+    .container .content .item.link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer; }
+      .container .content .item.link:hover {
+        background-color: cornflowerblue; }
+    .container .content .item.picture:nth-child(2) {
+      background-image: url("../images/sport.jpg");
+      background-size: 100% 100%; }
+    .container .content .item.picture:nth-child(4) {
+      background-image: url("../images/coding.jpg");
+      background-size: 100% 100%; }
+    .container .content .item.picture:nth-child(6) {
+      background-image: url("../images/sauna.jpg");
+      background-size: 100% 100%; }
+    .container .content .about-me {
+      font-size: 18px;
+      padding: 20px;
+      line-height: 1.3; }
+      .container .content .about-me h2 {
+        margin-top: 20px;
+        margin-bottom: 20px; }
+      .container .content .about-me img {
+        float: right;
+        margin: 10px; }
+    .container .content .hobbies {
+      font-size: 18px;
+      padding: 20px;
+      line-height: 1.3; }
+      .container .content .hobbies h2 {
+        margin-top: 20px;
+        margin-bottom: 20px; }
+      .container .content .hobbies img {
+        display: block;
+        margin: 0 auto;
+        width: 100%; }
+      .container .content .hobbies p {
+        margin-top: 5px; }
+    .container .content .skills {
+      font-size: 18px;
+      padding: 20px;
+      line-height: 1.3;
+      width: 100%; }
+      .container .content .skills h2 {
+        margin-top: 20px;
+        margin-bottom: 20px; }
+      .container .content .skills div {
+        display: table;
+        margin: 0 auto; }
+        .container .content .skills div ul {
+          margin: 0 auto;
+          list-style: square;
+          margin-left: 20px; }
+          .container .content .skills div ul li {
+            margin-top: 5px; }
+
+@media only screen and (max-width: 480px) {
+  .container .header ul li:not(last-child) {
+    display: none; }
+  .container .header ul .icon {
+    display: inline-block;
+    font-size: 2em; }
+  .container {
+    margin: 0;
+    width: 100%; } }

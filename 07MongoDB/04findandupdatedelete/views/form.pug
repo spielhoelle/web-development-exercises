@@ -1,0 +1,19 @@
+// we reuse this mixing for creating a new post, or edit a existing one.
+mixin form(book)
+  form.form-signin(method='POST', action=method)
+    .mb-3
+      label.sr-only(for='inputName') Title
+      input#inputTitle.form-control(name='title', value=book.title type='text', placeholder='Title', required='', autofocus='')
+
+    .mb-3
+      label.sr-only(for='inputContent') Content
+      textarea#inputContent.form-control(name='content', type='password', placeholder='Content', required='')=book.content
+    .mb-3
+      label.sr-only(for='inputContent') Order
+      input#inputOrder.form-control(name='order', type='number', value=book.order placeholder='Order', required='', autofocus='')
+
+    if method == "/edit/"+book._id
+      button.btn.btn-lg.btn-primary.btn-block.mb-3(type='submit') Update
+      a(href="/") Back
+    else 
+      button.btn.btn-lg.btn-primary.btn-block(type='submit') Create

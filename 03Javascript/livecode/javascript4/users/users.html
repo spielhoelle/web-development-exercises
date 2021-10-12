@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head><body>
+
+    <div class="container">
+      
+      <div class="row menu">
+            <nav class="nav justify-content-center">
+                    <a class="nav-link active" id="userlink" href="#">Users</a>
+                    <a class="nav-link" id="commentslink" href="#">Comments</a>
+                    <a class="nav-link" id="adduserlink" href="#">Add User</a>
+                    <a class="nav-link disabled" id="addcommentlink" href="#">Add Comment</a>
+            </nav>
+      </div>
+  
+      <div id="main" class="row">
+            
+      </div>
+  
+      <div id="adduser" class="row" style="display: none">
+        <div class="form-group">
+                <input type="text" class="form-control" id="firstnameinput" placeholder="firstname"/><br>
+                <input type="text" class="form-control" id="usernameinput" placeholder="username"/><br>
+                <input type="text" class="form-control" id="emailinput" placeholder="email address"/><br>
+                <button id="adduserbutton" class="form-control">Add User</button>
+        </div>
+        
+      </div>
+  
+      <div id="addcomment" class="row" style="display: none">
+        <div class="form-group">
+            <input type="text" id="commentnameinput" class="form-control" placeholder="name"/><br>
+            <input type="text" id="commentmailinput" class="form-control" placeholder="email"/><br>
+            <textarea id="commentbodyinput" class="form-control"placeholder="A nice comment"></textarea><br>  
+            <button id="addcommentbutton" class="form-control">Add Comment</button>
+        </div>
+      </div>
+  
+    </div>
+
+    <script type="text/javascript" src="users.js"></script>
+  </body>
+  </html>
+  

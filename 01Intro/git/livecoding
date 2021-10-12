@@ -1,0 +1,1136 @@
+# devugees git course
+
+(( 1 )) create an empty remote repo and push a file
+
+$ cd ~/Desktop
+$ mkdir projects
+$ git version
+-- if there is no version shown here, git is not installed
+
+$ git config --global user.name "Jan Schulz"
+$ git config --global user.email "jan.schulz@devugees.org"
+
+$ git config --global --list
+-- should get username and email address entered above
+
+-- go to github create a repo and clone it
+
+$ git status
+-- no files in the wd
+
+$ echo "hallo world" >> start.txt
+
+$ git status
+-- a file that is not being tracked by now
+
+$ git add start.txt
+-- we add a new file into the staging area
+
+$ git status
+-- we see that our file is in the staging area now
+
+$ git commit -m "adding start textfile"
+-- we now saved that file in our repository
+
+$ git status
+-- we see that our "master branch is ahead of origin/master by 1 commit"
+-- so we now see that the file has moved from the staging area to 
+-- the local repository
+
+-- go to github refresh the page, there is no file inside
+-- click on the file
+
+$ git push origin master
+--           |      |
+--        address that is being set when cloning the repository
+--                  |
+--               refers to our only branch in the repository
+--
+
+(( 2 )) create an empty local project and commit
+
+$ git init fresh-project
+
+-- git created a folder fresh-project
+--
+
+$ cd fresh-project
+
+$ ls -al
+
+-- you that there is a .git folder
+
+$ cd .git
+
+-- ls
+
+$ cd ..
+
+$ git status
+
+-- you see, that we are on the master branch
+
+-- get some example text from hipsum.co ...
+-- save it to hipster.txt
+
+$ git commit
+-- text editor opens
+-- type the text
+-- add that the linebreak were ignored and
+-- added together
+
+$ git status
+-- nothing to commit, working directory is clean
+
+(( 3 )) create a repo from an existing project 
+
+-- go to initializr.com
+-- select bootstrap and all the files
+-- download and unzip
+
+$ cp ~/Downloads/initializr.zip .
+
+$ mv initializr web-project
+
+$ git init
+
+-- take a look at the .git folder
+
+$ git status 
+
+-- on the master branch, see the untracked files
+
+$ git add .
+
+-- add all the files in the current directory
+-- recursively
+
+$ git status
+
+-- new files detected
+
+$ git commit -m "my first commit"
+
+$ git status
+
+-- on branch master
+-- take a look at .git
+
+$ rm -rf .git
+
+-- we removed all traces of git
+
+$ ls
+-- we have all the files
+
+(( 4 )) forking my "awwwww" project into their 
+        repositories
+
+-- go to my github.com/foobaroo
+-- make sure ur logged in
+-- go to my project "awwwww"
+-- then click on "fork"
+-- then take a look
+-- then clone onto your local computer
+-- then take a look on what you've just cloned
+
+(( 5 )) -- clone, change, something, pull, push
+
+-- clone foobaroo/starter-web
+-- add a file hipster.txt
+-- after push:
+-- 4beb7f0..d7a67e5
+-- local .. remote
+
+(( 6 )) -- git config && add and commit same time && 
+		-- git add 
+
+$ nano ~/.gitconfig
+-- show config stuff here
+
+$ nano hipster.txt
+-- add a file something
+
+$ git commit -am "some commit message"
+-- show how to add and commit at the same time
+
+$ git ls-files
+-- show what files git currently tracks
+
+$ nano hipster.txt
+-- again change something
+
+$ git status
+-- see the "modified"
+
+$ git commit 
+-- see that we have to add modified files
+
+$ git add hipster.txt
+
+$ git commit
+
+(( 7 )) recursively adding changes
+
+$ mkdir -p level/level2/level3
+
+$ cd level1
+$ nano level1-file.txt
+$ cd level2 
+$ nano level2-file.txt
+$ cd level3
+$ nano level3-file.txt
+
+$ git status
+-- shows you only the first level1
+
+$ git add .
+
+$ git commit 
+
+(( 8 ))
+
+$ nano level1/level1-file.txt
+-- i know that this is the commited version of this file
+-- add a "world" to the hallo
+
+$ cd level1
+$ git add level1-file.txt
+-- you can add files from any subfolder in your repository
+
+-- now i do not like the changes anymore that i did
+-- i want to UNSTAGE the files 
+
+$ git reset HEAD level1/level1-file.txt
+
+-- i also want to undo/ discard the changes that i did 
+-- i want to remove the "world" in "hallo world"
+
+$ git checkout -- level1-file.txt
+
+$ git status 
+-- we see a clean working directory
+
+$ nano level1/level1-file.txt
+-- we see that the
+
+(( 9 ))
+
+$ cd level1/level2/level3
+
+$ ls
+-- you see we have our level3-file.txt
+
+$ git status
+-- clean working directory
+
+$ git mv level3-file.txt level3.txt
+-- we now have renamed to file 
+
+$ ls
+-- we see it has a new name
+
+$ git status
+-- git has tracked the 
+
+$ git commit -m "rename level3 file"
+
+$ cd ..
+
+$ ls 
+
+$ mv level2-file.txt level2.txt 
+-- lets remove that file without the remove git 
+
+$ git status
+-- git sees that action as "deleted" file and 
+-- and sees a new file
+-- because we did the renaming outside of git
+
+$ git add -A
+-- with the option -A
+-- -A will add files recursively
+-- and files that have been renamed, moved or deleted
+-- 
+
+$ git status
+
+$ git mv level2.txt 2.txt
+-- now we want to undo that change, 
+-- and we do not want to use the git reset command
+
+$ git mv 2.txt level2.txt
+
+$ git mv level2.txt level3/
+
+$ git status
+-- we see that git 
+
+$ git commit 
+-- moved level2.txt to level3
+
+$ mv level2.txt
+-- doesnt make sense to have level2 file in level3/
+
+$ git status
+-- again, looks like we have deleted level3/level2.txt and have 
+-- a new level2/level2.txt
+
+$ git add -A
+$ git commit
+-- moving level2 file back to level2 folder
+
+
+$ cd level1
+$ mv level1-file.txt level1.txt
+$ git status
+-- again, one removed, one new file
+$ git add level1.txt
+$ git add -u
+-- git add --update :/ will update or remove previously tracked files from the
+-- entire working tree. It will not add new files.
+
+(( 10 )) delete files
+
+$ nano doomed.txt
+-- "this file wont last long"
+
+$ ls
+-- we see doomed.txt
+$ git status 
+-- we see doomed.txt as untracked files
+$ git rm doomed.txt
+-- git will complain it does not see that file yet
+$ rm doomed.txt
+$ git status
+-- we see that it is a clean working directory
+$ git ls-files
+-- take some random file, e.g. simple.html
+$ git rm simple.html
+$ git ls-files
+$ git status
+$ git commit -m "deleting simple.html"
+
+$ git rm hipster.txt
+$ git ls-files
+$ git status
+$ git reset HEAD hipster.txt
+-- lets not delete it
+$ ls 
+-- hipster.txt is still not in our working directory
+$ git status
+-- git did just unstage the deletion 
+-- did not restore the file to the fs
+$ git checkout -- hipster.txt
+
+$ rm hipster.txt
+-- lets remove a file outside of git
+$ git status
+-- git sees that hipster.txt is missing from the
+-- working directory
+
+$ git add -A
+-- now git sees that already indexed file hipster.txt
+-- is missing and stages its deletion for the next commit
+
+$ git commit
+-- to finalize that, we commit
+
+$ rm -rf level1/
+
+$ git status
+
+$ git add -A
+
+$ git commit -m "deleting level1 and all its children"
+
+##
+
+task 1:
+
+1) Create a new folder mywebsite
+2) Initialize an empty GIT repository there
+3a) Download three images from Google Adanced Image search with
+   "medium size" and topic is "sun", "mountain" and "skiing"
+3b) Save them as sun.jpg, mountain.jpg and skiing.jpg
+4) Do your first commit.
+5) Add two folders /image and /code
+6) Move the images into /image
+7) Go into the /code folder
+8) Create a new file there index.html
+9) Add the lines
+
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<img src="../image/sun.jpg"/>
+		<img src="../image/mountain.jpg"/>
+		<img src="../image/skiing.jpg"/>
+	</body>
+</html>
+
+10) Open index.html with Chrome 
+11) Do your second commit.
+12) Edit index.html and add <title>Learning Git</title> between the <head> and the </head>
+13) Move the /image folder into the /code folder
+14) Delete skiing.jpg
+15) Commit again. The commits name is "Title initially defined here."
+16) Open up index.html with Chrome.
+17) Edit index.html and update the paths to not see the broken image symbol.
+18) Commit.
+19) Create a new Github repository "learning_git" and push your code.
+
+
+##
+
+(( 11 ))
+
+$ git log
+
+-- starts with the last commit
+-- we work backwards in time
+
+commit r90309ir390rif <- SHA identifier
+followed by author and email address
+the date
+the commit message
+
+-- type q to get out of this
+
+$ git log --abbrev-commit
+-- we only need 5 to 6 characters to identify a commit
+
+$ git log --oneline --graph --decorate
+-- we compress our entries in one line
+-- we provide an ascii graph which depicts the branching graph
+
+$ git log fcec38b...d7a67e5
+-- we see the commits in certain ranges
+
+$ git log --since="3 days ago"
+-- or we want to have the last 3 days of commits
+
+-- jan, change a file now (i.e. crossdomain.xml)
+-- add something or so and and then commit it
+-- 
+
+$ git log -- crossdomain.xml
+-- we can also take a look at the history of a certain file
+
+$ git show [the last commit sha]
+
+(( 12 ))
+
+-- first of all, lets clone my repository again (???)
+$ git clone https://github.com/starter-web starter-web2
+
+$ git log --all --graph --decorate --oneline
+-- this command is very long and not easy to remember
+-- so we save that command in our git config
+
+$ git config --global alias.hist "log --all --graph --decorate --oneline"
+
+$ nano ~/.gitconfig
+-- no we could modify this
+-- i.e. take the graph out
+
+(( 12 )) unwanted files
+
+$ touch unwantedfile
+
+$ git status
+
+$ ls -la
+
+$ nano .gitignore
+-- we want to create a file that is a list of unwanted
+-- files
+--  
+-- specific file : myfile.txt
+-- file pattern  : *.txt
+-- folder		 : folder/
+
+-- enter unwantedfile
+
+$ git status
+-- unwantedfile is already ignored
+-- what about .gitignore?
+-- its a regular textfile like the others, too
+-- should be versioned, too
+
+$ git add .gitignore
+
+$ git status
+
+$ git commit -m "added git ignore file to excldue unwanted files"
+
+-- TASK: 
+-- create three files access.log, auth.log and error.log
+-- exclude them from git repository
+
+$ git commit -am "excluding log file directory"
+
+(( 13 ))
+
+$ nano README.md
+
+-- edit some stuff here
+
+	# Bla
+
+	## Sub bla
+
+	## Sub bla2
+
+$ git status
+
+$ git add -A
+
+$ git commit -m "changed README.md"
+
+$ git push origin master
+
+$ nano README.md
+-- do something here again
+-- add a section "Deployment: blabla"
+
+$ git add README.md
+-- we add it to the staging area
+
+$ nano README.md
+
+$ git status
+
+-- we now it has been modified, even though
+-- it is in the staging area
+-- what exactly has been modified,
+-- this is something we should find out about
+-- now
+
+$ git reset README.md
+
+-- 
+-- difference diffs
+-- 
+
+-- edit something
+$ nano README.MD
+
+$ git diff
+
+$ git add README.MD
+
+$ git diff
+
+-- here, nothing is shown
+
+$ git commit -m "added blabla"
+
+$ git diff HEAD
+-- shows nothing, here we compare our HEAD, with the HEAD
+
+$ nano README.MD
+
+$ git diff HEAD
+
+$ git commit -m "foo"
+
+-- okay, how can we now compare our current commit, with the previous commit
+
+$ git diff HEAD~1
+
+-- the same as
+$ git diff HEAD~1 HEAD
+
+-- only staged with HEAD~1
+--
+
+$ nano README.MD
+
+$ git add README.MD
+
+$ nano humans.txt
+
+-- we see only changes from README.MD, since it is already staged
+$ git diff
+
+-- we only see changes from humans.txt here
+$ git diff --staged 
+
+-- here we see the changes on command line
+$ git difftool --staged
+-- now you see the difference of the file in README.md
+
+$ git commit -m "ok"
+
+-- before we push, lets take a look at what we have actually changed so far
+
+$ git diff master origin/master
+
+$ git push origin master
+
+-- no difference
+$ $ git diff master origin/master
+
+(( 16 ))
+
+-- sometimes if we have multiple changed files
+-- we want to limit our diff to only ONE file
+
+$ nano simple.html
+-- lets edit that file a bit
+
+$ git status
+-- two files that i have changed
+
+$ git diff
+
+$ git diff -- README.md
+
+$ git difftool -- README.md
+
+$ git diff 63a8110 README.md
+
+(( 17 ))
+
+-- now lets compare two commits with each other
+
+$ git log --oneline
+-- take a look at the commits
+-- we see that we have our sha values
+-- lets take two in the middle
+
+$ git diff 238fj fd89uvj
+-- [ take the head as 2nd parameter ]
+
+$ git diff HEAD HEAD^
+-- compares HEAD and HEAD - 1
+
+$ git diff HEAD HEAD^^^
+-- compares HEAD and HEAD - 3
+
+$ git difftool HEAD HEAD^
+
+(( 18 )) differences between local master branch 
+         and remote master branch
+
+$ git diff master origin/master
+-- the red stuff does not exist yet
+-- on our remote repository
+
+$ git difftool master origin/master
+-- on the left side, we see our local
+-- repository
+-- on the right side we see our remote
+-- repository
+
+-- question:
+-- what is the current status of our
+-- remote repository?
+-- a: it is our last commit on the remote
+--    repository
+
+task #2:
+
+1) In your /mywebsite folder, change the title of your website to
+   "Learning Git: Diffs"
+
+2) Add index.html to the staging area.
+3) In /code, create another file index.js and add the line
+	console.log("Hallo World"); 
+4) Edit your index.html and add the line 
+	<script src="index.js"></script>
+5) Perform a git status. How would you explain the output? 
+6) Analyze difference between the status of the working directory and
+   the staging area.
+7) Commit.
+8) Change the title of your website back to "Learning Git"
+9) Commit.
+10) Now, you forgot about the title you had in your commit before the last one. Find out
+    about it.
+11) You again decide to change the title. This time it is "Learning Git by example".
+12) Stage the change.
+13) This time you want to compare the staged changes with the commit that you had 
+    to when you initially defined your title.
+14) Commit.
+15) Before you push, you compare your local repository with the remote repository.
+16) Eventually you push your repository.
+
+(( 19 )) Branching Basics
+
+$ git branch
+-- on what branch are we currently on?
+
+$ git branch -a
+-- lets take a look at our branches
+
+$ git branch mynewbranch
+-- lets create a branch 
+
+$ git branch -a
+-- now see that we have created a new branch 
+-- and its available in our list
+
+$ git checkout mynewbranch
+-- we want to switch to "mynewbranch"
+
+$ git log --oneline --decorate
+-- we see our last commit and it has
+-- several labels associated with it
+
+--
+-- that we are on master * fbdcb00 (HEAD -> master, mynewbranch) added jupiter
+-- that we are on mynewbranch * fbdcb00 (HEAD -> mynewbranch, master) added jupiter
+--
+
+$ git checkout master
+-- now lets switch back to master
+
+$ git branch -m mynewbranch newbranch
+-- lets rename our branch mynewbranch to newbranch
+
+$ git branch -a
+-- we see our branches, we are currently at master
+
+$ git branch -d newbranch
+-- so lets remove that branch
+
+(( 20 )) new feature 
+
+$ git checkout -b title-change
+-- we want to change a title in our HTML file
+-- and then we want to change the title or something
+
+$ git branch
+-- we are in master now
+
+$ nano index.html
+-- lets change that
+
+$ git commit -am "added some meta-stuff or something"
+
+$ git status
+-- okay, our changes are commited now
+-- we have created one new commited in our branch
+-- "change-title"
+
+$ git checkout master
+-- for merging our changes into the master
+-- we switch to our master
+
+$ git diff master title-change
+-- i want to know what the differences are
+-- its good to know in detail about the changes
+-- before i actually merge them into the 
+-- master
+-- when you are doing changes at your job,
+-- a senior developer will look at your
+-- changes and then merge them 
+
+$ git difftool master title-change
+-- lets take a look at it visually
+
+$ git merge title-change 
+-- now, we want to merge title-change into our
+-- current branch, which is master
+
+-- git sees a line change as 
+-- line deletion followed by a line insertion
+-- fast forward, only if no commits
+-- have happened on the master branch
+
+$ git log --oneline --decorate --graph
+-- now our HEAD points back to our master
+
+$ git branch
+-- we no longer need title-change
+
+$ git branch -d title-change
+-- so lets delete it
+
+$ git log --oneline --graph --decorate
+-- we only see master and HEAD
+
+
+(( 21 )) no fast forward
+
+$ git status
+
+$ git branch
+
+$ git checkout -b add-copyright
+
+$ git branch
+
+$ nano index.html
+-- lets add a copyright-notice to the file
+--      <footer>
+--        <p>&copy; Company 2015</p>
+--      </footer>
+
+$ git commit -am "adding copyright notice"
+
+$ nano README.md
+
+$ git commit -am "adding copyright to README"
+
+$ git log --graph --decorate --oneline
+-- now we see that we have two commits
+-- on the add-copyright branch
+
+$ git checkout master
+-- we want to integrate these two changes into the 
+-- master branch
+-- so lets switch back to the master branch first
+
+$ git merge add-copyright --no-ff
+-- here we want to disable fast-forward
+-- and do a merge-commit instead
+
+$ git branch -d add-copyright
+-- now that we integrated those changes
+-- we can get rid of the branch
+
+
+(( 22 )) Automatic merges
+
+$ git status
+
+$ git branch
+
+$ git checkout -b simple-changes
+
+$ nano humans.txt
+-- lets edit some team information
+
+$ git status 
+
+$ git commit -am "adding team member to humans.txt"
+
+$ git checkout master
+--lets switch back to master
+
+$ nano README.md
+-- lets change something on master
+
+$ git commit -am "did something README"
+
+$ git hist
+-- the upper part is interesting, we have commit
+-- from our branch simple-change, that has not been
+-- commited yet
+
+$ git branch
+
+$ git merge simple-changes -m "merging changes from simple-changes branch"
+
+$ git hist
+-- simple-changes still exists
+
+$ git branch -d simple-changes
+-- so now lets remove it
+
+$ nano humans.txt
+-- so lets check that the changes have made it into
+-- the master
+
+$ nano README.md
+-- and the readme ...
+
+(( 23  )) merge conflicts and resolutions
+
+-- DO THE HALLO WORLD / HALLO MARS EXAMPLE
+
+--
+-- 
+--
+
+-- people working on the same files
+-- on different branches which will
+-- then be merged together
+-- at somepoint, GIT does not know
+-- what deletes or inserts in the file
+-- we meant to be in the master branch
+-- so usually a programmer has to sit
+-- down and merge them by hand
+-- or resolve the conflicts manually
+-- this ends in realwork
+
+$ git checkout -b realwork
+
+$ nano index.html
+-- do something
+
+$ git commit -am "increased padding by 5 px"
+
+$ git status 
+-- our directory is clean
+
+$ git checkout master
+-- lets go and switch back to master
+
+$ nano index.html
+-- now you see, git changes all the files in 
+-- working directory for us when switching 
+-- a branch
+
+-- lets create some conflicting changes
+-- [same line, different string]
+
+$ git add index.html
+$ git commit -am "increased padding by 7 px"
+
+$ git diff master realwork
+-- okay, lets compare
+
+$ git difftool master realwork
+-- we can also do that visually
+
+$ git merge realwork
+-- so lets do the merge
+-- so now we have a conflict
+-- we have one line and two versions for that
+-- line
+
+-- 1. we see that Git tried to do an auto-merge 
+--    with the two files, and Git did not manage to do that
+
+-- so now we are in a merging state
+-- "both modified:"
+
+$ nano index.html
+-- we see that we have now our conflicts
+-- pointed out by Git
+
+$ git mergetool
+-- which will launch p4merge
+-- decide which version you want to have
+
+$ git commit -m "resolved the merge conflicts"
+
+$ nano index.html.orig
+-- git backed up the conflict files
+
+$ nano .gitignore
+-- add a pattern for *.orig
+
+$ git commit -m "updated ignore file to exclude merge orig files"
+
+$ git branch 
+
+$ git branch -d realwork
+
+
+Task #3
+
+1) In your /mywebsite folder, change the title of your website to
+   "Learning Git: Diffs"
+
+2) Add index.html to the staging area.
+3) In /code, create another file index.js and add the line
+	console.log("Hallo World"); 
+4) Edit your index.html and add the line 
+	<script src="index.js"></script>
+5) Perform a git status. How would you explain the output? 
+6) Analyze difference between the status of the working directory and
+   the staging area.
+7) Commit.
+8) Change the title of your website back to "Learning Git"
+9) Commit.
+10) Now, you forgot about the title you had in your commit before the last one. Find out
+    about it.
+11) You again decide to change the title. This time it is "Learning Git by example".
+12) Stage the change.
+13) This time you want to compare the staged changes with the commit that you had 
+    to when you initially defined your title.
+14) Commit.
+15) Before you push, you compare your local repository with the remote repository.
+16) Eventually you push your repository.
+
+1) Go to your /mywebsite folder
+2) Create a new branch "loopy-loop" and switch to it.
+3) Add the following to your index.js
+  
+  for(let i=0;i<10;i++) {
+	console.log('I am a loop: ' + i);
+  }
+
+4) Commit it.
+5) Now you want to increase the number of iterations by 1 and you change 
+  the part "i<10" to "i<15"
+6) Commit it.
+7) Merge the loopy-loop branch into the master branch.
+8) Create a new branch "crypto" and switch to it.
+9) Download a new image file with topic "ripple" and size is medium. Save it
+  as "ripple.jpg" in your image folder.
+10) Change the index.html so that a new image "ripple.jpg" will be displayed just 
+  like the other pictures.
+11) Commit your changes.
+12) Merge the ripple branch into the master branch without using fast-forward.
+13) Create a new branch "bitcoin". 
+14) Do exactly as in 9) with the difference, that you search for bitcoin and
+    save it as bitcoin.jpg
+15) Change the index.html, so that bitcoin.jpg will be displayed and not ripple.jpg.
+16) Commit it.
+17) Switch back to master branch.
+18) Do exactly as in 9) with the difference, that you search for ethereum and
+    save it as ethereum.jpg
+19) Change the index.html, so that ethereum.jpg will be displayed and not ripple.jpg.
+20) Commit it.
+21) Merge the bitcoin branch into the master branch, what is the problem here?
+22) Push your changes to GitHub and look at your available branches, what do you see?
+
+
+--
+-- Undoing changes
+--
+
+--
+-- Hard Reset
+-- 
+
+$ git init
+$ echo "1" >> a
+$ git add -A
+$ git commit -m "1"
+$ echo "2" >> a
+$ git commit -am "2"
+$ echo "3" >> a
+$ git commit -am "3"
+$ echo "4" >> a
+$ git commit -am "4"
+$ echo "5" >> a
+$ git commit -am "5"
+
+-- COPY this repo three times
+
+$ git hist
+
+-- push it
+$ git push origin master
+
+-- deletes the current HEAD and moves back to HEAD-1
+-- soft reset: staged changes remain
+-- hard reset: staged changes do not remain
+$ git reset --hard HEAD~3
+
+$ git hist
+
+$ nano itsme "2 bugfix"
+
+$ git commit -am "2 - different"
+
+$ git push origin master
+-- ERROR
+
+
+-- 
+-- Checkout new branch method
+-- 
+
+$ echo "6" >> a
+$ git commit -am "6"
+
+$ git push origin master
+-- all good
+
+$ git hist
+
+$ git checkout 9a512e4
+
+-- detached head means HEAD does not point to the
+-- last commit in our master branch
+
+$ git branch letsgoback
+$ git checkout letsgoback
+
+$ nano a 
+-- add some random numbers 2.3.4.5
+
+$ git commit -am "added some floating point units to the 2"
+
+-- also newbranch
+$ git push --all origin
+
+## 
+## revert
+## 
+
+$ git revert HEAD~2
+
+$ git status
+
+$ git mergetool
+
+$ git commit -m "reverted back to HEAD~2"
+
+## see the new commit at the end of the latest branch
+$ git hist
+
+## PART 1
+
+# show the current version
+
+$ git --version
+
+# 
+
+$ git config --global user.name "Jan"
+$ git config --global user.email "jan.schulz@devugees.org"
+
+# lets see where we are right now
+# pwd = print working directory
+
+$ pwd
+
+# let us change to the desktop
+$ cd /home/user/Desktop
+
+# now create a folder hello-world
+$ mkdir hello-world
+
+# here, start coding that simple website
+# repository
+# let git start tracking that thing
+#
+# ...
+
+$ git init 
+
+# show the current snapshot or the current status
+# of the repo
+$ git status 
+
+# since no file is staged, yet, lets add our two files
+$ git add index.html style.css 
+
+# then again lets see the current status
+$ git status 
+
+# finally, lets save all the files that we've changed
+$ git commit -m "my first commit"
+
+# now change something, delete important stuff etc.
+# ...
+# and then, we simply want to revert the changes and go back
+
+$ git checkout -- .
+
+# voila, here we have our previous files again
+
+## PART 2
+
+$ git clone https://github.com/foobaroo/welcome-to-github
+
+## PART 3
+
+- everybody pls go on github.com and create a new account
+- please tell me when you are done
+- ...
+- on the right upper corner you see a plus symbol -> please
+  click on that and then new repository
+
+
+

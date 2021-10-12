@@ -1,0 +1,340 @@
+--
+-- SQL solution
+--
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const randomstring = require('randomstring');
+const mysql = require('mysql');
+const app = express();
+
+var con = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: 'foobar',
+	database: 'productserver'
+});
+
+app.use(bodyParser.json());
+app.use('/', express.static(__dirname + '/public'));
+
+app.get('/', function(req, res) {
+    return res.send({ productapi: '1.0' });
+});
+
+app.get('/products', function(req, res) {
+    let sql = 'select * from products';
+ 
+    if(req.query.q) {
+        sql += ' where lower(title) like ? or lower(description) like ?';
+    }
+
+    con.query(sql, 
+        req.query.q ? ['%'+req.query.q+'%', '%'+req.query.q+'%'] : null, function(err, rows) {
+        if(err)
+            return res.send({ err: err });
+
+        return res.send(rows);
+    });    
+});
+
+app.post('/products', function(req, res) {
+    if(!req.body.type || !req.body.title || !req.body.description || !req.body.price || !req.body.imageurl) {
+        return res.send({ error: 'type, title, description and price required' });
+    }
+
+    let sql = `insert into products (title, type, description, price, imageurl) 
+    values (?, ?, ?, ?, ?)`;
+
+    con.query(sql, 
+        [req.body.title, req.body.type, req.body.description, req.body.price, req.body.imageurl], function(err, rows) {
+        if(err)
+            return res.send({ err: err });
+
+        return res.send({error: 0, id: rows.insertId});
+    });
+});
+
+app.delete('/products/:id', function(req, res) {
+    let sql = 'delete from products where id = ?';
+ 
+    con.query(sql, req.params.id, function(err, rows) {
+        if(err)
+            return res.send({ err: err });
+
+        return res.send({ error: 0 });
+    });     
+});
+
+app.listen( 3000 );
+
+
+--
+-- Mongo CRUD no ORM
+--
+
+var express = require('express');
+var bodyParser = require('body-parser');
+
+var mongo = require('mongodb');
+var MongoClient = mongo.MongoClient;
+var url = "mongodb://localhost:27017/";
+
+const app = express();
+app.use(bodyParser.json());
+
+app.get('/', function(req, res) {
+	res.send({
+		info: 'student crud api'
+	})
+});
+
+// var studentSchema = new Schema({
+// 	name: String,
+// 	age: Number,
+// 	subjects: Array,
+// 	gender: String,
+// 	address: Schema.Types.Mixed
+// });
+
+// add a new student
+app.post('/student', function(req, res) {
+	// here we take req.body for the new student
+
+	if(!req.body.name || !req.body.age || !req.body.subjects || !req.body.address) {
+		return res.send({ error: 'name, age, subjects, address is required' });
+	}
+
+	MongoClient.connect(url, function(err, db) {
+		if (err) return res.send({ error: err });
+		var dbo = db.db("studentdb");
+		var newStudent = { 
+			name: req.body.name,	
+			age: req.body.age,	
+			subjects: req.body.subjects,	
+			address: req.body.address
+		};
+		dbo.collection("students").insertOne(newStudent, function(err, dbres) {
+			if (err) return res.send({ error: err });
+			db.close();
+			return res.send({ error: 0, insertId: dbres.insertedId });
+		});
+	});	
+});
+
+// load student info via id 
+app.get('/student', function(req, res) {
+	// read statement
+	// Student.findById(req.params.id, function(err, student) {
+
+	MongoClient.connect(url, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db("studentdb");
+
+		if(!req.query.q) {
+			dbo.collection('students').find({ }).toArray(function(err, dbres) {
+				if (err) res.send({ error: err });
+				db.close();
+				return res.send(dbres);
+			});
+		}
+		else {			
+			let id = null;
+			try {
+				id = new mongo.ObjectId(req.query.q);
+			}
+			catch(err) {
+				return res.send({ error: err.toString() });				
+			}
+			
+			dbo.collection('students').findOne({'_id': id }, function(err, dbres) {
+				if (err) res.send({ error: err });
+				db.close();
+				return res.send(dbres);
+			});			
+		}
+	});	
+});
+
+// update statement
+app.put('/student/:id', function(req, res) {
+
+	// 	// check all params that are set in req.body and attach/overwrite the student object
+	// 	for(attr in req.body) {
+	// 		student[attr] = req.body[attr];
+	// 	}
+
+	MongoClient.connect(url, function(err, db) {
+		if (err) return res.send({ error: err });
+		var dbo = db.db("studentdb");
+		var newValues = { $set: req.body };
+
+		let id = null;
+		try {
+			id = new mongo.ObjectId(req.params.id);
+		}
+		catch(err) {
+			return res.send({ error: err.toString() });				
+		}
+
+		dbo.collection("students").updateOne({'_id': id}, newValues, function(err, dbres) {
+			if (err) return res.send({ error: err });
+			db.close();
+			return res.send({ error: 0, result: dbres });
+		});
+	});
+
+
+});
+
+// delete a student
+app.delete('/student/:id', function(req, res) {
+	MongoClient.connect(url, function(err, db) {
+		if (err) return res.send({ error: err });
+		var dbo = db.db("studentdb");
+
+		let id = null;
+		try {
+			id = new mongo.ObjectId(req.params.id);
+		}
+		catch(err) {
+			return res.send({ error: err.toString() });				
+		}
+
+		dbo.collection("students").deleteOne({'_id': id}, function(err, dbres) {
+			if (err) return res.send({ error: err });
+			db.close();
+			return res.send({ error: 0, result: dbres });
+		});
+	});
+});
+
+app.listen(3000, function() {
+	console.log('app listening on port 3000');
+});
+
+--
+-- Mongo CRUD ORM
+--
+
+-- main.js
+
+var mongoose = require('mongoose');
+var Student = require('./studentmodel');
+var express = require('express');
+var bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser());
+
+mongoose.connect('mongodb://localhost/test');
+app.get('/', function(req, res) {
+	res.json({
+		info: 'student crud api'
+	})
+});
+
+// task:
+// Create a CRUD api for creating, updating, deleting and reading student info.
+// POST - create
+// PUT - update
+// DELETE - delete
+// GET - read
+//
+// PUT, DELETE and GET expect a student ID
+
+// add a new student
+app.post('/student', function(req, res) {
+	// here we take req.body for the new student
+	console.log(req.body);
+	var newStudent = new Student(req.body);
+	newStudent.save(function(err) {
+		if(err) {
+			return res.send(err);
+		}
+		
+		console.log('user chris has been saved successfully');
+		return res.send({ newStudent: req.body })
+	});
+});
+
+// load student info via id 
+app.get('/student/:id', function(req, res) {
+	// read statement
+	Student.findById(req.params.id, function(err, student) {
+		
+		if(!student)
+			return res.send({err: 'student not found'});	
+
+		console.log(student);
+		return res.send(student);
+	});
+});
+
+
+// update statement
+app.put('/student/:id', function(req, res) {
+	Student.findById(req.params.id, function(err, student) {
+		if(!student)
+			return res.send({err: 'student not found'});
+
+		// check all params that are set in req.body and attach/overwrite the student object
+		for(attr in req.body) {
+			student[attr] = req.body[attr];
+		}
+
+		student.save(function(err) {
+			if(err) {
+				return res.send(err);
+			}
+
+			console.log('student updated');
+			return res.send(student);
+		});
+	});
+});
+
+// delete a student
+app.delete('/student/:id', function(req, res) {
+	Student.findById(req.params.id, function(err, student) {
+		if(!student)
+			return res.send({err: 'student not found'});
+
+		student.remove(function(err) {
+			if(err) {
+				return res.send(err);
+			}
+
+			console.log('student deleted');
+			return res.send(student);
+		});
+	});
+});
+
+app.listen(3000, function() {
+	console.log('app listening on port 3000');
+});
+
+-- model.js
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var studentSchema = new Schema({
+	name: String,
+	age: Number,
+	subjects: Array,
+	gender: String,
+	updated: Date,
+	address: Schema.Types.Mixed
+});
+
+studentSchema.pre('save', function(next) {
+	var currentDate = new Date();
+	this.updated = currentDate;
+
+	next();
+});
+
+var Student = mongoose.model('students', studentSchema);
+module.exports = Student;

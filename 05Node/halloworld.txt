@@ -1,0 +1,9 @@
+Hallo,
+
+my name is Jan. I am 32 years old an work
+as a freelance developer in Berlin.
+
+I am teaching NodeJS.
+
+Cheers,
+Jan

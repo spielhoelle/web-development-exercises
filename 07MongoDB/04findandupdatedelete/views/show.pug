@@ -1,0 +1,8 @@
+extends layout.pug
+block content
+  h1= "Title: " + book.title
+  p= "Content: " + book.content
+  p= "Order:" + book.order
+  p= "Date:" + book.date
+  br
+  a(href="/") Back

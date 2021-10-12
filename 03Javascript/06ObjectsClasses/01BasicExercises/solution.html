@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+  /*****************************************************************
+   * EXERCISE 001
+   *****************************************************************
+   *
+   * Write a function that returns all of the given books that are
+   * currently on sale.
+   */
+
+  // SOLUTION 1: Using an array of objects and array.filter()
+
+  const books = [
+    {
+      title: "Dive into HTML5",
+      author: "Mark Pilgrim",
+      url: "http://diveinto.html5doctor.com/",
+      onSale: false
+    },
+    {
+      title: "Understanding Flexbox",
+      author: "Ohans Emmanuel",
+      url: "https://ohansemmanuel.github.io/uf_download.html",
+      onSale: true
+    },
+    {
+      title: "Maintenable CSS",
+      author: "Adam Silver",
+      url: "https://maintainablecss.com/",
+      onSale: false
+    },
+    {
+      title: "Eloquent JavaScript",
+      author: "Marijn Haverbeke",
+      url: "http://eloquentjavascript.net/",
+      onSale: true
+    }
+  ];
+
+  function getBooksOnSale(books) {
+    return books.filter(book => {
+      return book.onSale === true;
+    });
+  }
+
+  console.log("Books on sale:");
+  console.log(getBooksOnSale(books));
+
+  // SOLUTION 2 + 3: Using an object containing objects and array.reduce() or for()
+
+  const booksObject = {
+    "123": {
+      title: "Dive into HTML5",
+      author: "Mark Pilgrim",
+      url: "http://diveinto.html5doctor.com/",
+      onSale: false
+    },
+    "124": {
+      title: "Understanding Flexbox",
+      author: "Ohans Emmanuel",
+      url: "https://ohansemmanuel.github.io/uf_download.html",
+      onSale: true
+    },
+    "125": {
+      title: "Maintenable CSS",
+      author: "Adam Silver",
+      url: "https://maintainablecss.com/",
+      onSale: false
+    },
+    "126": {
+      title: "Eloquent JavaScript",
+      author: "Marijn Haverbeke",
+      url: "http://eloquentjavascript.net/",
+      onSale: true
+    }
+  };
+
+  function getBooksOnSaleObject(books) {
+    let onSale = [];
+
+    for (key in books) {
+      if (books[key].onSale === true) {
+        onSale.push(books[key]);
+      }
+    }
+
+    return onSale;
+  }
+
+  function getBookOnSaleKeys(books) {
+    return Object.keys(books).reduce((booksOnSale, bookId) => {
+      if (books[bookId].onSale === true) {
+        booksOnSale.push(books[bookId]);
+      }
+
+      return booksOnSale;
+    }, []);
+  }
+
+  console.log("Books on sale object:");
+  console.log(getBooksOnSaleObject(booksObject));
+
+  /*****************************************************************
+   * EXERCISE 002
+   *****************************************************************
+   *
+   * Create a function that extends the students` objects with the
+   * calculated grade, based on their points. You can see the
+   * expected result below, as written in "expectedGrades".
+   *
+   * Grades, based on points:
+   * A    90 - 100
+   * B    70 -  89
+   * C    50 -  69
+   * D    30 -  49
+   * E    10 -  29
+   * F     0 -   9
+   */
+
+  const students = [
+    {
+      name: "Peter",
+      points: 35
+    },
+    {
+      name: "Paul",
+      points: 100
+    },
+    {
+      name: "John",
+      points: 45
+    },
+    {
+      name: "Mary",
+      points: 84
+    },
+    {
+      name: "Jane",
+      points: 15
+    },
+    {
+      name: "Jennifer",
+      points: 92
+    },
+    {
+      name: "Martin",
+      points: 9
+    }
+  ];
+
+  const expectedGrades = [
+    {
+      name: "Peter",
+      points: 35,
+      grade: "D"
+    },
+    {
+      name: "Paul",
+      points: 100,
+      grade: "A"
+    },
+    {
+      name: "John",
+      points: 45,
+      grade: "D"
+    },
+    {
+      name: "Mary",
+      points: 84,
+      grade: "B"
+    },
+    {
+      name: "Jane",
+      points: 15,
+      grade: "E"
+    },
+    {
+      name: "Jennifer",
+      points: 92,
+      grade: "A"
+    },
+    {
+      name: "Martin",
+      points: 9,
+      grade: "F"
+    }
+  ];
+
+  function calculateGrade(points) {
+    if (points < 10) {
+      return "F";
+    } else if (points < 30) {
+      return "E";
+    } else if (points < 50) {
+      return "D";
+    } else if (points < 70) {
+      return "C";
+    } else if (points < 90) {
+      return "B";
+    }
+
+    return "A";
+  }
+
+  function addGradesForStudents(students) {
+    return students.map(student => {
+      student.grade = calculateGrade(student.points);
+      return student;
+    });
+  }
+
+  console.log("Grades:");
+  console.log(addGradesForStudents(students));
+
+  /*****************************************************************
+   * EXERCISE 003
+   *****************************************************************
+   *
+   * Create a function to parse a URL. An example of the expected
+   * output is written below as "expectedReturn".
+   */
+
+  const url = "https://www.google.de/search?source=hp&q=JavaScript&hl=en#top";
+
+  const expectedReturn = {
+    hash: "top",
+    host: "www.google.de",
+    params: {
+      hl: "en",
+      q: "JavaScript",
+      source: "hp"
+    },
+    protocol: "https",
+    query: "?source=hp&q=JavaScript&hl=en",
+    source: "https://www.google.de/search?source=hp&q=JavaScript&hl=en#top"
+  };
+
+  // SOLUTION 1: Basic JS features only
+
+  function parseUrlBasic(url) {
+    const getHash = url.split("#");
+    const hash = getHash.length > 1 ? getHash[1] : "";
+    const host = url.split("//")[1].split("/")[0];
+    const protocol = url.split("//")[0].replace(":", "");
+    const query = url.split("?")[1].replace(`#${hash}`, "");
+
+    const params = query.split("&").reduce((result, string) => {
+      const parts = string.split("=");
+      result[parts[0]] = parts[1];
+
+      return result;
+    }, {});
+
+    return {
+      hash,
+      host,
+      params,
+      protocol,
+      query: `?${query}`,
+      source: url
+    };
+  }
+
+  console.log("URL basic:");
+  console.log(
+    parseUrlBasic("https://www.google.de/search?source=hp&q=JavaScript&hl=en#top")
+  );
+
+  // SOLUTION 2: Using the URL object
+
+  function parseUrl(url) {
+    const parsed = new URL(url);
+    const parameterEntries = parsed.searchParams.entries();
+    let params = {};
+
+    for (var pair of parameterEntries) {
+      params[pair[0]] = pair[1];
+    }
+
+    return {
+      hash: parsed.hash.replace("#", ""),
+      host: parsed.host,
+      params,
+      protocol: parsed.protocol,
+      query: parsed.search,
+      source: url
+    };
+  }
+
+  console.log("URL advanced:");
+  console.log(
+    parseUrl("https://www.google.de/search?source=hp&q=JavaScript&hl=en#top")
+  );
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

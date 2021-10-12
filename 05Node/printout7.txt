@@ -1,0 +1,454 @@
+-- auth session
+
+const express = require('express');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+app.use(cookieParser());
+app.use(session({
+		secret: 'mySecretKey',
+		resave: true, // 
+		saveUnitialized: true
+}));
+
+function auth(req, res, next) {
+	if(req.session && req.session.user === 'jan' && req.session.admin) {
+			return next();
+	}
+	else {
+			return res.sendStatus(401);
+	}
+}
+
+app.get('/login', function(req, res) {
+	if(!req.query.username || !req.query.password) {
+			res.send('username and password required');
+	}
+ 	else if(req.query.username === 'jan' && req.query.password === 'foobar') {
+ 		req.session.user = 'jan';
+ 		req.session.admin = true;
+ 		res.send({ error: 0, result: 'logged in' });
+ 		console.log(JSON.stringify(req.session));
+ 	}
+});
+
+app.get('/logout', function(req, res) {
+   req.session.destroy();
+   res.send({ error: 0, result: 'logout successful' });
+});
+
+app.get('/content', auth, function(req, res) {
+	res.send('This is the secret area.');	
+});
+
+app.listen(3000);
+console.log('app running at port 3000');
+
+-- toolate app
+
+-- HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TooLater - App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="main.js"></script>
+  </head>
+<body>
+
+</body>
+</html>
+
+-- main.js
+
+$(document).ready(function() {
+    console.log('document loaded');
+
+	let loggedIn = localStorage.getItem('loggedIn');
+	if(loggedIn && loggedIn == 1) {
+		 buildApp()
+	}
+	else {
+		 buildLogin();
+	}	
+
+});
+
+function buildApp() {
+	$('body').empty();
+    $('body').append(`
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Too Late Comer App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"></li>
+                <a id="link-newlaty" class="nav-link" href="#">New Too Late Comer</a>
+                </li>
+                <li class="nav-item">
+                <a id="link-history" class="nav-link" href="#">History</a>
+                </li>
+                <li class="nav-item">
+                <a id="link-logout" class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content" class="container">
+        </div>
+    `);    
+
+	$('#link-newlaty').on('click', () => {
+		$('#form-add').show();
+		$('#table-history').hide();
+	});
+
+	$('#link-history').on('click', () => {
+		$('#form-add').hide();
+		$('#table-history').show();
+	});
+
+	$('#link-logout').on('click', () => {
+		$.ajax({
+			url: "http://localhost:3000/logout",
+			method: "POST",
+			contentType: "application/json",
+			dataType: "json"
+		  })
+		  .done(function(data) {
+			console.log('success', data);	  		
+			localStorage.setItem('loggedIn', 0);
+			buildLogin();
+		  })
+		  .fail(function(xhr) {
+			console.log('error', xhr);
+		  });			
+	});
+
+	let now = new Date();
+	let dd = now.getDate();
+	let mm = now.getMonth() + 1;
+	
+	let yyyy = now.getFullYear();
+	if(dd < 10){
+		dd='0'+dd;
+	} 
+	if(mm < 10){
+		mm='0'+mm;
+	} 
+	let strNow = dd + '/' + mm + '/' + yyyy;
+	let strTime = now.getHours() + ":" + (now.getMinutes() < 10?'0':'') + now.getMinutes();
+	
+	$('#content').append(`
+		<form id="form-add">
+			<div class="row" style="margin-top: 150px">
+			<div class="col-3">
+			<input type="text" class="form-control" id="input-name" placeholder="Firstname Lastname">
+			</div>
+			<div class="col-3">
+			<input type="text" class="form-control" id="input-date" placeholder="${strNow}">
+            </div>
+			<div class="col-3">
+			<input type="text" class="form-control" id="input-time" placeholder="${strTime}">
+			</div>
+			</div>
+			<button type="submit" class="btn btn-primary" style="margin-top: 15px">Add New Laty</button>				
+			<div class="alert alert-success" style="display: none; margin-top: 10px"> <strong>Success!</strong> New Laty was added.</div>
+		</form>
+	`);
+	 	    
+     $('#form-add').submit((e) => {
+		e.preventDefault();
+		let latyData = {
+			name: $('#input-name').val(),
+			date: $('#input-date').val(),
+			time: $('#input-time').val()
+		}
+
+		$.ajax({
+			url: "http://localhost:3000/toolate",
+			method: "POST",
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(latyData)
+		  })
+		  .done(function(data) {
+			console.log('success', data);	  
+			$('.alert-success').show().delay(2000).fadeOut('slow');
+			$('#input-name').val('');
+			$('#input-date').val('');
+			$('#input-time').val('');			
+		  })
+		  .fail(function(xhr) {
+			console.log('error', xhr);
+		  });
+	 });
+
+	 $('#content').append(`
+		<table id="table-history" class="table" style="display: none; margin-top: 100px">
+			<thead>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Last</th>
+				<th scope="col">Handle</th>
+				<th scope="col">Delete</th>				
+			</tr>
+			</thead>
+			<tbody>		
+			</tbody>
+		</table>	 
+	 `);
+
+	 $.ajax({
+		url: "http://localhost:3000/toolate",
+		method: "GET",
+		contentType: "application/json",
+		dataType: "json"
+	  })
+	  .done(function(data) {
+		console.log('success', data);	  		
+		for(let i=0;i<data.length;i++) {			
+			
+			let start = moment.duration("09:15", "HH:mm");
+			//var end = moment.duration("10:30", "HH:mm");
+			let end = moment.duration(data[i].time, "HH:mm");
+			let diff = end.subtract(start);
+			diff.hours(); // return hours
+			diff.minutes(); // return minutes
+			let tooLate = diff.hours() + ':' + diff.minutes();
+			
+			$('.table tbody').append(`
+				<tr data-id="${data[i]._id}">
+				<td>${data[i].name}</td>
+				<td>${data[i].date}</td>
+				<td>${data[i].time} (${tooLate})</td>
+				<td><button type="button" class="btn btn-primary btn-delete-laty">Delete</button></td>
+				</tr>`
+			);
+		}
+	  })
+	  .fail(function(xhr) {
+		console.log('error', xhr);
+	  });	 	 
+
+	 $('tbody').on('click', '.btn-delete-laty', (e) => {
+		let row = $(e.target).parent().parent();
+		let userId = row.attr('data-id');
+		console.log(userId);
+
+		$.ajax({
+			url: "http://localhost:3000/toolate/" + userId,
+			method: "DELETE",
+			contentType: "application/json",
+			dataType: "json"
+		  })
+		  .done(function(data) {
+			console.log('success', data);
+			row.remove();
+		  })
+		  .fail(function(xhr) {
+			console.log('error', xhr);
+		  });
+	 });
+}
+
+function buildLogin() {
+	$('body').empty();
+    $('body').append(`
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+            <a class="navbar-brand" href="#">Too Late Comer App</a>
+            </div>
+        </nav>
+    
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-12">
+                <div style="margin-top: 100px">
+                    <form id="form-login">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input style="max-width: 350px" class="form-control" id="username" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input  style="max-width: 350px" type="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>                
+                    </div>                
+            </div>
+            </div>
+        </div>
+    `);	
+
+	// first, we go without login
+	/*
+	$('#form-login').submit(function(e) {
+		e.preventDefault();
+
+		let user = { loggedIn: true };
+		localStorage.setItem('loggedIn', 1);
+
+		buildApp();
+	});
+	*/
+
+	$('#form-login').submit((e) => {
+		e.preventDefault();
+		let userData = {
+			username: $('#username').val(),
+			password: $('#password').val()
+		}
+
+		$.ajax({
+			url: "http://localhost:3000/login",
+			method: "POST",
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(userData)
+		  })
+		  .done(function(data) {
+			console.log('success', data);	  
+
+			if(data.err == 0) {
+				localStorage.setItem('loggedIn', 1);
+				buildApp();
+			}
+  		  })
+		  .fail(function(xhr) {
+			console.log('error', xhr);
+		  });
+	 });    
+}
+
+
+-- server.js
+
+const express = require('express');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const TooLateComers = require('./toolatemodel');
+const server = express();
+
+server.use(express.json());
+server.use(cookieParser());
+server.use(session({
+  secret: 'mySecretKey',
+  resave: true, 
+  saveUnitialized: true
+}));
+
+mongoose.connect('mongodb://localhost/toolate');
+server.use('/', express.static(__dirname + '/public'));
+
+function auth(req, res, next) {
+	if(req.session && req.session.user === 'jan' && req.session.admin) {
+			return next();
+	}
+	else {
+			return res.sendStatus(401);
+	}
+}
+
+server.post('/login', function(req, res) {
+	if(!req.body.username || !req.body.password) {
+		return res.send({err: 'username and password required'});
+	}
+  else if(req.body.username === 'jan' && req.body.password === 'foobar') {
+          req.session.user = 'jan';
+          req.session.admin = true;
+          console.log(JSON.stringify(req.session));
+          return res.send({err:0});
+  }
+
+    return res.send({err: 'unknown user'});
+});
+
+server.post('/logout', function(req, res) {
+   req.session.destroy();
+   res.send({ err: 0 });
+});
+
+server.get('/toolate', auth, function(req, res) {
+  TooLateComers.find({}, function(err, results) {
+    if(err) {
+      return res.send({err:err});
+    }
+    if(!results)
+      return res.send({err: 'error searching for toolates'});
+
+    return res.send(results);
+  });       
+});
+
+server.get('/toolate/:id', auth, function(req, res) {
+  console.log(req.params.id);
+  TooLateComers.findById(req.params.id, function(err, toolatefound) {
+      console.log(toolatefound);
+      if(!toolatefound)
+        return res.send({err: 'toolate not found'});	
+
+      console.log(toolatefound);
+      return res.send(toolatefound);
+    });      
+});
+
+server.post('/toolate', auth, function(req, res) {
+		 if(!req.body.name || !req.body.time || !req.body.date) {
+       return res.send({error: 'name, time and date needed'});
+     }
+
+     var newTooLateComers = new TooLateComers(req.body);
+     newTooLateComers.save(function(err) {
+       if(err) {
+         return res.send(err);
+       }
+       
+       console.log('new too late has been saved successfully');
+       return res.send({ newTooLateComers: req.body });
+     });     
+});
+
+server.delete('/toolate/:id', auth, function(req, res) {
+    if(!req.params.id) {
+      return res.send({err: 'toolate id required'});
+    }
+
+    TooLateComers.findById(req.params.id, function(err, toolatefound) {
+      if(!toolatefound)
+        return res.send({err: 'toolate not found'});
+  
+      toolatefound.remove(function(err) {
+        if(err) {
+          return res.send(err);
+        }
+  
+        console.log('toolate deleted');
+        return res.send(toolatefound);
+      });
+    });        
+});
+
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+  console.log('server is listening on port ' + port);
+});
+

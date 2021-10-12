@@ -1,0 +1,782 @@
+## 
+## about myself
+## 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>A page about myself</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-me.html">About Me</a></li>
+                    <li><a href="hobbies.html">Hobbies</a></li>
+                    <li><a href="skills-goals.html">Skills & Goals</a></li>   
+                    <li class="icon"><a href="#">&#9776;</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="item link">About Me</div>
+            <div class="item picture"></div>
+            <div class="item link">Hobbies</div>
+            <div class="item picture"></div>
+            <div class="item link">Skills & Goals</div>
+            <div class="item picture"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+## ams - scss
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(180, 180, 180);
+}
+
+.container {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    margin: 0 auto;
+    border: 1px solid black;
+    width: 70%;
+    display: grid;    
+    grid-template-rows: 150px auto;
+    grid-template-columns: 100%;
+    font-size: 24px;
+
+    .header {    
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        background-color: aquamarine;
+        background-image: url('../images/beach.jpg');
+        background-position: center;
+        ul {
+            margin: 0 10px 10px 0;
+
+            li {     
+                display: inline-block;
+                background-color: rgba(0, 0, 0, 0.7);
+
+                a:link, a:visited, a:hover {
+                    color: white;
+                    text-decoration: none;
+                }
+            }
+
+            .icon {
+                display: none;
+            }
+        }
+    }
+
+    .content {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 871px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 0 30px 0;
+
+        .item {
+            margin: 10px;
+            border: 1px solid black;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(71, 71, 71);
+            color: #fff;
+        }
+
+        .item.link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover {
+                background-color: cornflowerblue;
+            }
+        }
+
+        .item.picture:nth-child(2) {
+            background-image: url('../images/sport.jpg');
+            background-size: 100% 100%;
+        }
+
+        .item.picture:nth-child(4) {
+            background-image: url('../images/coding.jpg');
+            background-size: 100% 100%;            
+        }        
+
+        .item.picture:nth-child(6) {
+            background-image: url('../images/sauna.jpg');
+            background-size: 100% 100%;            
+        }     
+        
+        @mixin text-formatting {
+            font-size: 18px;
+            padding: 20px;
+            line-height: 1.3;
+
+            h2 {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }            
+        }
+
+        .about-me {
+            @include text-formatting;
+
+            img {
+                float: right;
+                margin: 10px;
+            }
+        }
+
+        .hobbies {
+            @include text-formatting;
+
+            img {
+                display: block;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            p {
+                margin-top: 5px;
+            }
+        }
+
+        .skills {
+            @include text-formatting;
+            width: 100%;
+
+            div {
+                display: table;
+                margin: 0 auto;
+                ul {
+                    margin: 0 auto;
+                    list-style: square;
+                    margin-left: 20px;
+
+                    li {
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    
+    .container .header ul li:not(last-child) {
+        display: none;
+    }
+    
+    .container .header ul .icon {
+        display: inline-block;
+        font-size: 2em;
+    }
+
+    .container {
+        margin: 0;    
+        width: 100%;
+    }
+}
+
+## 
+## google
+## 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="navigation">navigation</div>
+    </div>
+    <div class="main">
+        <div class="search-area">
+            <div class="logo">GOOGLE</div>
+            <input class="search-box" type="text" placeholder="Enter keyword ...">
+            <div class="buttons">
+                <button>Search</button>
+                <button>I'm feeling lucky</button>
+            </div>
+        </div>
+    </div>
+    <div class="location">
+        Deutschland
+    </div>
+</body>
+</html>
+
+##
+## scss
+##
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+@mixin blue-element {
+    border: 2px solid darkblue;
+    background: cornflowerblue;
+}
+
+@mixin green-element {
+    border: 2px solid darkblue;
+    background: rgb(146,208,80);
+}
+
+.header {
+    height: 60px;
+    @include blue-element();
+
+    display: flex;
+    justify-content: flex-end;
+
+    .navigation {
+        @include green-element();
+        text-align: center;
+        width: 120px;
+    }
+
+}
+
+.main {
+
+    display: flex;
+    justify-content: center;
+    
+    .search-area {
+
+        @include green-element();
+        font-size: 1.2rem;
+        padding: 10px;
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        .logo {
+            margin: 0 auto;
+            font-size: 4rem;
+            width: 271px;
+            height: 100px;
+        }
+        
+        .search-box {
+            margin-top: 10px;        
+            font-size: 1rem;
+            display: block;
+            width: 100%;
+        }
+
+        .buttons {        
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;            
+
+            button {
+                font-size: 1rem;
+                padding: 3px;
+                margin-left: 10px; 
+            }
+        }
+    }
+}
+
+.location {
+    display: none;
+    position: fixed;
+    bottom: 0;
+}
+
+@media only screen and (max-width: 492px) {
+    .location {
+        display: block;
+    }
+
+    .search-area {
+        width: 85%;
+        font-size: 6rem;
+
+
+        .buttons {        
+            font-size: 1.5rem;
+        }            
+    }
+}
+
+##
+## bing
+##
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="navigation-1">navigation 1</div>
+        <div class="navigation-2">navigation 2</div>
+    </div>
+    <div class="main">
+        <div class="search-area">
+            <div class="logo">BING</div>
+            <input type="text" placeholder="Enter keywords here ...">
+            <button>Search</button>
+        </div>
+    </div>
+        
+    <div class="footer">
+        <ul class="thumbnails">
+            <li>THUMBNAIL</li>
+            <li>THUMBNAIL</li>
+            <li>THUMBNAIL</li>
+            <li>THUMBNAIL</li>
+            <li>THUMBNAIL</li>
+            <li>THUMBNAIL</li>
+        </div>
+    </div>
+</body>
+</html>
+
+##
+## scss
+##
+
+* {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+@mixin blue-element {
+    border: 2px solid darkblue;
+    background: cornflowerblue;
+}
+
+@mixin green-element {
+    border: 2px solid darkblue;
+    background: rgb(146,208,80);
+}
+
+body {
+    display: grid;    
+    grid-template-rows: 40px auto 120px;
+}
+
+.header {
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    @include blue-element();
+
+    .navigation-1 {
+        @include green-element(); 
+        width: 200px;               
+    }
+
+    .navigation-2 {
+        @include green-element();        
+        width: 200px;
+    }
+}
+
+.main {
+    .search-area {
+        margin-left: 100px;
+        margin-top: 100px;
+
+        display: flex;
+        flex-direction: row;
+        height: auto;
+
+        .logo {
+            font-size: 2.2em;
+            min-height: 87px;
+        }
+
+        input { 
+            display: block; 
+            width: 300px;
+            height: 30px;
+            margin-left: 10px;
+        }
+        button { 
+            display: block; 
+            height: 30px;
+            margin-left: 10px;
+        }
+    }
+}
+
+.footer {
+    @include blue-element();
+
+    .thumbnails {               
+
+        margin: 0 10px;
+
+        li {
+            @include green-element();
+            float: left;
+            width: 186px;
+            height: 122px;
+        }
+    }
+}
+
+@media only screen and (max-width: 468px) {
+    body {
+        grid-template-rows: 40px auto;
+    }
+
+    .footer {
+        display: none;
+    }
+
+    .main {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+
+        .search-area {
+            margin: 0 auto;
+
+            .logo {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }    
+        }
+    }    
+
+    .header {    
+        .navigation-1, .navigation-2 {
+            display: none
+        }
+    }        
+}
+
+
+##
+## youtube
+## 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">YouTube</div>
+        <div class="searchbox">
+            <input type="text"><button>Search</button>
+        </div>
+        <div class="navigation-1">navigation-1</div>
+    </div>
+    <div class="navigation-2">navigation-2</div>
+    <div class="main">
+        <div class="start">
+            <div class="teaser">teaser</div>
+            <div class="ad">ad</div>
+        </div>
+
+        <div class="thumbnails">
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>
+            <div class="thumbnail">thumbnail</div>             
+        </div>
+    </div>
+</body>
+</html>
+
+##
+## scss
+##
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+}
+
+@mixin blue-element {
+    border: 2px solid darkblue;
+    background: cornflowerblue;
+}
+
+@mixin green-element {
+    border: 2px solid darkblue;
+    background: rgb(146,208,80);
+}
+
+.navigation-2 {
+    display: none;
+    @include green-element();
+}
+
+.header {
+    height: 40px;
+    @include blue-element();
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+        margin-left: 10px;
+        @include green-element();
+    }
+
+    .navigation-1 {
+        margin-right: 10px;
+        @include green-element();
+    }
+
+    .searchbox {
+        input {
+            width: 300px;
+            font-size: 1.2rem;
+        }
+        
+        button {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto;
+
+    .start {
+        height: 200px;
+        display: flex;
+        flex-direction: row;    
+        @include blue-element();
+        
+        .teaser, .ad {
+            width: 50%;
+            @include green-element();
+        }
+    }
+
+    .thumbnails {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        @include blue-element();
+
+        .thumbnail {
+            width: 220px;
+            height: 200px;
+            @include green-element();
+            margin: 10px;
+        }
+    }
+}
+
+@media only screen and (max-width: 468px) {
+    .main {
+        .thumbnails {            
+            display: block;
+            width: 100%;
+
+            .thumbnail {
+                width: 99%;
+                margin: 5px 0 0 0;
+            }
+        }
+    }
+
+    .header {
+        .searchbox {
+            display: none;
+        }
+    }    
+
+    .navigation-2 {
+        display: block;
+    }    
+}
+
+##
+## twitter
+##
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="navigation-1">navigation-1</div>
+        <div class="search-box">searchbox</div>      
+    </div>
+    <div class="navigation-2">navigation-2</div>
+    <div class="main">
+        <div class="left-sidebar">left sidebar</div>
+        <div class="content">
+            <div class="search-box">
+                <input type="text" placeholder="search articles">
+            </div>
+            <div class="article">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non laborum dolore libero fuga eveniet reiciendis hic, vitae alias labore neque, placeat consectetur accusamus! Voluptate aperiam pariatur cum adipisci optio obcaecati reiciendis quam iste expedita aut laudantium, explicabo saepe fugit debitis dolores quibusdam nostrum et, possimus doloribus ut tenetur! Mollitia aperiam aliquid labore enim esse nesciunt tenetur maiores! Possimus quibusdam nobis expedita, ratione tempora, debitis corrupti laudantium architecto modi minus dolores necessitatibus, quas id? Minus quibusdam, eos esse dicta, ea exercitationem labore, dolorem quisquam fugiat rerum quaerat quo placeat aliquid tempore possimus culpa sequi rem. Optio odit deleniti fugiat corporis? Vero ratione, quos eveniet odit alias natus? Earum eum laborum delectus quis harum, architecto aliquam beatae unde ea, molestias sint impedit.</div>
+            <div class="article">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga cupiditate iusto voluptatum odit numquam mollitia harum, in quam nobis totam magnam nesciunt accusantium ab recusandae hic maiores et dicta eos ratione, nisi aperiam tempora eligendi cumque natus. Tenetur harum, neque, ex quod veritatis praesentium iste vel velit dolor facilis veniam quos, suscipit optio porro ducimus molestias aut. Ab animi voluptates quaerat consectetur repudiandae ipsam velit enim alias! Harum, et. Vero mollitia itaque asperiores adipisci tenetur repudiandae, reprehenderit sint veritatis laboriosam. Provident ab odio voluptatibus eos tenetur cum dignissimos unde ex sunt. Explicabo deserunt laudantium neque molestias saepe ab excepturi voluptatum error, necessitatibus expedita? Iure error minus inventore cumque esse ab recusandae odit architecto voluptatum fugiat? Quos totam beatae eum illo!</div>
+            <div class="article">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eum quod cupiditate consequatur perspiciatis animi eos, recusandae rem, nesciunt esse itaque distinctio dolor nostrum, vero dolore aliquid voluptate. Suscipit quod nesciunt aspernatur consectetur sed beatae iure sunt reprehenderit vel veritatis quia hic repellat atque, repellendus nemo eligendi nostrum nihil voluptatem quis ullam? Eum magni exercitationem assumenda consequuntur libero earum vitae molestias quo doloribus fugiat praesentium, soluta dolor, delectus debitis minus, ipsum dolorem illo tenetur quaerat quod deserunt numquam minima at obcaecati? Suscipit asperiores esse tempore aliquam perspiciatis dicta accusamus repellat sint odio reiciendis, quod non. Fugit quo accusamus odit beatae id laudantium eaque, sequi repellat autem deserunt consectetur, sint veniam vero ipsam tempore ullam obcaecati eos aliquam optio perspiciatis officiis.</div>                        
+        </div>
+        <div class="right-sidebar">right sidebar</div>
+    </div>
+</body>
+</html>
+
+##
+## scss
+##
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+}
+
+@mixin blue-element {
+    border: 2px solid darkblue;
+    background: cornflowerblue;
+}
+
+@mixin green-element {
+    border: 2px solid darkblue;
+    background: rgb(146,208,80);
+}
+
+.header {
+    height: 40px;
+    @include blue-element();
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation-2 {
+    display: none;
+}
+
+.main {
+    width: 800px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-auto-rows: 150px;
+    grid-template-columns: 180px auto 180px;
+
+    .left-sidebar, .right-sidebar {
+        @include blue-element();
+    }
+
+    .left-sidebar {
+        grid-row: 1/1;
+        height: auto;
+    }
+
+    .right-sidebar {
+        grid-row: 1/1;
+    }
+
+    .content {
+        grid-row: 1/2;
+
+        .search-box {
+            input {
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .content {
+        width: auto;
+    }
+
+    .article {
+        @include green-element();
+    }
+}
+
+
+@media only screen and (max-width: 468px) {
+    .main {
+        display: block;
+        width: 100%;
+    }
+
+    .left-sidebar, .right-sidebar, .search-box {
+        display: none;
+    }
+
+    .navigation-2 {
+        @include blue-element();
+        display: block;
+    }
+}

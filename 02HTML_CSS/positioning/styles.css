@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #333;
+    color: #222;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#container {
+    position: relative;
+    background: white;
+    width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.box {
+    background: #db4e4e;
+    color: white;
+    height: 150px;
+    width: 150px;
+    margin: 20px 0;
+}
+
+#relative-box {
+    position: relative;
+    top: 30px;
+    /* move -70px first */
+    left: -70px;
+}
+
+/* do not show this at the beginning */
+#absolute-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+

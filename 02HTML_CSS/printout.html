@@ -1,0 +1,346 @@
+##
+## Tables
+##
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tables</title>
+	</head>
+
+	<body>
+		<table>
+			<tr>
+				<th>Name</td>
+				<th>Name</td>
+				<th>Name</td>
+			</tr>
+			<tr>
+				<td>John</td>
+				<td>Vancouver</td>
+				<td>30</td>
+			</tr>
+			<tr>
+				<td>Tiffany</td>
+				<td>Toronot</td>
+				<td>24</td>
+			</tr>
+			<tr>
+				<td>Macy</td>
+				<td>San Francisco</td>
+				<td>48</td>
+			</tr>
+		</table>
+	</body>
+</html>
+
+
+## 
+## Forms
+## 
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tables</title>
+	</head>
+
+	<body>
+		<form>
+			<fieldset>
+				<legend>Profile Info</legend>
+
+				Name: <input type="text" placeholder="Your full name"><br>
+				Email: <input type="email" placeholder="your@email.com"><br>
+				Password: <input type="password"><br>
+				<br><br>
+				
+				Gender: <br>
+				<input type="radio" name="gender"> Male<br>
+				<input type="radio" name="gender"> Female<br>
+				<br><br>
+				
+				Type of computer:<br>
+				<input type="checkbox"> I have a laptop<br>
+				<input type="checkbox"> I have a desktop<br>
+
+				<br>
+
+				Age: <br>
+				<select>
+					<option>0 - 20</option>
+					<option>20 - 40</option>
+					<option>40 - 60</option>
+					<option>60+</option>		
+				</select>
+				<br><br>
+
+				Biography:<br>
+				<textarea cols="30" rows="3">
+
+				</textarea>
+
+				<br><br>
+
+				<input type="submit" value="Save my info">
+				<input type="reset" value="Reset form">
+
+			</fieldset>
+	</body>
+</html>
+
+## 
+## Lists
+## 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vegetables!</title>
+    </head>
+    <body>
+        <ul>
+            <li>Carrots</li>
+            <li>Cucumbers</li>
+            <li>Kale</li>
+        </ul>
+
+        <ol>
+            <li>Yellow Potatoes</li>
+            <li>Red Potatoes</li>
+            <li>Blue Potatoes</li>
+        </ol>
+
+        <dl>
+            <dt>Kale</dt>
+            <dd>A leafy like vegetable</dd>
+
+            <dt>Carrots</dt>
+            <dd>A long orange stick</dd>            
+
+            <dt>Potatoe</dt>
+            <dd>A round thing</dd>            
+        </dl>
+
+    </body>
+</html>    
+
+## 
+## IDs and Classes
+## 
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>IDs and Classes</title>
+		<style>
+			#paragraph1 {
+				background-color: #f87e7e;
+			}
+
+			.fancy {
+				background-color: aqua;
+			}
+		</style>
+	</head>
+	<body>
+		<p id="paragraph1">This element has an ID of "paragraph 1"</p>
+		<p id="paragraph1">This element should be white</p>
+		# do some css here and "fail silently"
+		# then show them document.getElementById('paragraph1');
+		<p class="fancy">This element has the class of "fancy"</p>
+		<p class="fancy">This element has the class of "fancy"</p>
+		<p class="fancy">This element has the class of "fancy"</p>
+	</body>
+</html>
+
+## 
+## Header and Footer
+## 
+
+<!DOCTYPE html>
+<head>
+    <head>
+        <title>Header and Footer</title>
+        <style>
+            /* step 2, make them sticky */
+            header {
+                position: absolute;
+                top: 0px;
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            I am in the header
+        </header>
+        <footer>
+            I am in the footer
+        </footer>
+    </body>
+</head>
+
+## 
+## Aside
+## 
+
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+
+        <article class="blog-post">
+            <section class="post-heading">
+                <h1>A Blog Post Heading</h1>
+            </section>
+
+            <section class="post-body">
+                <p>This is the body of our blog-post</p>
+            </section>
+
+            <section class="post-footer">
+                <h3>Read more about this topic</h3>
+                <ol>
+                    <li><a href="#1">Link 1</a></li>
+                    <li><a href="#2">Link 2</a></li>
+                    <li><a href="#3">Link 3</a></li>
+                </ol>
+            </section>
+        </article>
+
+        <aside id="main-sidebar">
+            <h4>About the author</h4>
+            <p>This is a little biography about the author who write this article.</p>
+        </aside>
+    </body>
+</html>
+
+## 
+## Abbreviations and Quotes
+## 
+
+<html>
+    <head>
+        <title>Abbreviations and Quotes</title>
+    </head>
+    <body>
+        <p>This document was coded in <abbr title="HyperText Markup Language 5">HTML 5</abbr></p>
+        <p>Albert Einstein once said <q>In the middle of difficulty lies opportunity.</q></p>
+
+        <blockquote cite="https://www.goalcast.com/2017/03/29/top-30-most-inspiring-albert-einstein-quotes/">
+            <p>In the middle of difficulty lies opportunity.</p>
+        </blockquote>
+
+    </body>
+</html>
+
+## 
+## CSS - inline
+## 
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inline CSS</title>
+    </head>
+    <body>
+        <p style="color: orange; font-size: 30px">This is an inline style.</p>
+    </body>
+</html>
+
+
+## 
+## CSS - internal
+## 
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Internal CSS</title>
+
+        <style type="text/css">
+            body {
+                background: orange;
+            }
+
+            h1 {
+                color: white;
+            }
+
+            p {
+                font-size: 24px;
+            }
+
+            a {
+                color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Internal CSS</h1>
+        <p>Its cleaner than <a href="inline.html">inline CSS</a>, but our HTML document is best left CSS-free</p>
+    </body>
+</html>
+
+##
+## CSS external
+## 
+
+#html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>External CSS</title>
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>External CSS</h1>
+        <p>This HTML page is styled using External Styles. It is the best practice of including CSS.</p>
+
+        <h2>3 Ways to Add CSS</h2>
+        <ol>
+            <li>Inline CSS</li>
+            <li>Internal CSS</li>
+            <li>External CSS</li>
+        </ol>
+
+    </body>
+</html>
+
+#css
+
+body {
+    font-family: Helvetica;
+    background-color: #007579;
+    color: #c2c2c2;
+}
+
+h1 {
+    font-size: 50px;
+    margin: 0; /* all sides of the box will be margin 0 */
+}
+
+p {
+    font-style: italic;
+}
+
+h2 {
+    color: #555;
+    border-top: solid 1px rgb(20, 20, 20);
+}
+
+ol {
+    border-bottom: solid 1px rgb(20,20,20);
+}
+
+
+
+

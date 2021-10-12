@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+
+  <style>
+    #quote {
+      position: relative;
+      padding: 1rem;
+      border: 2px solid #c0c0c0;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container mt-5">
+  <h1>Quote of the Day</h1>
+
+  <div id="quote" class="mt-4">
+    Loading ...
+  </div>
+
+  <button id="btn-random" class="btn btn-secondary mt-4">
+    <i class="fas fa-redo"></i> Random Quote
+  </button>
+</div>
+
+<script>
+  /*********************************************************************
+    * EXERCISE
+  *********************************************************************
+    *
+    * Create a function that returns a random quote from the array of
+  * quotes that's given. Remember that there's a nice function for
+    * random numbers in the MDN documentation for Math.rand().
+        *
+          * Sometimes it's a good idea to create multiple functions, that
+      * do one specific thing only, to make the code more readable and
+  * easier to maintain / extend.
+    *
+    * Add the needed JavaScript to load a new quote, when the button
+  * below the quote is used.
+    */
+
+  // Call the initialization function
+  init();
+
+  /**
+    * Returns a random quote.
+    *
+    * @return {string}
+  */
+  function getRandomQuote() {
+    const quotes = [
+      "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+      "Don't watch the clock; do what it does. Keep going.",
+      "The secret of getting ahead is getting started.",
+      "Well done is better than well said.",
+      "You miss 100% of the shots you don’t take.",
+      "A goal is a dream with a deadline.",
+      "Outstanding people have one thing in common: An absolute sense of mission.",
+      "Trying is winning in the moment.",
+      "Fall down seven times and stand up eight.",
+      "You just can't beat the person who never gives up.",
+      "There is little success where there is little laughter.",
+      "We cannot solve our problems with the same thinking we used when we created them."
+    ];
+
+    return getRandomArrayItem(quotes);
+  }
+
+  /**
+    * Returns a random element from an array.
+    *
+    * @param {array} array
+  * @return {mixed}
+  */
+  function getRandomArrayItem(array) {
+    let itemIndex = getRandomInt(0, array.length - 1);
+    return array[itemIndex];
+  }
+
+  /**
+    * Returns a random integer in the range defined by "min" and "max".
+    *
+    * @param {number} min
+  * @param {number} min
+  * @return {number}
+  */
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  /**
+    * Gets a random quote and update the "#quote" element.
+    */
+  function updateQuote() {
+    document.querySelector("#quote").textContent = getRandomQuote();
+  }
+
+  /**
+    * Registers all events of the application.
+    */
+  function registerEvents() {
+    const quoteBubble = document.querySelector("#quote");
+
+    document.querySelector("button").addEventListener("click", () => {
+      updateQuote();
+    });
+  }
+
+  /**
+    * Initializes the application by loading a first random quote
+  * and calling the event registration function.
+    */
+  function init() {
+    // Load a random quote, as soon as JS is executed
+    updateQuote();
+
+    // Register the click event for the button
+    registerEvents();
+  }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<<<<<<< HEAD
+.red {
+    color: white;
+    background-color: red;
+}
+
+.green {
+    color: white;
+    background-color: green;
+}
+
+.blue {
+    color: white;
+    background-color: blue;
+}
+
+.task {
+    display: block;
+=======
+html,body {
+    height: 100%;
+}
+
+.header {
+    height: 60px;
+    background: rgb(55, 0, 255);
+}
+
+.sidebar {
+    background: aquamarine;
+}
+
+.main {
+    height: 100%;
+    background: rgb(19, 151, 7);
+>>>>>>> cb17b978bf15a553fb34422a2e5c52329a268e97
+}

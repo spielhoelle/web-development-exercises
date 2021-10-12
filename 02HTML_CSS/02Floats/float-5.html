@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CSS Floats 101</title>
+        <style>
+        .block {
+            width: 200px;
+            height: 200px;
+        }
+        .float { float: left; }
+        /* Assigning a value of left says the top edge of this element must sit below any element that has the float: left property applied to it. */
+
+        /* the right value—the element must sit beneath any element that has the float: right property applied to it.  */
+
+        /* Using the both value tells our element that its top edge must sit below any element floated either left or right. */
+
+        .clear { clear: left; } 
+        .pink { background: #ee3e64; }
+        .blue { background: #44accf; }
+        .green { background: #b7d84b; }
+        .orange { background: #E2A741; }
+        </style>
+    </head>
+    <body>
+        <div class="block pink float"></div>
+        <div class="block blue float"></div>
+        <div class="block green clear"></div>
+        <div class="block orange"></div>
+    </body>
+</html>

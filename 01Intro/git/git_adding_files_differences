@@ -1,0 +1,4 @@
+git add -A : adds everything: renamed, deleted, changed
+git add .  : 
+git add -u : does not add new ones
+git add <filename> :

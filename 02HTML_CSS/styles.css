@@ -1,0 +1,23 @@
+body {
+    font-family: Helvetica;
+    background-color: #007579;
+    color: #c2c2c2;
+}
+
+h1 {
+    font-size: 50px;
+    margin: 0; /* all sides of the box will be margin 0 */
+}
+
+p {
+    font-style: italic;
+}
+
+h2 {
+    color: #555;
+    border-top: solid 1px rgb(20, 20, 20);
+}
+
+ol {
+    border-bottom: solid 1px rgb(20,20,20);
+}

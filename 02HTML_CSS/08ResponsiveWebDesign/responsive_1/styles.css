@@ -1,0 +1,32 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+div {
+    display: none;
+}
+
+/* Big Tablet and Screen */
+@media only screen and (min-width: 1024px) {
+    .d { display: block; }
+    div:not(d) { display: none; }     
+}
+
+/* small tablet to big tablet, 768 to 1023 px */
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+    .c { display: block; }
+    div:not(c) { display: none; }     
+}
+
+/* small phones to small tablets: 481px to 767px */
+@media only screen and (max-width: 767px) and (min-width: 481px) {
+    .b { display: block; }
+    div:not(b) { display: none; }     
+}
+
+/* small phones: from 0 to 480px */
+@media only screen and (max-width: 480px) {
+    .a { display: block; }
+    div:not(a) { display: none; }
+}

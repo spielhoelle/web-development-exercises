@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <h1>Open the devtools javscript console</h1>
+
+  <script type="text/javascript">
+    /////////////////////////////////////
+    //declare with arrow function
+    function greaterThan(n) {
+      return m => m > n;
+    }
+    //declare as classical function
+    function greaterThan(n) {
+      return function(m) {
+        return m > n
+      }
+    }
+
+
+
+    /////////////////////////////////////
+    // define first return function 
+    var greaterThan10 = greaterThan(10)
+    greaterThan10(20)
+    // returns true
+    greaterThan10(8)
+    // returns false
+
+
+
+    /////////////////////////////////////
+    //reuse the initial function
+    var greaterThan25 = greaterThan(25)
+    greaterThan25(30)
+    //true
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+extends layout.pug
+block content
+  .row
+    .col-md-6.offset-md-3
+      h3 Update and delete records
+      p Create a book, show it, edit it and delete it.
+      //render the form mixing with a empty object for creating a new book
+      +form({})
+
+  table.table
+    th
+      = "Title:" 
+    th
+      = "Order:" 
+    th
+      = "Date:" 
+    th
+    each book in books
+      tr
+        td
+          = book.title
+        td
+          = book.order
+        td
+          = book.date
+        td.float-right
+          a(href="/" + book._id class="btn btn-primary mr-1") Show
+          a(href="/edit/" + book._id class="btn btn-secondary mr-1") Edit
+          a(href="/delete/" + book._id class="btn btn-outline-danger") Delete

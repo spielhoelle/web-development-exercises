@@ -1,0 +1,871 @@
+## flexbox example 1
+##
+## index.html
+## 
+
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'/>
+    <title>Some Web Page</title>
+    <link rel='stylesheet' href='styles.css'/>
+  </head>
+  <body>
+    <div class='menu-container'>
+      <div class='menu'>
+        <div class='date'>Aug 14, 2016</div>
+        <div class="links">
+            <div class='signup'>Sign Up</div>
+            <div class='login'>Login</div>
+        </div>
+      </div>
+    </div>
+
+    <div class='header-container'>
+        <div class='header'>
+          <div class='subscribe'>Subscribe &#9662;</div>
+          <div class='logo'><img src='images/awesome-logo.svg'/></div>
+          <div class='social'><img src='images/social-icons.svg'/></div>
+        </div>
+    </div>
+
+    <div class='photo-grid-container'>
+      <div class='photo-grid'>
+        <div class='photo-grid-item first-item'>
+          <img src='images/one.svg'/>
+        </div>
+        <div class='photo-grid-item'>
+          <img src='images/two.svg'/>
+        </div>
+        <div class='photo-grid-item'>
+          <img src='images/three.svg'/>
+        </div>
+        <div class='photo-grid-item'>
+          <img src='images/four.svg'/>
+        </div>
+        <div class='photo-grid-item last-item'>
+          <img src='images/five.svg'/>
+        </div>        
+      </div>
+    </div>
+
+    <div class='footer'>
+      <div class='footer-item footer-one'></div>
+      <div class='footer-item footer-two'></div>
+      <div class='footer-item footer-three'></div>
+    </div>
+    
+  </body>
+</html>
+
+## 
+## css
+## 
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .menu-container {
+    color: #fff;
+    background-color: #5995DA;  /* Blue */
+    padding: 20px 0;
+    display: flex; /* 1, the browser now knows this is not the default box model */
+    justify-content: center; /* 2 This has the same effect as adding a margin: 0 auto declaration to the .menu element. But, notice how we did this by adding a property to the parent element (the flex container) instead of directly to the element we wanted to center (the flex item). */    
+  }
+  
+  .menu {
+    border: 1px solid #fff;  /* For debugging */
+    width: 900px;
+    display: flex; /* 3 */ 
+    justify-content: space-around; /* 4 */
+  }
+
+  .links {
+      display: flex;
+      justify-content: flex-end;
+  }
+
+  .login {
+      margin-left: 20px;
+  }
+
+  .header-container {
+    color: #5995DA;
+    background-color: #D6E9FE;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .header {
+    width: 900px;
+    height: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .social, .logo, .subscribe {
+    border: 1px solid #5995DA;
+    /* later for vertical alignment */
+    align-self: flex-end;
+  }
+
+  /* what if we add more items than can fit? */
+
+  .photo-grid-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .photo-grid {
+    width: 900px;
+    display: flex;
+    justify-content: center;
+    /* justify-content: flex-start; */
+    /* first let them overflow to the right */
+    flex-wrap: wrap;
+    /* try this afterwards */
+    /* flex-direction: column; */
+    flex-direction: row-reverse;
+    /* because justify content gets rotated, too */
+    align-items: center;    
+  }
+  
+  .photo-grid-item {
+    border: 1px solid #fff;
+    width: 300px;
+    height: 300px;
+  }
+
+  .first-item {
+    order: 1
+  }
+
+  .last-item {
+    order: -1;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-item {
+    border: 1px solid #fff;
+    background-color: #D6E9FE;
+    height: 200px;
+    flex: 1;
+  }
+
+  .footer-one,
+  .footer-three {
+    background-color: #5995DA;
+    flex: initial; /* without this, flex: 1 would be inherited from .footer-item rule */
+    width: 300px;
+    /* flex: 2; */
+  }  
+
+##
+## flexbox example 2
+##
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+    <!-- first example -->
+    <div class="container">
+        <form action="">
+          <div class="form-row">
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+          </div>
+          <div class="form-row">
+            <label for="favColor">Favorite Color:</label>
+            <input type="text" id="favColor">
+          </div>
+        </form>
+    </div>
+
+      <!-- second example -->
+      <div class="column-layout">
+        <div class="main-column">
+          <h2>Main Column</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam voluptatibus soluta, consequuntur, reiciendis debitis omnis fugiat libero pariatur amet laudantium minima consectetur tenetur. Repudiandae, autem, voluptate modi deleniti sequi voluptatum!</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi earum fugit veniam amet quae sint vitae numquam dolore sunt quod a odio officia voluptate doloribus, at. Cum quasi mollitia eaque. Voluptatibus soluta, consequuntur, reiciendis debitis omnis fugiat libero pariatur amet laudantium.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam voluptatibus soluta, consequuntur, reiciendis debitis omnis fugiat libero pariatur amet laudantium minima consectetur tenetur. Repudiandae, autem, voluptate modi deleniti sequi voluptatum!</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi earum fugit veniam amet quae sint vitae numquam dolore sunt quod a odio officia voluptate doloribus, at. Cum quasi mollitia eaque.</p>
+        </div>
+      
+        <div class="sidebar-one">
+          <h3>Sidebar One</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum modi nisi tenetur sint dignissimos nulla, blanditiis nesciunt.</p>
+        </div>
+      
+        <div class="sidebar-two">
+          <h3>Sidebar Two</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum modi nisi tenetur sint dignissimos nulla, blanditiis nesciunt.</p>
+        </div>
+      </div>
+      
+      <!-- third example -->
+      <div class="call-outs-container">
+        <div class="call-out">
+          <h4>Feature 1</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam obcaecati vel, placeat numquam omnis sit consectetur nobis molestias! Explicabo deserunt. Consectetur adipisicing elit. Quibusdam obcaecati vel, placeat numquam placeat numquam omnis sit consectetur.</p>
+        </div>
+      
+        <div class="call-out">
+          <h4>Feature 2</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam obcaecati vel, placeat numquam omnis sit consectetur nobis molestias! Explicabo deserunt placeat numquam omnis.</p>
+        </div>
+      
+        <div class="call-out">
+          <h4>Feature 3</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam obcaecati vel, placeat numquam omnis sit.</p>
+        </div>
+      </div>
+      
+      <!-- fourth example -->
+      <div class="fixed-size-container">
+        <div class="fixed-size">1</div>
+        <div class="fixed-size">2</div>
+        <div class="fixed-size">3</div>
+        <div class="fixed-size">4</div>
+        <div class="fixed-size">5</div>
+      </div>
+      
+      <!-- fifth example -->
+      <div class="banner">
+        <div class="center-me">Center Me Plz</div>
+      </div>
+      
+      <!-- sixth example -->
+      <div class="equal-height-container">
+        <div class="first">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quasi similique amet voluptatem molestiae nostrum ab nesciunt blanditiis repellendus quos, sequi sunt, dolorem quis facilis mollitia nemo modi doloribus quo.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat quisquam, veritatis ducimus, vero magnam hic quia pariatur asperiores laudantium quod nobis perspiciatis, expedita quo reprehenderit quasi iusto ullam error reiciendis.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam quasi similique amet voluptatem molestiae nostrum ab nesciunt blanditiis repellendus quos, sequi sunt, dolorem quis facilis mollitia nemo modi doloribus quo.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat quisquam, veritatis ducimus, vero magnam hic quia pariatur asperiores laudantium quod nobis perspiciatis, expedita quo reprehenderit quasi iusto ullam error reiciendis.</p>
+        </div>
+      
+        <div class="second">
+          <div class="second-a">A</div>
+          <div class="second-b">B</div>
+        </div>
+      </div>
+      </body>
+</html>
+
+
+## css
+
+
+  html, body {
+    padding: 0;
+    margin: 0;
+  }
+  
+  input {
+    font-size: 14px;
+    font-family: Helvetica, sans-serif;
+  }
+  
+  body {
+    background-color: #BBB;
+    font-family: Helvetica, sans-serif;
+    padding-bottom: 100px;
+  }
+  
+  h2, h3 {
+    margin: 0 0 .75em 0;
+  }
+  
+  /* first example */
+  .container {
+    max-width: 750px;
+    margin: 20px auto 0 auto;
+    padding: 30px;
+    background-color: #FFF;
+  }
+  
+  .form-row {
+    padding: 10px 0;
+    display: flex;
+  }
+  
+  .form-row label {
+    padding-right: 10px;
+  }
+  
+  .form-row input {
+    /* fill up the remaing space in the row */
+    flex: 1;
+  }
+  
+  /* second example */
+  .column-layout {
+    /* max-width: width never gets bigger than this*/
+    max-width: 1300px;
+    background-color: #FFF;
+    margin: 40px auto 0 auto;
+    line-height: 1.65;
+    padding: 20px 50px;
+    display: flex;
+  }
+  
+  /* 1 by default, has more content and more text in it 
+     2 first, make them all equal widths
+  */
+  .main-column {
+    /* 3 times each sidebar */
+    flex: 3;
+    order: 2;
+  }
+  
+  .sidebar-one {
+    flex: 1;
+    order: 1;
+  }
+  
+  .sidebar-two {
+    flex: 1;
+    order: 3;
+  }
+  
+  /* third example - adding margins */
+  .call-outs-container {
+    max-width: 1400px;
+    margin: 40px auto 0 auto;
+    display: flex;
+    /* align-items: stretch; /* center; /* flex-end;  flex-start */
+    justify-content: space-between;
+
+  }
+  
+  .call-out {
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    /* margin-right: 40px; */
+    flex-basis: 30%;
+  }
+  
+  /* screens that are at least 900px or larger */
+  @media (min-width: 900px) {
+    .call-outs-container {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  /*
+  .call-out:last-child {
+    margin-right: 0;
+  }
+  */ 
+
+  .call-out:nth-child(1) { background-color: #c0dbe2; }
+  .call-out:nth-child(2) { background-color: #cdf1c3; }
+  .call-out:nth-child(3) { background-color: #ccb9da; }
+  
+  /* fourth example*/
+  /* what happens if browser window is shrinked */
+  .fixed-size-container {
+    max-width: 1400px;
+    margin: 40px auto 0 auto;
+    background-color: #FFF;
+    padding: 30px 0;
+    display: flex;
+    align-items: center; 
+    justify-content: space-around;
+    /* add this later */
+    flex-wrap: wrap; /* first: nowrap; */
+  }
+  
+  .fixed-size {
+    width: 150px;
+    height: 100px;
+    background-color: #990b47;
+    color: #FFF;
+    line-height: 100px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 60px;
+    margin-bottom: 20px;
+  }
+  
+  /* fifth example */
+  .banner {
+    height: 400px;
+    max-width: 700px;
+    margin: 40px auto 40px auto;
+    background-color: #2a2a2a;
+    display: flex;
+  }
+  
+  .center-me {
+    color: #FFF;
+    font-size: 50px;
+    /* thanks to flexbox */
+    margin: auto;
+  }
+  
+  /* sixth example */
+  .equal-height-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+  }
+  
+  .first {
+    background-color: #FFF;
+    padding: 20px;
+    flex: 1;
+  }
+  
+  .second {
+    background-color: yellow;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .second-a {
+    background-color: #c0dbe2;
+    flex: 1;
+  }
+  
+  .second-b {
+    background-color: #cdf1c3;
+    flex: 1;
+  }
+
+## 
+## task: flexbox-3
+## 
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FlexBox Tube</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo">
+                MovieTube
+            </div>
+            <div class="header-container">
+                <div class="header">
+                    <div class="action menu-item"><a href="?categorie=Action">Action</a></div>
+                    <div class="thriller menu-item"><a href="?categorie=Thriller">Thriller</a></div>
+                    <div class="comedy menu-item"><a href="?categorie=Comedy">Comedy</a></div>
+                    <div class="horror menu-item"><a href="?categorie=Horror">Horror</a></div>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="sidebar">
+                    <div class="action menu-item"><a href="?categorie=Action">Action</a></div>
+                    <div class="thriller menu-item"><a href="?categorie=Thriller">Thriller</a></div>
+                    <div class="comedy menu-item"><a href="?categorie=Comedy">Comedy</a></div>
+                    <div class="horror menu-item"><a href="?categorie=Horror">Horror</a></div>
+                    </div>
+                <div class="thumbnail-container">
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>        
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                
+                    <div class="thumbnail">
+                        <div class="thumbnail-image">
+                            <img src="thumbnail.jpg">
+                        </div>
+                        <div class="movie-description">Some Movie Title</div>
+                    </div>                                                                                                       
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+## css
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    width: 100%;
+    background: #1a1a1a;
+}
+
+.logo {
+    padding: 5px;
+    font-size: 2em;
+    background: #000;
+    color: white;
+}
+
+.container {
+    min-width: 600px;
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.header-container {
+    background: rgb(68, 112, 255);
+    display: flex;
+    justify-content: center;
+    background: #4b4b4b;
+}
+
+.header {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.menu-item {
+    margin: 0 10px 5px 0;
+    text-transform: capitalize;
+    font-size: 18px;
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+.sidebar .menu-item {
+    color: #1a1a1a;
+}
+
+.wrapper {
+    display: flex;
+    min-height: 600px;
+}
+
+.content {
+    padding: 10px;
+    flex: 1;    
+}
+
+.sidebar {
+    width: 120px;
+    padding: 10px;
+    background: #eeeeee;
+}
+
+.sidebar menu-item {
+    color: #ffffff;
+}
+
+.thumbnail-container {
+    display: flex;        
+    justify-content: flex-start;
+    flex-wrap: wrap;    
+    padding: 10px;
+    align-items: center;
+    background: #4b4b4b;
+}
+
+.thumbnail {
+    width: 150px;
+    height: 130px;
+    margin: 5px 10px;
+    background: #1a1a1a;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.2), 0 6px 20px 0 rgba(31, 31, 31, 0.19);
+}
+
+.thumbnail:hover {
+    box-shadow: 0 4px 8px 0 rgba(230, 230, 230, 0.2), 0 6px 20px 0 rgba(236, 236, 236, 0.19);
+}
+
+/* pseudo selectors */
+
+a:link {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+.sidebar a:link {   
+    color: #1a1a1a;
+}   
+
+.sidebar a:visited {    
+    color: #1a1a1a;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.movie-description {
+    color: rgb(214, 214, 214);
+    text-align: center;
+}
+
+##
+## grid 1
+## 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Grids</title>  
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <!-- lorem80 -->
+            <!-- here, add first two, then four then five divs -->
+            <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem soluta sed natus provident reiciendis quos vel obcaecati nobis, esse cumque quo dolores veritatis amet magnam minus inventore similique nihil maiores qui necessitatibus voluptatum perspiciatis excepturi aspernatur quasi? Mollitia reiciendis expedita tempora dolores eaque sit veritatis molestiae quae. Doloribus nostrum quasi rerum harum fugit vel qui odio assumenda, obcaecati nesciunt nobis corrupti aspernatur saepe dolore eum quo. Fugiat illo quod, quaerat placeat quas nisi reprehenderit minima, assumenda consectetur, saepe autem error!                
+            </div>
+            <div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cum veniam cumque, cupiditate quidem corporis asperiores nihil neque hic quis ipsam, laboriosam reiciendis est, accusamus nulla recusandae molestias accusantium. Doloribus.
+            </div>
+            <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem soluta sed natus provident reiciendis quos vel obcaecati nobis, esse cumque quo dolores veritatis amet magnam minus inventore similique nihil maiores qui necessitatibus voluptatum perspiciatis excepturi aspernatur quasi? Mollitia reiciendis expedita tempora dolores eaque sit veritatis molestiae quae. Doloribus nostrum quasi rerum harum fugit vel qui odio assumenda, obcaecati nesciunt nobis corrupti aspernatur saepe dolore eum quo. Fugiat illo quod, quaerat placeat quas nisi reprehenderit minima, assumenda consectetur, saepe autem error!                
+            </div>
+            <div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cum veniam cumque, cupiditate quidem corporis asperiores nihil neque hic quis ipsam, laboriosam reiciendis est, accusamus nulla recusandae molestias accusantium. Doloribus.
+            </div>            
+        </div>
+    </body>
+</html>
+
+## css
+
+* {
+    margin: 0;
+}
+
+.wrapper {
+    /* instead of flex */
+    display: grid;
+    /* 
+    with just two divs, then four
+    /* grid-template-columns: 40% 30% 30%; */
+    grid-template-columns: 70% 30%;
+    /* grid-column-gap: 1em;
+    grid-row-gap: 1em;     */
+    grid-gap: 1em;
+    
+}
+
+.wrapper > div {
+    background: #eee;
+    padding: 1em;
+}
+
+.wrapper > div:nth-child(odd) {
+    background: #ddd;
+}
+
+##
+## grid-2
+##
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <div>
+            Lorem ipsum dolor sit.
+        </div>        
+        <div>
+           <!-- Lorem ipsum dolor sit. -->
+           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam recusandae praesentium quidem quasi! Recusandae magni accusamus quis. Fuga sint, culpa ducimus exercitationem aspernatur quis illum ex veniam eum accusamus vitae laboriosam ipsum in quas expedita. Harum hic nisi voluptatum eaque!
+        </div>        
+        <!-- <div> -->
+        <div class="nested">
+            <div>Lorem.</div>
+            <div>Lorem.</div>
+            <div>Lorem.</div>
+            <!-- later add more -->                       
+            <div>Lorem.</div>
+            <div>Lorem.</div>
+            <div>Lorem.</div>            
+            <div>Lorem.</div>
+            <div>Lorem.</div>
+            <div>Lorem.</div>            
+        </div>        
+        <div>
+            Lorem ipsum dolor sit.
+        </div>        
+        <div>
+            Lorem ipsum dolor sit.
+        </div>
+    </div>
+</body>
+</html>
+
+## css
+
+.wrapper {
+    display: grid;
+    /* similar to flex: 1 1 1 */    
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: repeat(4, 1fr); /* try (4, 1fr 2fr) */
+    grid-gap: 1em;
+    /* later */
+    grid-auto-rows: 100px;
+    /* when we have more text added in 2nd div */
+    grid-auto-rows: minmax(100px, auto);
+}
+
+/* first without nested div */
+.nested {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 70px;
+    grid-gap: 1em;
+}
+
+.wrapper > div {
+    background: #eee;
+    padding: 1em;
+}
+
+.wrapper > div:nth-child(odd) {
+    background: #ddd;
+}
+
+.nested > div {
+    border: #333 1px solid;
+    padding: 1em;
+}
+
+##
+## grid-3
+##
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="box box1">Box 1</div>
+        <div class="box box2">Box 2</div>
+        <div class="box box3">Box 3</div>
+        <div class="box box4">Box 4</div>                        
+    </div>
+</body>
+</html>
+
+## css
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 1em;
+    /* similar to flexbox */
+    justify-items: stretch; /* start end */
+    align-items: stretch; /* center */
+}
+
+.wrapper > div {
+    background: #eee;
+    padding: 1em;
+}
+
+.wrapper > div:nth-child(odd) {
+    background: #ddd;
+}
+
+/* difference to flexbox */
+
+.box1 {
+    /* align-self: start; */
+    grid-column: 1/3;
+    grid-row: 2/3;
+}
+
+.box2 {
+    /* align-self: end; */
+    grid-column: 3;
+    grid-row: 1/3;
+}
+
+.box3 {
+    /* justify-self: end; */
+    grid-column: 2/4;
+    grid-row: 3;
+}
+
+.box4 {
+    /* would override box1, not possible in flexbox */
+    grid-column: 1;
+    grid-row: 2/4;
+}
+

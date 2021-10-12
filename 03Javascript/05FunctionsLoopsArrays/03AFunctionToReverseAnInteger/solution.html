@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        /*********************************************************************
+         * EXERCISE
+         *********************************************************************
+         *
+         * Create a function that reverses an integer.
+         *
+         * Be careful and think about possible solutions, before you start to
+         * write a single line of code!
+         *
+         * You will need to think about strings and arrays, as strings and also
+         * arrays have some nice built-in methods, that will help you to solve
+         * the exercise.
+         *
+         * Expected results:
+         * -------------------
+         * | Input  | Output |
+         * -------------------
+         * | 1234   |   4321 |
+         * -------------------
+         * | 2048   |   8402 |
+         * -------------------
+         * | 4925   |   5294 |
+         * -------------------
+         */
+
+        // SOLUTUION 1: Explaining each step
+
+        function reverseNumber(number) {
+            // convert the number to a string
+            const string = String(number);
+
+            // use the String.split() method to get an array of all digits
+            const parts = string.split("");
+
+            // reverse the array of digits, by using Array.reverse()
+            const reversed = parts.reverse();
+
+            // join the items of the array to a string
+            const joined = reversed.join("");
+
+            // convert the string to Number and return
+            return Number(joined);
+        }
+
+        console.log(reverseNumber(1234));
+        console.log(reverseNumber(2048));
+        console.log(reverseNumber(4925));
+
+        // SOLUTION 2: A shortened version
+
+        function reverseNumberShort(number) {
+            return Number(
+                String(number)
+                    .split("")
+                    .reverse()
+                    .join("")
+            );
+        }
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

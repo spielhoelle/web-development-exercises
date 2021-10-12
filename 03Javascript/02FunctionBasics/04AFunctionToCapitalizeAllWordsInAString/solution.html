@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    //    1.
+    //    Create an array of 3 user objects.
+    //    Each user has an username, an email, an account_balance and
+    //    an activation code.
+    //
+    //    users:
+    //	  John, john@gmail.com,   0, 2w3e4r5t
+    //	  Mary, mary@hotmail.com, 0, 90ungnvx
+    //    Bob, bob@gmail.com, 	  0, 7fnkd9xj
+
+    // 	  2.
+    //    Create a function attachMailTexts() that accepts one
+    //	  parameter users which looks like 1.
+    //    attachMailTexts() returns an array of user objects
+    //    with a new key mailText whose value is based on the
+    //    following template string:
+    //    https://codeshare.io/5w4Brx
+
+    var mailTemplate =
+      "Hallo $USERNAME, \n" +
+      "Thank you for your registration at MyService.com! \n" +
+      "Your Account Balance is $ACCOUNT_BALANCE. \n" +
+      "Please hit the activation link in order to \n" +
+      "complete your registration: \n" +
+      "https://myservice.com/activation/$ACTIVATIONCODE \n" +
+      "\n" +
+      "MyService.com - Team";
+    //   Construct a mailtext
+
+    var firstReplacement = mailTemplate.replace('$USERNAME', 'John');
+    var secondReplacement = firstReplacement.replace('$ACCOUNT_BALANCE', '0');
+    var thirdReplacement = secondReplacement.replace('$ACTIVATIONCODE', '7fnkd9xj');
+
+    console.log(thirdReplacement);
+
+    // is the same as ...
+    // function chaining
+    console.log(mailTemplate.replace('$USERNAME', 'John')
+      .replace('$ACCOUNT_BALANCE', '0')
+      .replace('$ACTIVATIONCODE', '7fnkd9xj')
+    );
+
+
+
+    /*
+    var bob = {
+      username: 'Bob',
+      email: 'bob@gmail.com',
+      account_balance: 0,
+      activation_code: '7fnkd9xj'
+    };
+
+    console.log(bob);
+    bob.mailText = 'blabla';
+    console.log(bob);
+    */
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
